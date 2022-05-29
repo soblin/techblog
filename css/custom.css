@@ -1,0 +1,65 @@
+body, h1, h2, h3, h4, h5, h6, .navbar-custom { 
+    font-family: Helvetica,"Sawarabi Gothic",Meiryo,"メイリオ","Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN",YuGothic,"游ゴシック",Arial,sans-serif; 
+}
+
+.post-content h1 {
+    font-size: 1.75em !important;
+}
+
+/* TOOD: change solid color according to palette */
+.post-content h2 {
+    border-left: 6px solid var(--hbs-primary);
+    border-bottom: 2px solid var(--hbs-primary);
+    padding: 6px;
+}
+
+.post-content h3 {
+    border-bottom: 2px solid var(--hbs-primary);
+    padding: 6px;
+}
+
+p {
+    line-height: 2.0;
+}
+
+.MathJax_Display {
+    overflow: auto;
+}
+
+.scroll-table table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.toc-list {
+  height: auto;
+  opacity: 1;
+  padding: 0 10px;
+  margin-left: 0.5em;
+  transition: 0.5s;
+  visibility: visible;
+}
+
+/* add these for each depth */
+#TableOfContents > ul{
+  color: var(--hbs-primary);
+  display: block;
+  text-align: left;
+  list-style-type: disc;
+}
+
+#TableOfContents > ul > li > ul{
+  color: var(--hbs-primary);
+  display: block;
+  text-align: left;
+  list-style-type: circle;
+  padding-left: 1.5em;
+}
+
+/*
+#TableOfContents > ul > li > ul > li > ul{
+  list-style-type: circle;
+}
+*/

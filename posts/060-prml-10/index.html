@@ -1,0 +1,546 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]">
+<meta itemprop="description" content="今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．
+"><meta itemprop="datePublished" content="2021-04-18T11:41:08+00:00" />
+<meta itemprop="dateModified" content="2021-04-18T11:41:08+00:00" />
+<meta itemprop="wordCount" content="2317">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]" />
+<meta property="og:description" content="今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/060-prml-10/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-18T11:41:08+00:00" />
+<meta property="article:modified_time" content="2021-04-18T11:41:08+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]"/>
+<meta name="twitter:description" content="今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b10%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f060-prml-10%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f060-prml-10%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-04-18 20:41:08 &#43;0900 JST.">
+    Apr 18, 2021
+  </span><span class="post-reading-time">
+    5 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概要">概要</a>
+      <ul>
+        <li><a href="#公式">公式</a></li>
+      </ul>
+    </li>
+    <li><a href="#多変数ガウス分布">多変数ガウス分布</a></li>
+    <li><a href="#１変数ガウス分布">１変数ガウス分布</a></li>
+    <li><a href="#混合ガウス分布">混合ガウス分布</a>
+      <ul>
+        <li><a href="#変分下界">変分下界</a></li>
+        <li><a href="#予測分布">予測分布</a></li>
+      </ul>
+    </li>
+    <li><a href="#線形回帰">線形回帰</a>
+      <ul>
+        <li><a href="#変分事後分布">変分事後分布</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．</p>
+<!-- toc -->
+<h2 id="概要">概要<a class="anchor ms-1" href="#概要"><i class="fas fa-link"></i></a></h2>
+<p>観測データ $\mathbf{X}$ が与えられたときに，潜在変数の事後分布 $p(\mathbf{Z} \mid \mathbf{X})$ を求めたい．そこでまず<strong>我々人間が主観的に</strong>同時分布 $p(\mathbf{X}, \mathbf{Z})$ の関数形を勝手に決める．そこから事後分布 $p(\mathbf{Z} \mid \mathbf{X})$ とモデルエビデンス $p(\mathbf{X})$ の近似を求めたい．まず</p>
+<p>$$\begin{align*}
+\ln p(\mathbf{X})=\mathcal{L}(q)+\mathrm{KL}(q | p)
+\end{align*}$$</p>
+<p>と分解する．ここで</p>
+<p>$$\begin{align*}
+\mathcal{L}(q) &amp;= \int q(\mathbf{Z}) \ln \left\{ \frac{p(\mathbf{X}, \mathbf{Z})}{q(\mathbf{Z})} \right\} d \mathbf{Z} \\
+\mathrm{KL}(q | p) &amp;= -\int q(\mathbf{Z}) \ln \left\{ \frac{p(\mathbf{Z} \mid \mathbf{X})}{q(\mathbf{Z})} \right\} d \mathbf{Z}
+\end{align*}$$</p>
+<p>である．そして変分下界 $\mathcal{L}(q)$ を最大化することでKL情報量を最小化する．</p>
+<h3 id="公式">公式<a class="anchor ms-1" href="#公式"><i class="fas fa-link"></i></a></h3>
+<p>ここで $q(\mathbf{Z})$ が</p>
+<p>$$\begin{align*}
+q(\mathbf{Z})=\prod_{i=1}^{M} q_{i}(\mathbf{Z}_{i})
+\end{align*}$$</p>
+<p>のように分解できると仮定する．結論から言うと，この時変分下界を最大化するのは，各パラメータの密度関数が以下を満たす場合である．</p>
+<p>$$\begin{align*}
+\ln q_{j}^{\star}(\mathbf{Z}_{j})=\mathbb{E}_{i \neq j}[\ln p(\mathbf{X}, \mathbf{Z})] + \text{ const }
+\end{align*}$$</p>
+<h2 id="多変数ガウス分布">多変数ガウス分布<a class="anchor ms-1" href="#多変数ガウス分布"><i class="fas fa-link"></i></a></h2>
+<p>確率変数 $z = (z_1, z_2)$ の同時分布を $p(z) = \mathcal{N}(z \mid \mu, \Lambda^{-1})$ とする．そして以下のように分割表示する($\mu = [\mu_1; \mu_2]$)．</p>
+<p>$$\begin{align*}
+\Lambda=\begin{bmatrix}
+\Lambda_{11} &amp; \Lambda_{12} \\
+\Lambda_{21} &amp; \Lambda_{22}
+\end{bmatrix}
+\end{align*}$$</p>
+<p>すると上の<a href="https://soblin.github.io/techblog/posts/060-prml-10/#%e5%85%ac%e5%bc%8f">公式
+</a>より</p>
+<p>$$\begin{align*}
+\ln q_{1}^{\star} (z_{1})=\mathbb{E}_{z_{2}}[\ln p(\mathbf{z})]+\text { const }
+\end{align*}$$</p>
+<p>を得る．ここで求めたいのは $z_1$ の関数であるから， $z_1$ が現れない項は全て定数項に含めてしまってよい(これは他のケースでも毎回使う)．よって右辺は</p>
+<p><picture><img class="img-fluid" alt="multivariate-gauss" src="https://soblin.github.io/techblog/posts/060-prml-10/060_6.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>だけで十分．これより $q^{\star}(z_1)$ はガウス分布であることが分かる．同様に $z_2$ についても対称な式が得られて，近似関数として以下が得られる．</p>
+<p><picture><img class="img-fluid" alt="multivariate-variational" src="https://soblin.github.io/techblog/posts/060-prml-10/060_7.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ここでそれぞれの平均の中に他方の平均値が入っているため，片方を更新した後もう片方を更新することを収束するまで繰
+り返すことになる．</p>
+<h2 id="１変数ガウス分布">１変数ガウス分布<a class="anchor ms-1" href="#１変数ガウス分布"><i class="fas fa-link"></i></a></h2>
+<p>ガウス分布 $\mathcal{N}(x \mid \mu, \tau)$ から発生したと考えられるデータ集合 $\mathcal{D} = \{ x_1, x_2, \cdots, x_N \}$ の尤度関数は</p>
+<p>$$\begin{align*}
+p(\mathcal{D} \mid \mu, \tau)=\left(\dfrac{\tau}{2 \pi}\right)^{N / 2} \exp \left\{-\dfrac{\tau}{2} \sum_{n=1}^{N} (x_{n}-\mu)^{2}\right\}
+\end{align*}$$</p>
+<p>である．さらに $\mu, \tau$ の共役事前分布として</p>
+<p>$$\begin{align*}
+p(\mu \mid \tau) &amp;=\mathcal{N} (\mu \mid \mu_{0}, (\lambda_{0} \tau)^{-1}) \
+p(\tau) &amp;=\operatorname{Gam} (\tau \mid a_{0}, b_{0})
+\end{align*}$$</p>
+<p>を導入する．この3つの積が $p(\mathbf{X}, \mathbf{Z})$ である．これを使って $q(\mu), q(\tau)$ を求めてみる．</p>
+<p><a href="https://soblin.github.io/techblog/posts/060-prml-10/#%e5%85%ac%e5%bc%8f">公式
+</a>より</p>
+<p><picture><img class="img-fluid" alt="univariate-gauss-mu" src="https://soblin.github.io/techblog/posts/060-prml-10/060_4.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>となる．ここで1行目の右辺で $p(\tau)$ を省略しているのは， $\mu$ の関数を求めているので $\tau$ の関数は定数項にくくられるためである．よって $q(z_1)$ は以下の平均と分散を持つガウス分布となる．</p>
+<p>$$\begin{align*}
+\mu_{N} &amp;= \dfrac{\lambda_{0} \mu_{0}+N \bar{x}}{\lambda_{0}+N} \\
+\lambda_{N} &amp;= (\lambda_{0}+N) \mathbb{E}[\tau]
+\end{align*}$$</p>
+<p>同様に $\tau$ については</p>
+<p><picture><img class="img-fluid" alt="univariate-gauss-tau" src="https://soblin.github.io/techblog/posts/060-prml-10/060_3.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>となる($\tau$の関数を求めているので上とは違って $p(\tau)$ は省略できない)．よって $q(z_2)$ はガンマ分布 $\mathrm{Gam}(a_N, b_N)$</p>
+<p>$$\begin{align*}
+a_{N} &amp;= a_{0}+\dfrac{N+1}{2} \\
+b_{N} &amp;= b_{0}+\dfrac{1}{2} \mathbb{E}_{\mu}\left[\sum_{n=1}^{N} (x_{n}-\mu)^{2}+\lambda_{0} (\mu-\mu_{0})^{2}\right]
+\end{align*}$$</p>
+<p>となる．</p>
+<h2 id="混合ガウス分布">混合ガウス分布<a class="anchor ms-1" href="#混合ガウス分布"><i class="fas fa-link"></i></a></h2>
+<p>数式が非常にややこしくなる．観測データ $\mathbf{Z} = \{ x_1, \cdots , x_N \}$ それぞれに対してどのクラスから発生したかを表す潜在変数 $\mathbf{Z} = \{ z_1, \cdots, z_N \}$ がある．混合係数を $\boldsymbol{\pi}$ とすると</p>
+<p>$$\begin{align*}
+p(\mathbf{Z} \mid \boldsymbol{\pi})=\prod_{n=1}^{N} \prod_{k=1}^{K} \pi_{k}^{z_{n k}}
+\end{align*}$$</p>
+<p>これはそれぞれのデータ $z_n$ についてそれが属するクラスの確率を求めている．よって属しているクラスが既知である場合の観測データの分布は</p>
+<p>$$\begin{align*}
+p(\mathbf{X} \mid \mathbf{Z}, \boldsymbol{\mu}, \boldsymbol{\Lambda})=\prod_{n=1}^{N} \prod_{k=1}^{K} \mathcal{N} (\mathbf{x}_{n} \mid \boldsymbol{\mu}_{k}, \boldsymbol{\Lambda}_{k}^{-1})^{z_{n k}}
+\end{align*}$$</p>
+<p>である．次にパイパーパラメーターの事前分布として共役な事前分布を使っていく．$\boldsymbol{\pi}$ に対してはディレクレ分布</p>
+<p>$$\begin{align*}
+p(\boldsymbol{\pi})=\operatorname{Dir} (\boldsymbol{\pi} \mid \boldsymbol{\alpha}_{0})=C(\boldsymbol{\alpha}_{0}) \prod_{k=1}^{K} \pi_{k}^{\alpha_{0}-1}
+\end{align*}$$</p>
+<p>$\boldsymbol{\mu}, \boldsymbol{\Lambda}$ についてはガウス-ウィシャート分布</p>
+<p>$$\begin{align*}
+p(\boldsymbol{\mu}, \boldsymbol{\Lambda}) = \prod_{k=1}^{K} \mathcal{N} (\boldsymbol{\mu}_{k} \mid \mathbf{m}_{0}, (\beta_{0} \boldsymbol{\Lambda}_{k})^{-1}) \mathcal{W} (\boldsymbol{\Lambda}_{k} \mid \mathcal{W}_{0}, \nu_{0})
+\end{align*}$$</p>
+<p>を用いる．以下のようにここまで出てきた分布をかけることで全分布が求められる．</p>
+<p><picture><img class="img-fluid" alt="全分布" src="https://soblin.github.io/techblog/posts/060-prml-10/060_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>パラメータの事後分布として</p>
+<p>$$\begin{align*}
+q(\mathbf{Z}, \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Lambda})=q(\mathbf{Z}) q(\boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Lambda})
+\end{align*}$$</p>
+<p>の形を仮定する．<a href="https://soblin.github.io/techblog/posts/060-prml-10/#%e5%85%ac%e5%bc%8f">公式
+</a>より</p>
+<p>$$\begin{align*}
+\ln q^{\star}(\mathbf{Z})=\mathbb{E}_{\pi, \mu, \Lambda}[\ln p(\mathbf{X}, \mathbf{Z}, \boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Lambda})]+\text { const. }
+\end{align*}$$</p>
+<p>により $q(\mathbf{Z})$ を求めていく．ここで左辺は $\mathbf{Z}$ の関数であるから，右辺のうちこれが関係する項を抜き出して残りを定数項に含めると</p>
+<p>$$\begin{align*}
+\ln q^{\star}(\mathbf{Z})=\mathbb{E}_{\boldsymbol{\pi}}[\ln p(\mathbf{Z} \mid \boldsymbol{\pi})]+\mathbb{E}_{\boldsymbol{\mu}, \boldsymbol{\Lambda}}[\ln p(\mathbf{X} \mid \mathbf{Z}, \boldsymbol{\mu}, \boldsymbol{\Lambda})]+\text { const. }
+\end{align*}$$</p>
+<p>となる．式を簡単にすると以下のようになる．</p>
+<p><picture><img class="img-fluid" alt="q(Z)" src="https://soblin.github.io/techblog/posts/060-prml-10/060_2.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>正規化すると</p>
+<p>$$\begin{align*}
+q^{\star}(\mathbf{Z}) &amp;= \prod_{n=1}^{N} \prod_{k=1}^{K} r_{n k}^{z_{n k}} \\
+r_{nk} &amp;= \dfrac{\rho_{nk}}{\sum_j \rho_{nj}}
+\end{align*}$$</p>
+<p>が得られる．これまでと同様にこの負荷率 $\rho_{nk}$ は他のパラメータの期待値に依存するので，片方を更新した後もう片方を更新することを繰り返す．同様に $q(\boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Lambda})$ は</p>
+<p><picture><img class="img-fluid" alt="gmm-q2" src="https://soblin.github.io/techblog/posts/060-prml-10/060_5.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>となるが，変数が $\boldsymbol{\pi}$ とそれ以外で分かれているので</p>
+<p>$$\begin{align*}
+\ln q^{\star}(\boldsymbol{\pi}, \boldsymbol{\mu}, \boldsymbol{\Lambda}) = q(\boldsymbol{\pi}) \prod_{k=1}^{K} q(\boldsymbol{\mu}_k, \boldsymbol{\Lambda}_k)
+\end{align*}$$</p>
+<p>という形になる．ひたすら平方完成することで最終的に以下を得られる．</p>
+<p><picture><img class="img-fluid" alt="gmm-variational-e" src="https://soblin.github.io/techblog/posts/060-prml-10/060_8.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>$\rho_{nk}$ を求める際に必要な値は以下の通りである．</p>
+<p><picture><img class="img-fluid" alt="gmm-variational-m" src="https://soblin.github.io/techblog/posts/060-prml-10/060_9.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="変分下界">変分下界<a class="anchor ms-1" href="#変分下界"><i class="fas fa-link"></i></a></h3>
+<p>変分ベイズ法はKL情報量 $\mathrm{KL}(p | q)$ を最小化するために変分下界 $\mathcal{L}(q)$ を最大化している．この下界の値は各繰り返しのステップにおいて減少しないはずであるため，この値を計算することで実装のチェックを行うことができる．混合ガウス分布ではこの変分下界は以下のように与えられる．</p>
+<p><picture><img class="img-fluid" alt="variational-lb" src="https://soblin.github.io/techblog/posts/060-prml-10/060_10.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ここで各項の値は以下の通りである．</p>
+<p><picture><img class="img-fluid" alt="variational-lb-param" src="https://soblin.github.io/techblog/posts/060-prml-10/060_11.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="予測分布">予測分布<a class="anchor ms-1" href="#予測分布"><i class="fas fa-link"></i></a></h3>
+<p>与えられたデータ集合の下で上述のように各パラメータを求めると，入力 $\boldsymbol{x}$ に対する予測分布を求めることができる．$\boldsymbol{x}$ には対応する潜在変数 $\hat{\boldsymbol{z}}$ が存在しているため，予測分布はそれらの和をとることで計算できる．</p>
+<p><picture><img class="img-fluid" alt="predictive-variational-dist" src="https://soblin.github.io/techblog/posts/060-prml-10/060_12.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>これは最終的にスチューデントのt分布の重ね合わせになる．</p>
+<p>$$\begin{align*}
+p(\widehat{\mathrm{x}} \mid \mathbf{X}) &amp;\simeq \frac{1}{\widehat{\alpha}} \sum_{k=1}^{K} \alpha_{k} \mathrm{St}\left(\widehat{\mathrm{x}} \mid \mathrm{m}_{k}, \mathrm{~L}_{k}, \nu_{k}+1-D\right) \\
+\mathbf{L}_{k} &amp;= \frac{(\nu_{k}+1-D) \beta_{k}}{(1+\beta_{k})}{\mathbf{W}_{k}}
+\end{align*}$$</p>
+<p>ここで $\nu_k$ は上の変分事後分布で得られた値である．</p>
+<h2 id="線形回帰">線形回帰<a class="anchor ms-1" href="#線形回帰"><i class="fas fa-link"></i></a></h2>
+<p>入力 $\boldsymbol{x}_n$ に対して出力 $t_n$ が得られているとし，これを線形回帰モデル</p>
+<p>$$\begin{align*}
+y \sim \mathcal{N}(\boldsymbol{w}^{\text{T}}, \beta^{-1})
+\end{align*}$$</p>
+<p>でモデル化する(φは適当な基底関数)．wに対する尤度関数と事前分布を</p>
+<p>$$\begin{align*}
+p(\mathbf{t} \mid \mathbf{w}) &amp;= \prod_{n=1}^{N} \mathcal{N} (t_{n} \mid \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}, \beta^{-1}) \\
+p(\mathbf{w} \mid \alpha) &amp;= \mathcal{N} (\mathbf{w} \mid \mathbf{0}, \alpha^{-1} \mathbf{I})
+\end{align*}$$</p>
+<p>とする．ここでαに共役事事前分布</p>
+<p>$$\begin{align*}
+p(\alpha) = \mathrm{Gam}(\alpha \mid a_0, b_0)
+\end{align*}$$</p>
+<p>を導入する．すると全分布はこれらの積となる．</p>
+<p>$$\begin{align*}
+p(\mathbf{t}, \mathrm{w}, \alpha) = p(\mathbf{t} \mid \mathbf{w}) p(\mathbf{w} \mid \alpha) p(\alpha)
+\end{align*}$$</p>
+<h3 id="変分事後分布">変分事後分布<a class="anchor ms-1" href="#変分事後分布"><i class="fas fa-link"></i></a></h3>
+<p>今までと同様にハイパーパラメータの分布 $q(\boldsymbol{w}, \alpha)$ を $q(\boldsymbol{w})q(\alpha)$ と変数同士の積に分解して公式に沿ってそれぞれを求めてみる．</p>
+<p>αに依存する部分だけを取り出すと</p>
+<p>$$\begin{align*}
+\ln q^{\star}(\alpha) &amp;=\ln p(\alpha)+\mathbb{E}_{\mathbf{w}}[\ln p(\mathbf{w} \mid \alpha)]+\text { const } \\
+&amp;= (a_{0}-1) \ln \alpha-b_{0} \alpha+\dfrac{M}{2} \ln \alpha-\dfrac{\alpha}{2} \mathbb{E} [\mathbf{w}^{T} \mathbf{w}]+\text { const }
+\end{align*}$$</p>
+<p>となるので</p>
+<p>$$\begin{align*}
+a_{N} &amp;=a_{0}+\dfrac{M}{2} \\
+b_{N} &amp;=b_{0}+\dfrac{1}{2} \mathbb{E} [\mathrm{w}^{\mathrm{T}} \mathrm{w}]
+\end{align*}$$</p>
+<p>なるガンマ分布 $q^{\star}(\alpha) = \mathrm{Gam}(\alpha \mid a_N, b_N)$ となる．</p>
+<p>同様に</p>
+<p>$$\begin{align*}
+\ln q^{\star}(\mathbf{w}) &amp;=\ln p(\mathbf{t} \mid \mathbf{w})+\mathbb{E}_{\alpha}[\ln p(\mathbf{w} \mid \alpha)]+\text { const } \\
+&amp;-\dfrac{1}{2} \mathbf{w}^{\mathrm{T}} (\mathbb{E}[\alpha] \mathbf{I}+\beta \Phi^{\mathrm{T}} \boldsymbol{\Phi}) \mathbf{w}+\beta \mathbf{w}^{\mathrm{T}} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{t} \\
+\Phi^{\text{T}} &amp;= [\boldsymbol{\phi}(\boldsymbol{x}_1), \cdots, \boldsymbol{\phi}(\boldsymbol{x}_M)]
+\end{align*}$$</p>
+<p>であり，これは平方完成すると</p>
+<p>$$\begin{align*}
+\mathrm{m}_{N} &amp;= \beta \mathbf{S}_{N} \boldsymbol{\Phi}^{\text{T}} \mathbf{t} \\
+\mathbf{S}_{N} &amp;= (\mathbb{E}[\alpha] \mathbf{I} + \beta \mathbf{\Phi}^{\text{T}} \boldsymbol{\Phi})^{-1}
+\end{align*}$$</p>
+<p>をパラメータにもつガウス分布 $q^{\star}(\boldsymbol{w}) = \mathcal{N}(\boldsymbol{m}_N, \mathbf{S}_N)$ となる．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/058-primal-interior-point/">二次計画法における内点法のアルゴリズム
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/030-oftenuse-git/">たまに使うgitコマンド
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/059-prml-09/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]
+</a>
+          <span class="float-end post-date">Feb 18, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/057-prml-07/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]
+</a>
+          <span class="float-end post-date">Feb 17, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/056-prml-06/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]
+</a>
+          <span class="float-end post-date">Feb 15, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/045-prml-05/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]
+</a>
+          <span class="float-end post-date">Feb 9, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/">モンテカルロ木探索について
+</a>
+          <span class="float-end post-date">Nov 7, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

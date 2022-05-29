@@ -1,0 +1,458 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goodwin &#34;Control System Design&#34;の読書メモ[5章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。
+" /><meta itemprop="name" content="Goodwin &#34;Control System Design&#34;の読書メモ[5章]">
+<meta itemprop="description" content="感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。
+"><meta itemprop="datePublished" content="2020-01-31T18:43:00+00:00" />
+<meta itemprop="dateModified" content="2020-01-31T18:43:00+00:00" />
+<meta itemprop="wordCount" content="2233">
+<meta itemprop="keywords" content="Control," /><meta property="og:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[5章]" />
+<meta property="og:description" content="感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-01-31T18:43:00+00:00" />
+<meta property="article:modified_time" content="2020-01-31T18:43:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[5章]"/>
+<meta name="twitter:description" content="感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Goodwin%20%22Control%20System%20Design%22%e3%81%ae%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b5%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f034-goodwin-chapter5%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f034-goodwin-chapter5%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Goodwin &#34;Control System Design&#34;の読書メモ[5章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Goodwin &#34;Control System Design&#34;の読書メモ[5章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-02-01 03:43:00 &#43;0900 JST.">
+    Jan 31, 2020
+  </span><span class="post-reading-time">
+    5 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/engineering/" class="badge post-taxonomy">Engineering</a><a href="https://soblin.github.io/techblog/tags/control/" class="badge post-taxonomy">Control</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ノミナル感度関数">ノミナル感度関数</a>
+      <ul>
+        <li><a href="#例題">例題</a></li>
+        <li><a href="#解答">解答</a></li>
+      </ul>
+    </li>
+    <li><a href="#内部安定性">内部安定性</a>
+      <ul>
+        <li><a href="#例">例</a></li>
+      </ul>
+    </li>
+    <li><a href="#根軌跡">根軌跡</a></li>
+    <li><a href="#ナイキストの安定判別法">ナイキストの安定判別法</a></li>
+    <li><a href="#ゲイン余裕と位相余裕ピーク感度">ゲイン余裕と位相余裕，ピーク感度</a></li>
+    <li><a href="#ロバスト安定性">ロバスト安定性</a>
+      <ul>
+        <li><a href="#証明">証明</a></li>
+        <li><a href="#注意">注意</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。</p>
+<!-- toc -->
+<h2 id="ノミナル感度関数">ノミナル感度関数<a class="anchor ms-1" href="#ノミナル感度関数"><i class="fas fa-link"></i></a></h2>
+<p>相補感度関数 $T_o (s)$ ，感度関数 $S_o (s)$ ，入力感度関数 $S_{uo}(s)$ の3つが重要。 下の図のブロック線図を考える。</p>
+<p><picture><img class="img-fluid" alt="disturbances" src="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/034.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>図においてプラントPは</p>
+<p>$$\begin{align*}
+\dot{x} &amp;= Ax + Bu \\ y &amp;= Cx
+\end{align*}$$</p>
+<p>に従っているとすると，初期値を含めて伝達関数は</p>
+<p>$$\begin{align*}
+Y(s) &amp;= C(sI - A)^{-1}BU(s) + C(sI - A)^{-1}x_0 \\ &amp;= PU(s) + f(x_0)
+\end{align*}$$</p>
+<p>となる。ここで $P = C(sI - A)^{-1}$ である。よって初期値応答は以下のように出力端外乱 $\bar{d}_o$ に含めることができる。</p>
+<p>$$\begin{align*}
+Y(s) &amp;= P(U + d_i) + C(sI - A)^{-1}x_0 + d_o \\ &amp;= P(B + d_i) + \bar{d}_o \\
+\bar{d}_o &amp;= f(x_0) + d_o
+\end{align*}$$</p>
+<p>次に $U = C(\bar{R} - Y - n)$ を代入すると</p>
+<p>$$\begin{align*}
+Y(s) &amp;= \dfrac{PC}{1 + PC}\bar{R} + \dfrac{P}{1 + PC}d_i + \dfrac{1}{1 + PC}\bar{d}_o - \dfrac{PC}{1 + PC}n \\ U(s) &amp;= \dfrac{C}{1 + PC}\bar{R} - \dfrac{PC}{1 + PC}d_i - \dfrac{C}{1 + PC}\bar{d}_o - \dfrac{C}{1 + PC}n
+\end{align*}$$</p>
+<p>が得られる。</p>
+<p>このうち相補感度関数 $T(s)$，感度関数 $S(s)$ ，入力感度関数 $S_u(s)$ を</p>
+<p>$$\begin{align*}
+T(s) &amp;= \dfrac{PC}{1 + PC} \\
+S(s) &amp;= \dfrac{1}{1 + PC} \\
+S_u (s) &amp;= \dfrac{C}{1 + PC}
+\end{align*}$$</p>
+<p>で定義する。感度関数は，出力に対する<strong>外乱の感度</strong>，相補感度関数は出力に対する<strong>雑音の感度</strong>である。また相補感度関数は $\bar{R}(s) \rightarrow Y(s)$ へのs伝達関数でもある。 $\bar{R}, n$ はどちらも相補感度関数の影響を受けるので，雑音の影響をさげるには $F(s)$ を設計すれば良い。</p>
+<p>$T(s) + S(s) = 1$ が成立するので</p>
+<ul>
+<li>外乱を抑えるには $T(s)$ を大きく，$S(s)$ を小さくしたい</li>
+<li>雑音の影響を抑えるには $T(s)$ を小さく，$S(s)$ を大きくしたい</li>
+</ul>
+<p>というトレードオフがある。</p>
+<p><picture><img class="img-fluid" alt="相補感度関数" src="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/035_2.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>また次で説明する内部安定性のためには入力感度関数 $S_u (s)$ も考慮しなければならない。</p>
+<h3 id="例題">例題<a class="anchor ms-1" href="#例題"><i class="fas fa-link"></i></a></h3>
+<p>伝達関数，及び相補感度関数(出力端外乱の伝達関数) $T(s)$が</p>
+<p>$$\begin{align*}
+G_o (s) &amp;= \dfrac{4}{(s+1)(s+2)^2} \\
+T_o (s) &amp;= \dfrac{\alpha}{(s^2 + 1.2 \omega_n s + \omega_{n}^{2})(\tau s + 1)^2}
+\end{align*}$$</p>
+<p>であるプラントにおいて，出力端外乱 $k + d_v (t)$ は $d_v(t)$ が帯域幅を0-4rad/sにもつとする。出力端外乱を抑圧するための $\alpha, \omega_n$ の値を適切に定めよ。</p>
+<h3 id="解答">解答<a class="anchor ms-1" href="#解答"><i class="fas fa-link"></i></a></h3>
+<p>出力端外乱の伝達関数は，相補感度関数 $S(j \omega)$ である。よって $\omega = 0$ 及び $\omega \in [0, 4]$ において $S(j \omega) \approx 0 \equiv T(j \omega) \approx 1$ となっていて欲しい。 $T(0) = \alpha / \omega_n^2$ であるから，$\alpha = \omega_n^2$ であれば良い。</p>
+<p>外乱の帯域幅は0-4(rad)であるから，$\omega_n &gt; 4$ であれば0-4(rad)における外乱のゲインは小さくなる。ここでは $\omega_n = 10$ とする。</p>
+<p>上の図のように$T(j \omega)$ は高周波においてゲインを0にしないといけないので，$(\tau s + 1)^2$ をかける。 $\omega = 10$ 以上例えば $\omega = 100$ 以上でさらにゲインを下げよう。そこで $\tau = 0.01$ とする。</p>
+<p>すると</p>
+<p>$$\begin{align*}
+T_o (s) = \dfrac{100}{(s^2 + 12s + 100)(0.01s + 1)^2}
+\end{align*}$$</p>
+<p>となる。そして入力感度関数を計算してみると</p>
+<p>$$\begin{align*}
+S_{uo} (s) = 25 \dfrac{(s + 1)(s + 2)^2}{(s^2 + 12s + 100)(0.01s + 1)^2}
+\end{align*}$$</p>
+<p>となる。外乱の帯域幅である $\omega = 3$ において $S_{uo} = 10.5, |S_{uo}| = 20.4$ であるから，外乱における3[Hz]の成分を約10倍に増幅している。そのため入力の飽和を引き起こす可能性がある。</p>
+<p>もし $S_{uo}$ を外乱の帯域 $B_d$ において小さくしようとすれば，$B_d$ において $T(j \omega)$ を小さくするしかない。それは $B_d$ において $S(j \omega)$ を大きくするということだから，出力において外乱を抑圧できなくなってしまう。これは設計上のトレードオフである。</p>
+<blockquote>
+<p>On reflection we can see that this problem arises because the output disutrbance has a bandwith which is much larger than that of the open loop plant.</p>
+</blockquote>
+<p>そもそもプラントの開ループ伝達関数 $G_o (s)$ はgivenである。今回のように入力が暴れてしまうのは，入力感度関数 $S_{uo} = T_o / G_o$ において分母の $G_o$ の値が $B_d$ において<strong>小さくなっていることが問題である</strong>。つまり，外乱の帯域幅 $B_d$ が以下のように開ループ伝達関数の帯域幅を超えてしまっていることが根本的な要因である。</p>
+<p><picture><img class="img-fluid" alt="開ループ伝達関数の帯域と内部安定性" src="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/035_3.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="内部安定性">内部安定性<a class="anchor ms-1" href="#内部安定性"><i class="fas fa-link"></i></a></h2>
+<p>$$\begin{align*}
+\begin{pmatrix} Y(s) \\ U(s) \end{pmatrix} = \dfrac{1}{G(s)C(s)} \begin{pmatrix} G(s)C(s) &amp; G(s) &amp; 1 &amp; -G(s)C(s) \\ C() &amp; -G(s)C(s) &amp; -C(s) &amp; -C(s) \end{pmatrix} \begin{pmatrix} H(s)R(s) \\  D_i (s) \\ D_o (s) \\ D_m (s) \end{pmatrix}
+\end{align*}$$</p>
+<blockquote>
+<p><strong>定義 Internal stability</strong>
+上の数式において行列の要素たる8個の伝達関数が全て安定であること</p>
+</blockquote>
+<p>これは各入力 $r, d_i, d_o, d_m$ に対する全ての信号の応答が安定しているということである。これは以下のCLPの極が安定であることと同値である。</p>
+<p>$$\begin{align*}
+A(s)L(s) +  B(s)P(s) = 0
+\end{align*}$$</p>
+<h3 id="例">例<a class="anchor ms-1" href="#例"><i class="fas fa-link"></i></a></h3>
+<p>個々での例は，出力に対する雑音の影響は抑えられているが，内部安定性は確保できていないという例である。</p>
+<p>$$\begin{align*}
+G_o (s) &amp;= \dfrac{3}{(s + 4)(-s + 2)} \\ C(s) &amp;= \dfrac{-s + 2}{s}
+\end{align*}$$</p>
+<p>相補感度関数は</p>
+<p>$$\begin{align*}
+T(s) = \dfrac{GC}{1 + GC} = \dfrac{3}{s^2 + 4s + 3}
+\end{align*}$$</p>
+<p>であるから，雑音から出力 $n \rightarrow y$ は安定である。しかしinput sensitibity function $S_{io}$ ($d_i$ から $y$)は</p>
+<p>$$\begin{align*}
+S_{io} = \dfrac{3s}{(-s + 2)(s^2 + 4s + 3)}
+\end{align*}$$</p>
+<p>より不安定であるから，プラントへの入力を見ていると実は不安定になっているかもしれない。</p>
+<h2 id="根軌跡">根軌跡<a class="anchor ms-1" href="#根軌跡"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://soblin%e3%80%82netlify%e3%80%82com/033-root-locus/" target="_blank" rel="noopener noreferrer">こちら<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>に書いた。</p>
+<h2 id="ナイキストの安定判別法">ナイキストの安定判別法<a class="anchor ms-1" href="#ナイキストの安定判別法"><i class="fas fa-link"></i></a></h2>
+<p>これも<a href="https://soblin%e3%80%82netlify%e3%80%82com/036-nyquist-diagram/" target="_blank" rel="noopener noreferrer">こちら<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>に書いた。</p>
+<h2 id="ゲイン余裕と位相余裕ピーク感度">ゲイン余裕と位相余裕，ピーク感度<a class="anchor ms-1" href="#ゲイン余裕と位相余裕ピーク感度"><i class="fas fa-link"></i></a></h2>
+<p>下の図の通り。</p>
+<p><picture><img class="img-fluid" alt="余裕" src="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/035_4.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>$$\begin{align*}
+M_g &amp;= 20 \log_{10} \dfrac{1}{|a|} \\ M_f &amp;= \phi
+\end{align*}$$</p>
+<p>一方ピーク感度はナイキスト線図(ベクトル線図)が最も-1に近づく際の距離である。</p>
+<h2 id="ロバスト安定性">ロバスト安定性<a class="anchor ms-1" href="#ロバスト安定性"><i class="fas fa-link"></i></a></h2>
+<blockquote>
+<p><strong>定理 Robust Stability Theorem</strong>
+$G_o (s)C(s)$ と $G(s)C(s)$ の不安定極の個数は同じであるとする。プラントの<a href="https://soblin.netlify.com/031-goodwin-chapter4" target="_blank" rel="noopener noreferrer">乗法的誤差<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>を $G_\Delta (s)$ として，コントローラーを実プラントに適用した場合，それが安定であるためには
+$$\begin{align*}
+|T_o (j \omega) G_\Delta (j \omega)|  = \left| \dfrac{G_o (j \omega) C(j \omega)}{1 + G_o(j \omega) C(j \omega)}\right| | G_\Delta (j \omega) | &lt; 1
+\end{align*}$$
+が成立することが十分である。</p>
+</blockquote>
+<h3 id="証明">証明<a class="anchor ms-1" href="#証明"><i class="fas fa-link"></i></a></h3>
+<p>$G_o (s)C(s)$ と $G(s)C(s)$ の不安定極の個数は同じであるのだから，それらが-1の周りを周る回数も同じである。ここで</p>
+<p>$$\begin{align*}
+G(s)C(s) = G_o (s)C(s) + G_\epsilon (s) C(s)
+\end{align*}$$</p>
+<p>を図に書いてみる。</p>
+<p><picture><img class="img-fluid" alt="Proof" src="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/035_5.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>-1の周りを周る回数が同じであるためには</p>
+<p>$$\begin{align*}
+|G_\epsilon (j \omega) C(j \omega)| &lt; |1 + G_o (j \omega)C(j \omega)|
+\end{align*}$$</p>
+<p>であれば良いから(結構雑い議論だなあ)，$G_\epsilon = G_o G_\Delta$ より</p>
+<p>$$\begin{align*}
+|T_o (j \omega) G_\Delta (j \omega)|  = \left| \dfrac{G_o (j \omega) C(j \omega)}{1 + G_o(j \omega) C(j \omega)}\right| | G_\Delta (j \omega) | &lt; 1
+\end{align*}$$</p>
+<p>が得られる。</p>
+<h3 id="注意">注意<a class="anchor ms-1" href="#注意"><i class="fas fa-link"></i></a></h3>
+<p>このロバスト安定性定理はただの<strong>十分条件</strong>であるから，<strong>ロバスト安定性定理が成立するならば安定である</strong>というだけ。ロバスト安定性定理が成立しなくても<strong>まだ安定である可能性</strong>は存在している。</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/039-prml-01/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/036-nyquist-diagram/">ナイキスト線図
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/036-nyquist-diagram/">ナイキスト線図
+</a>
+          <span class="float-end post-date">Jan 27, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/033-root-locus/">根軌跡の描き方
+</a>
+          <span class="float-end post-date">Dec 28, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/031-goodwin-chapter4/">Goodwin &#34;Control System Design&#34;の読書メモ[4章]
+</a>
+          <span class="float-end post-date">Nov 18, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/025-goodwin-chapter2/">Goodwin &#34;Control System Design&#34;の読書メモ[2章]
+</a>
+          <span class="float-end post-date">Nov 13, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

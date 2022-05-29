@@ -1,0 +1,352 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]">
+<meta itemprop="description" content="ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．
+"><meta itemprop="datePublished" content="2020-03-09T19:58:46+00:00" />
+<meta itemprop="dateModified" content="2020-03-09T19:58:46+00:00" />
+<meta itemprop="wordCount" content="2309">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]" />
+<meta property="og:description" content="ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/044-prml-03/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-09T19:58:46+00:00" />
+<meta property="article:modified_time" content="2020-03-09T19:58:46+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]"/>
+<meta name="twitter:description" content="ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b3%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f044-prml-03%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f044-prml-03%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-03-10 04:58:46 &#43;0900 JST.">
+    Mar 9, 2020
+  </span><span class="post-reading-time">
+    5 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ベイズ線形回帰">ベイズ線形回帰</a>
+      <ul>
+        <li><a href="#パラメータの分布">パラメータの分布</a></li>
+        <li><a href="#具体例重要">具体例(重要)</a></li>
+      </ul>
+    </li>
+    <li><a href="#エビデンス近似">エビデンス近似</a>
+      <ul>
+        <li><a href="#アルゴリズム">アルゴリズム</a></li>
+        <li><a href="#有効パラメータ数">有効パラメータ数</a></li>
+        <li><a href="#なぜ初めに重みパラメーターの初期値を0にしたのか">なぜ初めに重みパラメーターの初期値を0にしたのか</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．</p>
+<!-- toc -->
+<h2 id="ベイズ線形回帰">ベイズ線形回帰<a class="anchor ms-1" href="#ベイズ線形回帰"><i class="fas fa-link"></i></a></h2>
+<p>入力 $\boldsymbol{x}$ に対して出力 $t$ をモデリングする．ここで訓練データを $\boldsymbol{X} = [\boldsymbol{x}_1, \cdots \boldsymbol{x}_N]$，$\boldsymbol{t}$ と表記する．データは真値を中心とするガウス分布</p>
+<p>$$\begin{align*}
+t = y(\boldsymbol{x}, \boldsymbol{w}) + \epsilon
+\end{align*}$$</p>
+<p>により生成されるとする．つまり</p>
+<p>$$\begin{align*}
+p(t \mid \boldsymbol{w}, \beta) = \mathcal{N}(t \mid y(\boldsymbol{x}, \boldsymbol{w}), \beta^{-1})
+\end{align*}$$</p>
+<p>とする．よって得られたデータの尤度は</p>
+<p>$$\begin{align*}
+p(\boldsymbol{t} \mid \boldsymbol{X}, \boldsymbol{w}, \beta) = \prod \mathcal{N}(t_n \mid \boldsymbol{w}^{\text{T}} \boldsymbol{\phi}(\boldsymbol{x}_n), \beta^{-1})
+\end{align*}$$</p>
+<p>である．</p>
+<h3 id="パラメータの分布">パラメータの分布<a class="anchor ms-1" href="#パラメータの分布"><i class="fas fa-link"></i></a></h3>
+<p>推定するパラメータ $\boldsymbol{w}$ について事前分布 $\mathcal{N}(\boldsymbol{w} \mid \boldsymbol{m}_0, S_0)$ を仮定する．すると先ほどの尤度関数との積をとって平方完成することで</p>
+<p>$$\begin{align*}
+p(\boldsymbol{w} \mid \boldsymbol{t}_N) &amp;= \mathcal{N}(\boldsymbol{m}_N, S_N) \\
+\boldsymbol{m}_N &amp;= S_N(S_0^{-1} \boldsymbol{m}_0 + \beta \Phi_N^{\text{T}}\boldsymbol{t}_N) \\
+S_N^{-1} &amp;= S_0^{-1} + \beta \Phi_N^{\text{T}}\Phi_N
+\end{align*}$$</p>
+<p>が得られる．</p>
+<h3 id="具体例重要">具体例(重要)<a class="anchor ms-1" href="#具体例重要"><i class="fas fa-link"></i></a></h3>
+<p>図3.7の説明．直線 $y = w_0 + w_1 x$ を中心として $y = \mathcal{N}(y \mid w_0 + w_1 x, 0.2^2)$ からランダムに生成されたデータを用いて，係数 $w_0$ ，$w_1$ を学習したい．</p>
+<p>wの真値を(-0.3, 0.5)としてデータを生成する．もちろん学習アルゴリズムの側ではその真値は知らないので，はじめは図(1.2)のようにwは(0, 0)を中心とする分布に従うと仮定している．</p>
+<p>次に図(2.3)のようにデータ<font color="Blue">O</font>が与えられると，それに応じて事後分布が図(2.2)のように変化する．この事後分布から生成したwを用いた直線は，少しづつデータの近くを通る直線に収束していく．</p>
+<p>図(3.3)のようにさらにデータを追加すると，事後分布は図(3.2)のようにより小さくなっていく．その事後分布からランダムサンプリングしたwによる直線は，よりデータ点近くを通るようになっていく．</p>
+<p>最終的にwの事後分布は図(4.2)のように真値(-0.3, 0.5)に収束していくことが分かる．このwの事後分布からドローして得られる直線は，学習データにフィッティングするような直線となることが分かる　．</p>
+<p>一連の様子を下の図に示す．</p>
+<p><picture><img class="img-fluid" alt="事後分布の推移" src="https://soblin.github.io/techblog/posts/044-prml-03/044_01.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="エビデンス近似">エビデンス近似<a class="anchor ms-1" href="#エビデンス近似"><i class="fas fa-link"></i></a></h2>
+<p>ハイパーパラメータ $(\alpha, \beta)$ についてもデータから推定を行う．式(3.74)は以下のようにして導出している．</p>
+<p>$$\begin{align*}
+p(t \mid \boldsymbol{t}) &amp;= \int p(t \mid \boldsymbol{w}, \alpha, \beta, \boldsymbol{t}) p(\boldsymbol{w}, \alpha, \beta \mid \boldsymbol{t}) d\boldsymbol{w} d\alpha d\beta \\ &amp;= \int p(t \mid \boldsymbol{w}, \beta) p(\boldsymbol{w} \mid \boldsymbol{t})  d\boldsymbol{w} d\alpha d\beta \\ &amp;= \int p(t \mid \boldsymbol{w}, \beta) p(\boldsymbol{w} \mid \boldsymbol{t}, \alpha, \beta) p(\alpha, \beta \mid \boldsymbol{t}) d\boldsymbol{w} d\alpha d\beta
+\end{align*}$$</p>
+<p>正直なところ，この後の式(3.77)の導出には計算ミスがあるのではないかと思う．式(3.80)の平方完成において $\alpha$ ,  $\beta$ の項を定数項として足しているが，この項は式(3.89), (3.94)の偏微分に影響を与えるためだ．</p>
+<h3 id="アルゴリズム">アルゴリズム<a class="anchor ms-1" href="#アルゴリズム"><i class="fas fa-link"></i></a></h3>
+<ol>
+<li>$\alpha \leftarrow \alpha_0$</li>
+<li>$\beta \leftarrow \beta_0$</li>
+<li><strong>while</strong>  $(\alpha, \beta)$ <strong>converges do</strong>:</li>
+<li>$\boldsymbol{m}_N \leftarrow \beta(\alpha I + \beta \Phi^{\text{T}}\Phi)^{-1}\Phi^{\text{T}}\boldsymbol{t}$</li>
+<li>$\boldsymbol{\lambda} \leftarrow \mathrm{eig}(\beta \Phi^{\text{T}}\Phi)$</li>
+<li>$\gamma \leftarrow \sum_i \lambda_i / (\alpha + \lambda_i)$</li>
+<li>$\alpha \leftarrow \gamma / ||\boldsymbol{m}_N ||$</li>
+<li>$1 / \beta \leftarrow \sum_{n=1}^{N}(\boldsymbol{m}_N^{\text{T}}\boldsymbol{\phi}(\boldsymbol{x}_n) - t_n)^2 / (N - \gamma)$</li>
+<li><strong>end while</strong></li>
+<li><strong>return</strong>  $(\alpha, \beta)$</li>
+</ol>
+<h3 id="有効パラメータ数">有効パラメータ数<a class="anchor ms-1" href="#有効パラメータ数"><i class="fas fa-link"></i></a></h3>
+<p>得られたデータに対する尤度関数 $p(\boldsymbol{t} \mid \boldsymbol{w})$ は $\boldsymbol{w}$ の関数となる．この関数は $\boldsymbol{w}_{\mathrm{ML}}$ (最尤推定値)を中心とし，等高線は楕円になる．2次形式の行列の固有ベクトルに沿って主軸が決まるのだが，その固有値が小さいほど楕円は固有ベクトルの方向に伸びる(半径が大きい)．逆に固有値が大きいほど楕円はその固有ベクトルの方向には半径が小さい．</p>
+<p>事前分布 $\mathcal{N}(\boldsymbol{w} \mid \alpha^{-1}I)$ を考慮すると，$\boldsymbol{w}_{\mathrm{ML}}$ が<strong>少しだけ原点の方向にシフト</strong>して $\boldsymbol{w}_{\mathrm{MAP}}$ が得られる．シフトする方向は，尤度関数において固有値が比較的小さい固有ベクトルの方向である．つまり等高線における楕円の長軸の方向にシフトしやすい．</p>
+<p>固有値 $\lambda_i$，$\boldsymbol{u}_i$ が大きい場合，すなわち $\lambda_i \gg \alpha$ である場合 $\lambda_i / (\lambda_i + \alpha)$ は1に近くなる．このとき $\boldsymbol{w}_{\mathrm{ML}} \rightarrow \boldsymbol{w}_{\mathrm{MAP}}$ はこの $\boldsymbol{u}_i$ の方向にはあまりシフトしない．つまり $w_i$ はデータから決定される度合いが強いと言えそうである．これをwell-determinedパラメーターという．</p>
+<p>一方で $\lambda_i$ が小さい場合は先ほど述べたように，$\boldsymbol{w}_{\mathrm{ML}} \rightarrow \boldsymbol{w}_{\mathrm{MAP}}$ において $\boldsymbol{u}_i$ の方向へのシフトが比較的大きい．つまりデータを観測しても $w_i$ は事前分布の方向に引き寄せられるということである(この重みパラメーターはどれだけデータを観測しても，結局事前分布の値に近くなる)．</p>
+<p>よって $\gamma = \sum_i \lambda_i / (\lambda_i + \alpha)$ はwell-determinedパラーメーターの個数を表している．</p>
+<h3 id="なぜ初めに重みパラメーターの初期値を0にしたのか">なぜ初めに重みパラメーターの初期値を0にしたのか<a class="anchor ms-1" href="#なぜ初めに重みパラメーターの初期値を0にしたのか"><i class="fas fa-link"></i></a></h3>
+<p>ここにきてなぜ初めに事前分布として平均が0の $\mathcal{}(\boldsymbol{w} \mid 0, \alpha^{-1}I)$ を採用したのかが分かる．結果からいうと，<strong>undeterminedなパラメーターの値を自動的にゼロにする</strong>ためである．</p>
+<p>教科書において，三角関数から生成されたデータを $\boldsymbol{w}^{\text{T}}\boldsymbol{\phi}(\boldsymbol{x})$ でフィッティングする例題が繰り返し用いられている．ここではパラメータ $w_i$ はM個用いられているが，エビデンス近似の枠組みではこのうちデータによって有効なパラメータ数が $\gamma$ に制限され，残りの $M - \gamma$ 個のパラメータの値は事前分布の値，すなわち0に引き寄せられるのである．このとき分散の推定結果( $\beta$ )の割り算において最尤推定の $N-1$ の代わりに $N - \gamma$ を用いられるので，最尤推定による分散の過小評価を抑えることもできる．</p>
+<p>図(3.16)，図(3.17)においては，9個のガウス基底関数を用いて三角関数のデータをフィッティングした際の結果を示している．図(3.17)においては，有効パラメーター数 $\gamma$ を増やすと0より大きな値をとる $w_i$ の個数が増えていく(だいたい合計が $\gamma$ と等しい)ことが分かる．</p>
+<p>$N \gg M$ の場合，$(\beta \Phi{^{\text{T}}}\Phi)\boldsymbol{u}_i = \lambda_i \boldsymbol{u}_i$ において計画行列 $\Phi^{\text{T}}\Phi$ も大きな値をとるので，固有値 $\lambda_i$ も大きな値をとる．よって $\gamma \approx M$ となる．これはデータ数を増やせば増やすほど高次の基底関数を用いても過学習は起きず，それに対応する重みパラメーターも有効となるという現象を示している．このとき</p>
+<p>$$\begin{align*}
+\alpha &amp;= \dfrac{M}{2E_W (\boldsymbol{m}_N)} \\ \beta &amp;= \dfrac{N}{2E_D (\boldsymbol{m}_N)}
+\end{align*}$$</p>
+<p>である．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/050-gtest-private/">gtestでプライベートなメソッドや変数をテストする
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/043-networking-note/">ネットワークの基礎知識
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/041-prml-02/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]
+</a>
+          <span class="float-end post-date">Feb 26, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/039-prml-01/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]
+</a>
+          <span class="float-end post-date">Feb 12, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

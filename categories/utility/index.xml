@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utility on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/categories/utility/</link>
+    <description>Recent content in Utility on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 06 Oct 2019 23:30:59 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/categories/utility/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMakeで自動でclang-formatする</title>
+      <link>https://soblin.github.io/techblog/drafts/024-clang-format/</link>
+      <pubDate>Sun, 06 Oct 2019 23:30:59 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/drafts/024-clang-format/</guid>
+      <description>CMakeでビルド中にclang-formatするためのメモ．よくするけど忘れるため．こちらのサイト にまとめている． ディレクトリ構造 ├── .clang-format</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,434 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ビット演算のコツ - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．
+またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．
+" /><meta itemprop="name" content="ビット演算のコツ">
+<meta itemprop="description" content="「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．
+またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．
+"><meta itemprop="datePublished" content="2021-02-10T11:53:20+00:00" />
+<meta itemprop="dateModified" content="2021-02-10T11:53:20+00:00" />
+<meta itemprop="wordCount" content="1146">
+<meta itemprop="keywords" content="Programming," /><meta property="og:title" content="ビット演算のコツ" />
+<meta property="og:description" content="「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．
+またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/047-bit-operation/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-10T11:53:20+00:00" />
+<meta property="article:modified_time" content="2021-02-10T11:53:20+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ビット演算のコツ"/>
+<meta name="twitter:description" content="「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．
+またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%83%93%e3%83%83%e3%83%88%e6%bc%94%e7%ae%97%e3%81%ae%e3%82%b3%e3%83%84&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f047-bit-operation%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f047-bit-operation%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">ビット演算のコツ</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">ビット演算のコツ
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-10 20:53:20 &#43;0900 JST.">
+    Feb 10, 2021
+  </span><span class="post-reading-time">
+    3 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/programming/" class="badge post-taxonomy">Programming</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2進数と16進数の変換を暗算する">2進数と16進数の変換を暗算する</a></li>
+    <li><a href="#下位nビットを求めるマスク">下位nビットを求めるマスク</a></li>
+    <li><a href="#上位と下位の値を求める">上位と下位の値を求める</a></li>
+    <li><a href="#16進数から2進数">16進数から2進数</a></li>
+    <li><a href="#cidr表記">CIDR表記</a>
+      <ul>
+        <li><a href="#暗算方法">暗算方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．</p>
+<p>またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．</p>
+<!-- toc -->
+<h2 id="2進数と16進数の変換を暗算する">2進数と16進数の変換を暗算する<a class="anchor ms-1" href="#2進数と16進数の変換を暗算する"><i class="fas fa-link"></i></a></h2>
+<p>2進数を4bitづつ区切ればよい．そのとき</p>
+<ul>
+<li><code>b1 = 0x1</code></li>
+<li><code>b11 = 0x3</code></li>
+<li><code>b111 = 0x7</code></li>
+<li><code>b1111 = 0xf</code></li>
+</ul>
+<p>を使う．例えば</p>
+<pre tabindex="0"><code>b|0111|0011|0001|
+=
+0x731
+
+b|1111|0111|0011|
+=
+0xf73
+
+b|1111|1111|0111|
+=
+0xff7
+
+b|0111|1111|0011|0001|
+=
+0x7f31
+</code></pre><h2 id="下位nビットを求めるマスク">下位nビットを求めるマスク<a class="anchor ms-1" href="#下位nビットを求めるマスク"><i class="fas fa-link"></i></a></h2>
+<p>くどいがいくつか並べておこう．下位15bitを求めるのであれば<code>15 = 3 + 4 + 4 + 4</code>より<code>0x7fff</code>と置き換えればよい．</p>
+<table>
+<thead>
+<tr>
+<th>下位nビット</th>
+<th>マスク</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>下位1bit</td>
+<td>0x1</td>
+</tr>
+<tr>
+<td>下位2bit</td>
+<td>0x3</td>
+</tr>
+<tr>
+<td>下位3bit</td>
+<td>0x7</td>
+</tr>
+<tr>
+<td>下位4bit</td>
+<td>0xf</td>
+</tr>
+<tr>
+<td>下位5bit</td>
+<td>0x1f</td>
+</tr>
+<tr>
+<td>下位6bit</td>
+<td>0x3f</td>
+</tr>
+<tr>
+<td>下位7bit</td>
+<td>0x7f</td>
+</tr>
+<tr>
+<td>下位8bit</td>
+<td>0xff</td>
+</tr>
+<tr>
+<td>下位9bit</td>
+<td>0x1ff</td>
+</tr>
+<tr>
+<td>下位10bit</td>
+<td>0x3ff</td>
+</tr>
+<tr>
+<td>下位11bit</td>
+<td>0x7ff</td>
+</tr>
+<tr>
+<td>下位12bit</td>
+<td>0xfff</td>
+</tr>
+<tr>
+<td>下位13bit</td>
+<td>0x1fff</td>
+</tr>
+<tr>
+<td>下位14bit</td>
+<td>0x3fff</td>
+</tr>
+<tr>
+<td>下位15bit</td>
+<td>0x7fff</td>
+</tr>
+<tr>
+<td>下位16bit</td>
+<td>0xffff</td>
+</tr>
+<tr>
+<td>下位17bit</td>
+<td>0x1ffff</td>
+</tr>
+<tr>
+<td>下位18bit</td>
+<td>0x3ffff</td>
+</tr>
+<tr>
+<td>下位19bit</td>
+<td>0x7ffff</td>
+</tr>
+<tr>
+<td>下位20bit</td>
+<td>0xfffff</td>
+</tr>
+</tbody>
+</table>
+<h2 id="上位と下位の値を求める">上位と下位の値を求める<a class="anchor ms-1" href="#上位と下位の値を求める"><i class="fas fa-link"></i></a></h2>
+<p>32bit値<code>addr</code>の上位と下位の値を求める．</p>
+<blockquote>
+<p><strong>上位25bit，下位7bit</strong>を求める
+<code>top = addr &gt;&gt; 7</code>
+<code>bottom = addr &amp; 0x7f</code></p>
+</blockquote>
+<blockquote>
+<p><strong>上位23bit，下位9bit</strong>を求める
+<code>top = addr &gt;&gt; 9</code>
+<code>bottom = addr &amp; 0x1ff</code></p>
+</blockquote>
+<blockquote>
+<p><strong>上位17bit，下位15bit</strong>を求める
+<code>top = addr &gt;&gt; 15</code>
+<code>bottom = addr &amp; 0x7fff</code></p>
+</blockquote>
+<h2 id="16進数から2進数">16進数から2進数<a class="anchor ms-1" href="#16進数から2進数"><i class="fas fa-link"></i></a></h2>
+<p><code>0x100000 = 1MB</code>をすぐに暗算できるようにしたい．16進数での0は2進数では<code>0000 = 10^4</code>である．<code>0x100000</code>では0が5つ並んでいるから</p>
+<blockquote>
+<p><code>0x100000 = 1 x 10^(4x5) = 1 x 10^20</code></p>
+</blockquote>
+<p>である．つまり1MB．</p>
+<h2 id="cidr表記">CIDR表記<a class="anchor ms-1" href="#cidr表記"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://www.infraexpert.com/study/ip7.html" target="_blank" rel="noopener noreferrer">ここ<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>を参照した．<code>192.168.1.90/27</code> のサブネットマスクを求めたい．愚直に計算すると <code>192.168.1.90 = 192.168.1.01011010</code> であるから，サブネットマスクは <code>192.168.1.010/00000 = 192.168.1.64</code> がサブネットマスクとなる．よってブロードキャストアドレスは <code>192.168.1.010/11111 = 192.168.1.95</code> である．</p>
+<h3 id="暗算方法">暗算方法<a class="anchor ms-1" href="#暗算方法"><i class="fas fa-link"></i></a></h3>
+<p>以下の手順でビット表現なしに暗算する方法がある．</p>
+<ol>
+<li>サブネット部を含むオクテットに着目．上の例の場合 <code>90</code></li>
+<li>(そこでのサブネットマスクの値を求め，256から引く．上の例の場合，上位27-24=3桁だから，128+64+32=224を256から引いて32)．これは256からサブネットの桁数だけ128を半減した値を引いていくことなので，はじめから256-128-64-32=32すれば良い．</li>
+<li>(1)の値をぎりぎり超えない(2)の値の倍数を求める．この数字がネットワークアドレス．上の例の場合は64(32x2)より <code>192.168.1.64</code></li>
+<li>(1)の値をぎりぎり超える(2)の値の倍数-1がブロードキャストアドレス．上の例の場合96(32x3)-1=95より <code>192.168.1.95</code>
+例えば <code>172.16.20.101/21</code> では<code>20</code> がサブネット部のオクテットであり，(2)の値は8となる．20を超えない倍数は16，20を超える倍数は24だから，ネットワークアドレスとブロードキャストアドレスはそれぞれ <code>172.16.16.0</code>, <code>172.16.23.255</code> である．</li>
+</ol></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/049-realnumber-memo/">位相と実数の連続性に関するメモ
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/046-linux-vfs/">LinuxのVFSに関するメモ
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/051-copy-ref-view/">コピーと参照とビュー
+</a>
+          <span class="float-end post-date">Aug 19, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/050-gtest-private/">gtestでプライベートなメソッドや変数をテストする
+</a>
+          <span class="float-end post-date">Aug 10, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

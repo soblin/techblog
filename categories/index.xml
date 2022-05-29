@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/categories/</link>
+    <description>Recent content in Categories on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Apr 2021 16:19:39 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mathematics</title>
+      <link>https://soblin.github.io/techblog/categories/mathematics/</link>
+      <pubDate>Mon, 19 Apr 2021 16:19:39 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/mathematics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Computer</title>
+      <link>https://soblin.github.io/techblog/categories/computer/</link>
+      <pubDate>Sun, 18 Apr 2021 11:41:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/computer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Engineering</title>
+      <link>https://soblin.github.io/techblog/categories/engineering/</link>
+      <pubDate>Fri, 31 Jan 2020 18:43:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Utility</title>
+      <link>https://soblin.github.io/techblog/categories/utility/</link>
+      <pubDate>Sun, 06 Oct 2019 23:30:59 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/utility/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Physics</title>
+      <link>https://soblin.github.io/techblog/categories/physics/</link>
+      <pubDate>Thu, 08 Aug 2019 19:00:20 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/physics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Miscellaneous</title>
+      <link>https://soblin.github.io/techblog/categories/miscellaneous/</link>
+      <pubDate>Tue, 02 Jul 2019 23:26:27 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/categories/miscellaneous/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,369 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="SVMとRVM
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]">
+<meta itemprop="description" content="SVMとRVM
+"><meta itemprop="datePublished" content="2021-02-17T15:15:26+00:00" />
+<meta itemprop="dateModified" content="2021-02-17T15:15:26+00:00" />
+<meta itemprop="wordCount" content="1410">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]" />
+<meta property="og:description" content="SVMとRVM
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/057-prml-07/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-17T15:15:26+00:00" />
+<meta property="article:modified_time" content="2021-02-17T15:15:26+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]"/>
+<meta name="twitter:description" content="SVMとRVM
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b7%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f057-prml-07%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f057-prml-07%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-18 00:15:26 &#43;0900 JST.">
+    Feb 17, 2021
+  </span><span class="post-reading-time">
+    3 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#svm">SVM</a></li>
+    <li><a href="#rvm">RVM</a>
+      <ul>
+        <li><a href="#スパース性の解析">スパース性の解析</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>SVMとRVM</p>
+<!-- toc -->
+<h2 id="svm">SVM<a class="anchor ms-1" href="#svm"><i class="fas fa-link"></i></a></h2>
+<p>入力 $\boldsymbol{x}_n$ を $t_n = \pm 1$ に線形分類することを考える．シグモイドを使った分類とは異なり，今回は $y_n = \boldsymbol{w}^{\text{T}} \boldsymbol{\phi}(\boldsymbol{x}) + b$ に対して</p>
+<p>$$\begin{align*}
+t_n y_n &gt; 0
+\end{align*}$$</p>
+<p>を満たすように $\boldsymbol{w}, b$ を決めることとする(つまり分類方法としては $y_n$ の符号しか見ていない)．これだけだと一意に決定できないため，超平面 $y(\boldsymbol{x}) = 0$ とデータの距離に注目してみる．各々のデータとこの超平面の垂直距離は</p>
+<p>$$\begin{align*}
+\frac{t_{n} y(\boldsymbol{x}_{n})}{|\boldsymbol{w}|}=\frac{t_{n}(\boldsymbol{w}^{T} \phi (\boldsymbol{x}_{n})+b)}{|\boldsymbol{w}|}
+\end{align*}$$</p>
+<p>で与えられる．そこで「<strong>超平面に最も近いデータ点の距離を最大化する</strong>」パラメーターをこの問題の解とする．つまり以下の最適化問題を解く．</p>
+<p>$$\begin{align*}
+\underset{\boldsymbol{w}, b}{\arg \max }\left\{\frac{1}{|\boldsymbol{w}|} \min_{n}[t_{n}(\boldsymbol{w}^{\mathrm{T}} \boldsymbol{\phi}(\boldsymbol{x}_{n})+b)]\right\}
+\end{align*}$$</p>
+<p>ここで $(\boldsymbol{w}, b)$ を定数倍しても垂直距離は変わらないことに着目すると，超平面に最も近いデータ点について</p>
+<p>$$\begin{align*}
+t_{n} (\boldsymbol{w}^{\text{T}} \boldsymbol{\phi} (\boldsymbol{x}_{n})+b)=1
+\end{align*}$$</p>
+<p>が成立するように定数倍できる．このとき $t_{n} (\boldsymbol{w}^{\text{T}} \boldsymbol{\phi} (\boldsymbol{x}_{n})+b)\geq 1$ が全てのデータ点において成立している．すると元の最適化問題は $| \boldsymbol{w} |$ を最小化する，すなわち</p>
+<p>$$\begin{align*}
+\underset{w, b}{\arg \min} \ &amp; \frac{1}{2}|\boldsymbol{w}|^2 \\
+{\rm s.t.}\ \ &amp; t_{n} (\boldsymbol{w}^{\text{T}} \boldsymbol{\phi} (\boldsymbol{x}_{n})+b)\geq 1
+\end{align*}$$</p>
+<p>に帰着される．未定乗数を $\boldsymbol{a} \in \mathbb{R}^N, a_i \geq 0$ としてラグランジアン $L(\boldsymbol{w}, b, \boldsymbol{a})$ は</p>
+<p>$$\begin{align*}
+L(\boldsymbol{w}, b, \boldsymbol{a}) = \frac{1}{2} |\boldsymbol{w}|^{2} - \sum_{n=1}^{N} a_{n} \{t_{n} (\boldsymbol{w}^{\text{T}} \phi (\boldsymbol{x}_{n})+b)-1 \}
+\end{align*}$$</p>
+<p>である．ここで制約の項を引き算にしているのは後々 $\boldsymbol{a}$ についてラグランジアンを最大化したいためである．未定乗数法により最適性の必要条件として</p>
+<p>$$\begin{align*}
+\boldsymbol{w} &amp;=\sum_{n=1}^{N} a_{n} t_{n} \phi\left(\boldsymbol{x}_{n}\right) \\
+0 &amp;=\sum_{n=1}^{N} a_{n} t_{n}
+\end{align*}$$</p>
+<p>が得られる．これを用いてラグランジアンから $(\boldsymbol{w}, b)$ を消去すると双対問題として</p>
+<p>$$\begin{align*}
+\underset{a}{\arg \max} \tilde{L}(\boldsymbol{a})&amp;=\sum_{n=1}^{N} a_{n}-\frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} a_{n} a_{m} t_{n} t_{m} k (\boldsymbol{x}_{n}, \boldsymbol{x}_{m}) \\
+{\rm s.t.}\ \ &amp; a_n \geq 0 \\
+&amp; \sum_{n=1}^{N} a_n t_n = 0
+\end{align*}$$</p>
+<p>が得られる．ここでカーネル関数は $k(\boldsymbol{x}_1, \boldsymbol{x}_2) = \boldsymbol{\phi(x)}_1^{\text{T}} \boldsymbol{\phi(x)}_2$ である．2次計画法によりこれを解いてパラメーター $(\boldsymbol{w}, b)$ を求め， $y(\boldsymbol{x})$ の符号を調べればテストデータを分類できる．あるいは</p>
+<p>$$\begin{align*}
+y(\boldsymbol{x})=\sum_{n=1}^{N} a_{n} t_{n} k(\boldsymbol{x}, \boldsymbol{x}_{n})+b
+\end{align*}$$</p>
+<p>計算する．しかしKKT条件により一部のデータを除いて $a_n = 0$ となるので，この $\Sigma$ のうち $a_n \neq 0$ となるものだけが有効である．このとき $\boldsymbol{x}_n$ はサポートベクトルと呼ばれ，最小化したマージンの上に存在する点である．訓練が終わった後はこのサポートベクトルだけ保持して上の $\Sigma$ を計算し，予測に用いればよい．</p>
+<h2 id="rvm">RVM<a class="anchor ms-1" href="#rvm"><i class="fas fa-link"></i></a></h2>
+<p>関連ベクトルマシンは回帰にも用いることができ，事後分布も計算できる．3章に出てきたエビデンス近似と導出は似ている．訓練データ $(\boldsymbol{x}_n, t_n), n = 1, \ldots , N$ を用いて以下のようにカーネル関数を用いて回帰モデルを立てる．</p>
+<p>$$\begin{align*}
+y(\boldsymbol{x})=\sum_{n=1}^{N} w_{n} k (\boldsymbol{x}, \boldsymbol{x}_{n})+b
+\end{align*}$$</p>
+<p>これに雑音 $\mathcal{N}(0, \beta^{-1})$ が加えられて観測値が得られるとする．なおここではカーネル関数は正定値である必要はない． $X$ を $\boldsymbol{x}_n^{\text{T}}$ を縦に並べたとすると尤度関数は</p>
+<p>$$\begin{align*}
+p(\boldsymbol{t} \mid \boldsymbol{X}, \boldsymbol{w}, \beta)=\prod_{n=1}^{N} p (t_{n} \mid \boldsymbol{x}_{n}, \boldsymbol{w}, \beta )
+\end{align*}$$</p>
+<p>である．次にパラメータ $\boldsymbol{w}$ の事前分布として3章のエビデンス近似と同様に平均がゼロのガウス分布を用いるのだが，3章とは異なり各要素について異なる精度パラメーター $\alpha_i$ を用いて</p>
+<p>$$\begin{align*}
+p(\boldsymbol{w} \mid \boldsymbol{\alpha})=\prod_{i=1}^{M} \mathcal{N} (w_{i} \mid 0, \alpha_{i}^{-1})
+\end{align*}$$</p>
+<p>とする．するとSVMと同様にほとんどの訓練データについては $\alpha_i$ が無限大に近づくため，事後分布がゼロ中心に集中することになるのである．ベイズの定理より事後分布は</p>
+<p>$$\begin{align*}
+p(\boldsymbol{w} \mid \boldsymbol{t}, X, \alpha, \beta)&amp; = \mathcal{N}(\boldsymbol{w} \mid \boldsymbol{m}, \boldsymbol{\Sigma}) \\
+\boldsymbol{m} &amp;= \beta \boldsymbol{\Sigma} \Phi^{\text{T}} \boldsymbol{t} \\
+\boldsymbol{\Sigma} &amp;= (\boldsymbol{A}+\beta \Phi^{\text{T}} \Phi)^{-1}
+\end{align*}$$</p>
+<p>となる．ここで $\boldsymbol{A} = \mathrm{diag}(\alpha_i)$ である．エビデンス近似により $(\boldsymbol{\alpha}, \beta)$ を求めるため，以下の対数尤度を最大化することで第二種の最尤推定を行う．</p>
+<p>$$\begin{align*}
+\ln p(\boldsymbol{t} \mid \boldsymbol{X}, \boldsymbol{\alpha}, \beta) &amp;=\ln \mathcal{N}(\boldsymbol{t} \mid 0, C) \\
+&amp;=-\frac{1}{2} \{N \ln (2 \pi)+\ln |C|+\boldsymbol{t}^{\text{T}} C^{-1} \boldsymbol{t}\}
+\end{align*}$$</p>
+<p>ここで $C=\beta^{-1} \mathbf{I}+\Phi \mathbf{A}^{-1} \Phi^{\text{T}}$ である．3章と同様に対数尤度の微分を用いて</p>
+<p>$$\begin{align*}
+\alpha_{i}^{\text {new}} &amp;= \frac{\gamma_{i}}{m_{i}^{2}} \\
+(\beta^{\text {new}})^{-1} &amp;= \frac{|\boldsymbol{t}-\Phi \boldsymbol{m}|^{2}}{N-\sum_{i} \gamma_{i}}
+\end{align*}$$</p>
+<p>として更新を行えばよい．ここで $\gamma_i = 1 - \alpha_i \Sigma_{ii}$ である．最適値 $(\boldsymbol{\alpha}^{*}, \beta^{*})$ が求まったら事後分布は</p>
+<p>$$\begin{align*}
+p(t \mid \boldsymbol{x}, X, \boldsymbol{t}, \boldsymbol{\alpha}^{\star}, \beta^{\star}) &amp;= \mathcal{N}(t \mid \boldsymbol{m}^{\text{T}} \boldsymbol{\phi}(\boldsymbol{x}), \sigma^2(\boldsymbol{x})) \\
+\sigma^{2}(\boldsymbol{x}) &amp;= (\beta^{\star})^{-1}+\phi(\boldsymbol{x})^{\text{T}} \Sigma \phi(\boldsymbol{x})
+\end{align*}$$</p>
+<p>で与えられる．もちろん $\boldsymbol{m}, \Sigma$ の計算には $(\boldsymbol{\alpha}^{\star}, \beta^{\star})$ を用いる．</p>
+<h3 id="スパース性の解析">スパース性の解析<a class="anchor ms-1" href="#スパース性の解析"><i class="fas fa-link"></i></a></h3>
+<p>TODO</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/059-prml-09/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/056-prml-06/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/056-prml-06/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]
+</a>
+          <span class="float-end post-date">Feb 15, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/045-prml-05/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]
+</a>
+          <span class="float-end post-date">Feb 9, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/">モンテカルロ木探索について
+</a>
+          <span class="float-end post-date">Nov 7, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/044-prml-03/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</a>
+          <span class="float-end post-date">Mar 9, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/041-prml-02/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]
+</a>
+          <span class="float-end post-date">Feb 26, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ガウス・ワインガルテンの公式 - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．
+" /><meta itemprop="name" content="ガウス・ワインガルテンの公式">
+<meta itemprop="description" content="フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．
+"><meta itemprop="datePublished" content="2021-02-11T06:35:02+00:00" />
+<meta itemprop="dateModified" content="2021-02-11T06:35:02+00:00" />
+<meta itemprop="wordCount" content="1592">
+<meta itemprop="keywords" content="Manifold," /><meta property="og:title" content="ガウス・ワインガルテンの公式" />
+<meta property="og:description" content="フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/052-weingarten-formula/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-11T06:35:02+00:00" />
+<meta property="article:modified_time" content="2021-02-11T06:35:02+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ガウス・ワインガルテンの公式"/>
+<meta name="twitter:description" content="フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%82%ac%e3%82%a6%e3%82%b9%e3%83%bb%e3%83%af%e3%82%a4%e3%83%b3%e3%82%ac%e3%83%ab%e3%83%86%e3%83%b3%e3%81%ae%e5%85%ac%e5%bc%8f&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f052-weingarten-formula%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f052-weingarten-formula%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">ガウス・ワインガルテンの公式</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">ガウス・ワインガルテンの公式
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-11 15:35:02 &#43;0900 JST.">
+    Feb 11, 2021
+  </span><span class="post-reading-time">
+    4 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/tags/manifold/" class="badge post-taxonomy">Manifold</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#曲線の微分幾何">曲線の微分幾何</a></li>
+    <li><a href="#フレネセレーの公式1次元">フレネセレーの公式(1次元)</a></li>
+    <li><a href="#曲面の微分幾何">曲面の微分幾何</a>
+      <ul>
+        <li><a href="#第一基本形式">第一基本形式</a></li>
+        <li><a href="#第二基本形式">第二基本形式</a></li>
+      </ul>
+    </li>
+    <li><a href="#ガウス標構">ガウス標構</a></li>
+    <li><a href="#ガウスワインガルテンの公式">ガウス・ワインガルテンの公式</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．</p>
+<!-- toc -->
+<h2 id="曲線の微分幾何">曲線の微分幾何<a class="anchor ms-1" href="#曲線の微分幾何"><i class="fas fa-link"></i></a></h2>
+<p>$t$ をパラメータとする3次元曲線 $(x(t), y(t), z(t))$ の単位速度ベクトルは</p>
+<p>$$\begin{align*}
+( \dot{x}(t), \dot{y}(t), \dot{z}(t))
+\end{align*}$$</p>
+<p>であり，さらに線素は</p>
+<p>$$\begin{align*}
+\dfrac{ds}{dt} = \sqrt{\dot{x}^{2}(t) + \dot{y}^{2}(t) + \dot{z}^{2}(t)}
+\end{align*}$$</p>
+<p>である．以降 $\cdot$ は $t$ による微分， $\prime$ による微分は $s$ による微分とする．線素で微分した単位速度ベクトルは</p>
+<p>$$\begin{align*}
+\dfrac{d\boldsymbol{x}(t)}{ds} = \dfrac{dt}{ds} \dfrac{d \boldsymbol{x}(t)}{dt}
+\end{align*}$$</p>
+<p>であり，ノルムは1である．これを $\boldsymbol{e}_t$ とする．</p>
+<h2 id="フレネセレーの公式1次元">フレネセレーの公式(1次元)<a class="anchor ms-1" href="#フレネセレーの公式1次元"><i class="fas fa-link"></i></a></h2>
+<p>$\boldsymbol{e}_t$ をさらに $s$ で微分する．このとき</p>
+<p>$$\begin{align*}
+| \boldsymbol{e}_t |^2 = 1
+\end{align*}$$</p>
+<p>の両辺を微分すると $\boldsymbol{e}_t \cdot \boldsymbol{e}_t^{\prime} = 0$ が得られるので， $\boldsymbol{e}_t^{\prime}$ は $\boldsymbol{e}_t$ と垂直である．その大きさを $\kappa$ として，その単位ベクトルを $\boldsymbol{e}_n$ とする．</p>
+<p>$$\begin{align*}
+\boldsymbol{e}_t^{\prime} = \kappa \boldsymbol{e}_n
+\end{align*}$$</p>
+<p>さらに外積をとって $\boldsymbol{e}_b = \boldsymbol{e}_t \times \boldsymbol{e}_n$ とする．これらは互いに垂直な単位ベクトルであり，フレネ・セレ標構と呼ばれる．</p>
+<p>その微分について以下が成立する．</p>
+<p>$$\begin{align*}
+\dfrac{d}{ds} \begin{pmatrix} \boldsymbol{e}_t \\ \boldsymbol{e}_n \\ \boldsymbol{e}_b \end{pmatrix} = \begin{pmatrix} 0 &amp; \kappa &amp; 0 \\ -\kappa &amp; 0 &amp; \tau \\ 0 &amp; -\tau &amp; 0 \end{pmatrix} \begin{pmatrix} \boldsymbol{e}_t \\ \boldsymbol{e}_n \\ \boldsymbol{e}_b \end{pmatrix}
+\end{align*}$$</p>
+<p>証明は略．</p>
+<h2 id="曲面の微分幾何">曲面の微分幾何<a class="anchor ms-1" href="#曲面の微分幾何"><i class="fas fa-link"></i></a></h2>
+<p>方眼紙に水を吸わせてから乾燥させると，伸縮により各部の長さが変化するため歪む．こういった3次元に埋め込まれた2次元曲面を考える．そのとき方眼紙上の各点は外から見た $(x, y, z)$ で表すこともできるが，もともと方眼紙に描かれていた $(u, v)$ の座標系(目盛りの長さは1cmではなくなっているが)での目盛りの値を使っても指定できる．</p>
+<blockquote>
+<p>こんな感じ<br>
+0========1==2=====3===4====5</p>
+</blockquote>
+<p>この座標軸では<code>1.5</code>と<code>2.4</code>の距離が<code>2.4 - 1.5 = 0.9</code>には<strong>ならない</strong>が，それでも位置を指定することだけなら可能．以下「目盛り」という意味で座標という言葉を用いるほうが理解しやすいと思う．</p>
+<p>$(u, v)$ をパラメーターとする2次元曲面 $\boldsymbol{x}(u, v) = (x(u, v), y(u, v), z(u, v))$ の上のあるパラメーターの値 $(u, v)$ で指定される点Pにおいて，</p>
+<p>$$\begin{align*}
+\boldsymbol{x}_u &amp;= \dfrac{\partial \boldsymbol{x}}{\partial u} \\
+\boldsymbol{x}_v &amp;= \dfrac{\partial \boldsymbol{x}}{\partial v}
+\end{align*}$$</p>
+<p>は接ベクトルである(u曲線とv曲線沿いの)．この２つのベクトルは<strong>特定の方向</strong>のベクトルである．</p>
+<p>任意の方向(Pを中心とする接触平面上で180度全方向)についての接ベクトルは，$(u, v)$ を通る任意の曲線を考えそれを $\boldsymbol{x}(u(t), v(t))$ として，</p>
+<p>$$\begin{align*}
+\dfrac{d \boldsymbol{x}}{dt} = \boldsymbol{x}_u \dfrac{du}{dt} + \boldsymbol{x}_v \dfrac{dv}{dt}
+\end{align*}$$</p>
+<p>で与えられる．これは</p>
+<p>$$\begin{align*}
+d \boldsymbol{x} = \boldsymbol{x}_u du + \boldsymbol{x}_v dv
+\end{align*}$$</p>
+<p>と表記されることもある． $du, dv$ の値を動かすことでPを始点とする全方向の接ベクトルを表せる．</p>
+<h3 id="第一基本形式">第一基本形式<a class="anchor ms-1" href="#第一基本形式"><i class="fas fa-link"></i></a></h3>
+<p>近接する2点 $(u, v), (u + du, v + dv)$ の距離を $ds$ とすると，</p>
+<p>$$\begin{align*}
+ds^2 = d \boldsymbol{x} \cdot d \boldsymbol{x} = (x_{u} \cdot x_{u}) d u^{2}+2(x_{u} \cdot x_{v}) du dv+(x_{v} \cdot x_{v}) d v^{2}
+\end{align*}$$</p>
+<p>ここで</p>
+<p>$$\begin{align*}
+x_{u} \cdot x_{u} \equiv E, \quad x_{u} \cdot x_{v} \equiv F, \quad x_{v} \cdot x_{v} \equiv G
+\end{align*}$$</p>
+<p>とおいて，</p>
+<p>$$\begin{align*}
+d s^{2}=E d u^{2}+2 F d u d v+G d v^{2}
+\end{align*}$$</p>
+<p>を曲面の第一基本形式という．</p>
+<h3 id="第二基本形式">第二基本形式<a class="anchor ms-1" href="#第二基本形式"><i class="fas fa-link"></i></a></h3>
+<p>座標が $(u, v)$ で表される点Pにおける接平面と，座標が $(u + du, v + dv)$ とする点の間の垂直距離を求めてみる．</p>
+<p><picture><img class="img-fluid" alt="第二基本形式" src="https://soblin.github.io/techblog/posts/052-weingarten-formula/052_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>これは図から分かるように，x-Pの間のベクトル $d \boldsymbol{x}$ を $\boldsymbol{e}_n$ 方向に射影した長さであるから，</p>
+<p>$$\begin{align*}
+h = d\boldsymbol{x} \cdot \boldsymbol{e}_n
+\end{align*}$$</p>
+<p>である．テイラー展開すると</p>
+<p>$$\begin{align*}
+d \boldsymbol{x} &amp;\sim \boldsymbol{x}(u + du, v + dv) - \boldsymbol{x}(u, v) \\
+&amp;= \boldsymbol{x}_{u}(u, v) du+\boldsymbol{x}_{v}(u, v) dv+\dfrac{1}{2}(\boldsymbol{x}_{u u} du^{2}+2 \boldsymbol{x}_{u v} du dv+\boldsymbol{x}_{v v} dv^{2})
+\end{align*}$$</p>
+<p>ここで $\boldsymbol{e} \perp \boldsymbol{x}_{u, v}$ であるから，内積は</p>
+<p>$$\begin{align*}
+2h = \boldsymbol{x}_{uu} \cdot \boldsymbol{e}_n du^2 + 2\boldsymbol{x}_{uv} \cdot \boldsymbol{e}_n dudv + \boldsymbol{x}_{vv} \cdot \boldsymbol{e}_n dv^2
+\end{align*}$$</p>
+<p>となる．各係数は以下のように変形できる．</p>
+<p>$$\begin{align*}
+\boldsymbol{x}_{uu} \cdot \boldsymbol{e}_n &amp;=\dfrac{\partial}{\partial u}(\boldsymbol{e}_n \cdot \boldsymbol{x}_{u})-\boldsymbol{x}_{u} \cdot \boldsymbol{e}_{nu}=-\boldsymbol{x}_{u} \cdot \boldsymbol{e}_{nu} \equiv L \\
+\boldsymbol{x}_{uv} \cdot \boldsymbol{e}_n &amp;=\dfrac{\partial}{\partial v}(\boldsymbol{e}_n \cdot \boldsymbol{x}_{u})-\boldsymbol{x}_{u} \cdot \boldsymbol{e}_{nv}=-\boldsymbol{x}_{u} \cdot \boldsymbol{e}_{nv} \equiv M \\
+\boldsymbol{x}_{vv} \cdot \boldsymbol{e}_n &amp;=\dfrac{\partial}{\partial v}(\boldsymbol{e}_n \cdot \boldsymbol{x}_{v})-\boldsymbol{x}_{v} \cdot \boldsymbol{e}_{nv}=-\boldsymbol{x}_{v} \cdot \boldsymbol{e}_{nv} \equiv N
+\end{align*}$$</p>
+<p>そして</p>
+<p>$$\begin{align*}
+\Pi=L d u^{2}+2 M d u d v+N d v^{2}
+\end{align*}$$</p>
+<p>を曲面の第二基本形式という．これは(duとdvを動かしたときに)曲面が接平面からどれだけ離れるかを示す量．</p>
+<h2 id="ガウス標構">ガウス標構<a class="anchor ms-1" href="#ガウス標構"><i class="fas fa-link"></i></a></h2>
+<p>以降 $(u, v)$ の代わりに $(u_1, u_2)$ と表記し，それぞれについての偏微分を $\boldsymbol{x}_1, \boldsymbol{x}_2$ とする．$\boldsymbol{x}_1, \boldsymbol{x}_2, \boldsymbol{e}_n$ の組をガウス標構という．</p>
+<h2 id="ガウスワインガルテンの公式">ガウス・ワインガルテンの公式<a class="anchor ms-1" href="#ガウスワインガルテンの公式"><i class="fas fa-link"></i></a></h2>
+<p>フレネーセレの公式では $\boldsymbol{e}_t, \boldsymbol{e}_n, \boldsymbol{e}_b$ を $s$ で微分した結果を $\boldsymbol{e}_t, \boldsymbol{e}_n, \boldsymbol{e}_b$ で表していた．ガウス・ワインガルテンの公式では $\boldsymbol{x}_1, \boldsymbol{x}_2, \boldsymbol{e}_n$ の $(u, v)$ についての偏微分を，$\boldsymbol{x}_1, \boldsymbol{x}_2, \boldsymbol{e}_n$ で表す．そのときに係数としてクリストッフェル記号が出てくる．</p>
+<p>$\partial / \partial u$ については</p>
+<p>$$\begin{align*}
+\boldsymbol{x}_{u u}&amp;=\Gamma_{u u}^{u} \boldsymbol{x}_{u}+\Gamma_{u u}^{v} \boldsymbol{x}_{v}+L \boldsymbol{e}_n \\
+\boldsymbol{x}_{v u}&amp;=\Gamma_{v u}^{u} \boldsymbol{x}_{u}+\Gamma_{v u}^{v} \boldsymbol{x}_{v}+M \boldsymbol{e}_n \\
+\boldsymbol{e}_{n u}&amp;=\dfrac{F M-G L}{E G-F^{2}} \boldsymbol{x}_{u}+\dfrac{F L-E M}{E G-F^{2}} \boldsymbol{x}_{v}
+\end{align*}$$</p>
+<p>$\partial / \partial v$ については</p>
+<p>$$\begin{align*}
+\boldsymbol{x}_{u v}&amp;=\Gamma_{u v}^{u} \boldsymbol{x}_{u}+\Gamma_{u v}^{v} \boldsymbol{x}_{v}+M \boldsymbol{e}_n \\
+\boldsymbol{x}_{v v}&amp;=\Gamma_{v v}^{u} \boldsymbol{x}_{u}+\Gamma_{v v}^{v} \boldsymbol{x}_{v}+N \boldsymbol{e}_n \\
+\boldsymbol{e}_{n v}&amp;=\dfrac{F N-G M}{E G-F^{2}} \boldsymbol{x}_{u}+\dfrac{F M-E N}{E G-F^{2}} \boldsymbol{x}_{v}
+\end{align*}$$</p>
+<h2 id="参考">参考<a class="anchor ms-1" href="#参考"><i class="fas fa-link"></i></a></h2>
+<p><a href="http://fnorio.com/0176differential_geometry_2/differential_geometry_2.html" target="_blank" rel="noopener noreferrer">リンク1<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/054-nw-specialist/">ネットワークスペシャリスト対策のまとめ
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/049-realnumber-memo/">位相と実数の連続性に関するメモ
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/018-oneform/">1形式の公式
+</a>
+          <span class="float-end post-date">Aug 7, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/014-multivariable/">ベクトルの偏微分，縦から読むか横から読むか
+</a>
+          <span class="float-end post-date">Aug 1, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/015-integralmanifold/">ベクトル場のディストリビューションが作る積分多様体
+</a>
+          <span class="float-end post-date">Aug 1, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/013-cocontra/">反変ベクトルと共変ベクトル
+</a>
+          <span class="float-end post-date">Jul 21, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Optimization on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/optimization/</link>
+    <description>Recent content in Optimization on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Apr 2021 16:19:39 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二次計画法における内点法のアルゴリズム</title>
+      <link>https://soblin.github.io/techblog/posts/058-primal-interior-point/</link>
+      <pubDate>Mon, 19 Apr 2021 16:19:39 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/058-primal-interior-point/</guid>
+      <description>&lt;p&gt;非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

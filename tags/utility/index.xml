@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Utility on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/utility/</link>
+    <description>Recent content in Utility on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Apr 2021 23:54:37 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/utility/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>たまに使うgitコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/030-oftenuse-git/</link>
+      <pubDate>Sun, 04 Apr 2021 23:54:37 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/030-oftenuse-git/</guid>
+      <description>&lt;p&gt;毎回ググっている気がするので，ここでまとめておく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>WSL上でコマンドラインからVirtualBox上のUbuntu18を起動・終了する</title>
+      <link>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</link>
+      <pubDate>Fri, 21 Feb 2020 21:25:18 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</guid>
+      <description>&lt;p&gt;WSLはgitなどの処理速度に若干のオーバーヘッドを感じることがある．そこでUbuntu自体はVirtulBox上で走らせてWSLからssh越しで作業することにした．&lt;code&gt;logon&lt;/code&gt;，&lt;code&gt;logoff&lt;/code&gt;というコマンドをWSLから使うことで自動的にVMの起動とsshログインするようにした．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>たまに使うEmacsコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/032-emacs-utils/</link>
+      <pubDate>Thu, 28 Nov 2019 18:29:30 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/032-emacs-utils/</guid>
+      <description>&lt;p&gt;たまに使うけどよく忘れるのでメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>bashコマンドの備忘録</title>
+      <link>https://soblin.github.io/techblog/posts/028-useful-bash/</link>
+      <pubDate>Fri, 15 Nov 2019 11:02:14 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/028-useful-bash/</guid>
+      <description>&lt;p&gt;かゆいところに手が届かないなーと思いつつもコマンドラインで操作していなかった事項．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Analysis on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/analysis/</link>
+    <description>Recent content in Analysis on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 Feb 2021 16:35:32 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/analysis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>位相と実数の連続性に関するメモ</title>
+      <link>https://soblin.github.io/techblog/posts/049-realnumber-memo/</link>
+      <pubDate>Wed, 10 Feb 2021 16:35:32 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/049-realnumber-memo/</guid>
+      <description>&lt;p&gt;収束性に着目して位相に関する概念と性質の解釈をメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

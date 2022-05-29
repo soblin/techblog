@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Algorithm on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/algorithm/</link>
+    <description>Recent content in Algorithm on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 07 Nov 2020 04:11:19 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>反復深化について</title>
+      <link>https://soblin.github.io/techblog/posts/053-iterative-depthning/</link>
+      <pubDate>Sat, 07 Nov 2020 04:11:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/053-iterative-depthning/</guid>
+      <description>&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

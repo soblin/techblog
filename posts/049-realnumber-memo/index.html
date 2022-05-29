@@ -1,0 +1,447 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>位相と実数の連続性に関するメモ - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="収束性に着目して位相に関する概念と性質の解釈をメモる．
+" /><meta itemprop="name" content="位相と実数の連続性に関するメモ">
+<meta itemprop="description" content="収束性に着目して位相に関する概念と性質の解釈をメモる．
+"><meta itemprop="datePublished" content="2021-02-10T16:35:32+00:00" />
+<meta itemprop="dateModified" content="2021-02-10T16:35:32+00:00" />
+<meta itemprop="wordCount" content="3139">
+<meta itemprop="keywords" content="Analysis," /><meta property="og:title" content="位相と実数の連続性に関するメモ" />
+<meta property="og:description" content="収束性に着目して位相に関する概念と性質の解釈をメモる．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/049-realnumber-memo/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-10T16:35:32+00:00" />
+<meta property="article:modified_time" content="2021-02-10T16:35:32+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="位相と実数の連続性に関するメモ"/>
+<meta name="twitter:description" content="収束性に着目して位相に関する概念と性質の解釈をメモる．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e4%bd%8d%e7%9b%b8%e3%81%a8%e5%ae%9f%e6%95%b0%e3%81%ae%e9%80%a3%e7%b6%9a%e6%80%a7%e3%81%ab%e9%96%a2%e3%81%99%e3%82%8b%e3%83%a1%e3%83%a2&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f049-realnumber-memo%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f049-realnumber-memo%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">位相と実数の連続性に関するメモ</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">位相と実数の連続性に関するメモ
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-11 01:35:32 &#43;0900 JST.">
+    Feb 10, 2021
+  </span><span class="post-reading-time">
+    7 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/tags/analysis/" class="badge post-taxonomy">Analysis</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#位相">位相</a>
+      <ul>
+        <li><a href="#閉集合と開集合">閉集合と開集合</a></li>
+        <li><a href="#ある点の近傍と開近傍">ある点の近傍と開近傍</a></li>
+        <li><a href="#開近傍から近傍系の公理へ">開近傍から近傍系の公理へ</a></li>
+        <li><a href="#近傍による収束の定義">近傍による収束の定義</a></li>
+        <li><a href="#近傍による関数の連続性">近傍による関数の連続性</a></li>
+      </ul>
+    </li>
+    <li><a href="#実数の連続性">実数の連続性</a>
+      <ul>
+        <li><a href="#集積点">集積点</a></li>
+        <li><a href="#有理数の可算性">有理数の可算性</a></li>
+        <li><a href="#実数の非可算性">実数の非可算性</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>収束性に着目して位相に関する概念と性質の解釈をメモる．</p>
+<!-- toc -->
+<h2 id="位相">位相<a class="anchor ms-1" href="#位相"><i class="fas fa-link"></i></a></h2>
+<p>分かりやすい説明としては位相とは</p>
+<ul>
+<li>この点からこの点に移動できるか</li>
+<li>(連続系なら)この点からこの点に収束できるか</li>
+</ul>
+<p>みたいなものを全ての点のペアについて定めたものである．</p>
+<h3 id="閉集合と開集合">閉集合と開集合<a class="anchor ms-1" href="#閉集合と開集合"><i class="fas fa-link"></i></a></h3>
+<p>閉集合は<code>閉集合の内から外に収束できない</code>ようにしている．開集合は<code>開集合の外から内に収束できない</code>ようにしている．</p>
+<blockquote>
+<p>これは閉集合の「閉じた」ニュアンスと合っている．開集合は別に「開いている」訳ではない．むしろ<strong>外から内を守っている</strong>．</p>
+</blockquote>
+<p>位相が定まっているとする．つまり点列の収束が定まっているとする．そしてある集合 $A$ 内部における数列 $a_n$ を考える．一つ一つの要素 $a_1, a_2 ,,, a_n ,,$ は $A$ に属している．しかしその収束先が $A$ に属しているかは分からない．</p>
+<p>そこで $A$ 内部の考えられるすべての数列についてその収束先を求め，それらを $A$ に追加する．これが閉包を取る操作であり， $\mathrm{cl}(A)$ と表記される．これは $A$ を含む閉集合の中で最小の閉集合である．</p>
+<p>$A$ が閉集合であるならば以下が成立しているはずである．</p>
+<p>$$\begin{align*}
+\forall n \in \mathbb{N} \quad [a_n \in A] \Rightarrow \lim_{n \to \infty} a_n \in A
+\end{align*}$$</p>
+<p>そのため閉集合に属しているならばどのような数列を使っても閉集合の外には出ることができない．</p>
+<p>逆に$A^c$ が閉集合であるならば $A$ は開集合である．つまり</p>
+<p>$$\begin{align*}
+\forall n \in \mathbb{N} \quad [a_n \in A^c] \Rightarrow \lim_{n \to \infty} a_n \in A^c
+\end{align*}$$</p>
+<p>すなわち開集合の外(補集合)からはどのような数列を使っても開集合には踏み込めない．そのため開集合は外から内を守っている．</p>
+<p>集合 $A$ からその($A$ に属さない)収束先を取り除くのが開核を取る操作であり， $\mathrm{int}(A)$ と表記される．これは $A$ を含む最大の開集合である．</p>
+<h3 id="ある点の近傍と開近傍">ある点の近傍と開近傍<a class="anchor ms-1" href="#ある点の近傍と開近傍"><i class="fas fa-link"></i></a></h3>
+<p>ある点 $p$ の近傍 $U_p$ では， <strong>近傍 $U_p$ の外からは点 $p$ に収束できない</strong>．あるいは<strong>点 $p$ に収束するためには最終的に近傍 $U_p$ に入っていなければならない</strong>とも言える．</p>
+<p>点 $p$ のある近傍 $U_p \subset A$ においては</p>
+<p>$$\begin{align*}
+\forall n \in \mathbb{N} \quad [a_n \in U_{p}^c] \Rightarrow \lim_{n \to \infty} a_n \in U_{p}^c
+\end{align*}$$</p>
+<p>が成立する．もちろん $U_p$ は複数ありうる．</p>
+<p>ある開集合 $A$ が存在するならば $A$ は内部のすべての点 $\forall a \in A$ にとっての近傍である($A$ の外からは $A$ の要素には一つたりとも収束できないため，全員を守っている)</p>
+<p>その意味でこの $A$ は開近傍と呼ばれる．</p>
+<h3 id="開近傍から近傍系の公理へ">開近傍から近傍系の公理へ<a class="anchor ms-1" href="#開近傍から近傍系の公理へ"><i class="fas fa-link"></i></a></h3>
+<p>開核 $\mathrm{int}(A)$ は $A$ が守っていない点を取り除く操作である．逆に言えば $\mathrm{int}(A)$ 内部の点はすべて $A$ によって守られている．よって</p>
+<blockquote>
+<p>int(A) = { x | Aがxの近傍 }</p>
+</blockquote>
+<p>とも言える．また</p>
+<blockquote>
+<p>$A$ が $p$ の近傍 $\Leftrightarrow \mathrm{int}(A) \in p$</p>
+</blockquote>
+<p>である．当然 $A \supseteq \mathrm{int}(A) \ni p$ であるから(暗にint(A)のことを指しながら)</p>
+<blockquote>
+<p>$A$ が $p$ の近傍 $\Leftrightarrow A \supseteq O \ni p$ なる開集合 $O$ がある</p>
+</blockquote>
+<p>というふうに近傍を定義することができる．</p>
+<p>この近傍の定義では「開集合」という言葉を使っている．「開集合 = そのどの要素にとっても近傍となっている」を利用すると</p>
+<blockquote>
+<p>$A$ が $p$ の近傍であるならば， $A \supseteq O \ni p$ なる $p$ の近傍 $O$ で「 $O \ni q$ なるどの点 $q$ についても $A$ は $q$ の近傍である」ものが存在する</p>
+</blockquote>
+<p>というふうに言い換えられる．</p>
+<h3 id="近傍による収束の定義">近傍による収束の定義<a class="anchor ms-1" href="#近傍による収束の定義"><i class="fas fa-link"></i></a></h3>
+<p>今までは収束により近傍系が定められるとしていた．逆に近傍系が定められているならば収束を定義することができる(鶏と卵な気がする)．</p>
+<p>数列 $a_n$ が $p$ に収束するのならば， $p$ のある近傍 $U_p$ に入る必要がある($U_p$ は外から $p$ を守っているため)．また一回 $U_p$ に入ってからまた出てしまってはダメで，ある添え字 $N$ 以降はすべての要素が $U_p$ に入っていなければならない(それではただの通過に過ぎないので)．</p>
+<p>よって</p>
+<ul>
+<li>$\lim a_n  = p \Leftrightarrow$ $p$ のどの近傍 $A$ についても，ある番号より先は $a_n \in A$ となる(近傍による定義)</li>
+<li>$\lim a_n  = p \Leftrightarrow$ $p$ のどの開近傍 $A$ についても，ある番号より先は $a_n \in A$ となる(開近傍による定義)</li>
+</ul>
+<p>というふうに近傍による収束の定義ができる．どの近傍 $A$ についても $A \supseteq O \ni p$ となる開近傍 $O$ が存在するので，近傍と開近傍どちらを使ってもよい(けど次の連続性の観点から開近傍の方が使われがち?)．</p>
+<p>点 $p$ の近傍系が定められているということは，ある近傍 $U_p$ を用いて $p$ に近いか(収束できるか)みたいなものが考えられるということである．そして</p>
+<blockquote>
+<p>数列 $a_n$ が $p$ に収束する $\Leftrightarrow$ $p$ についてどの近傍を用いても数列の後ろのほうは全部 $p$ に近い</p>
+</blockquote>
+<p>ということである．</p>
+<h3 id="近傍による関数の連続性">近傍による関数の連続性<a class="anchor ms-1" href="#近傍による関数の連続性"><i class="fas fa-link"></i></a></h3>
+<p>$\epsilon-\delta$ 論法では関数 $y = f(x)$ の出力 $y$ において $[y - \epsilon, y + \epsilon]$ に対応する入力 $[x - \delta(\epsilon), x + \delta(\epsilon)]$ が存在することが連続性の定義である．距離のない空間にこれを一般化すると</p>
+<blockquote>
+<p>$y$ を含む任意の近傍 $B \ni y$ に対してうまく近傍 $A(B)$ を取ると $A(B) \ni f(x)$ とできる</p>
+</blockquote>
+<p>となる． $\epsilon$ を任意にとる代わりに $B$ を任意にとり， $\delta(\epsilon)$ の代わりに $B(A)$ を用いている．</p>
+<h2 id="実数の連続性">実数の連続性<a class="anchor ms-1" href="#実数の連続性"><i class="fas fa-link"></i></a></h2>
+<p><code>ある数の近くにいくらでも近い点が存在する</code>だけでは連続性(実数)と稠密性(有理数)を区別できない．有理数の集合はルベーグ測度がゼロであるように，「線分」の長さを作り出しているのは実数の連続性である．</p>
+<blockquote>
+<p>形而上学的だけど，線分が一つ一つの実数から構成されているのは分かるけれど，逆にそれらを連結して本当に長さのある線分を構成できるのか疑ってしまうことがある．たぶんこの辺りに稠密性と連続性のギャップがあるんじゃないか．</p>
+</blockquote>
+<p>実数の連続性についていちいち厳密に調べる際にモチベーションとなるのは，以下のような病的な性質を持つ集合が存在することを知ることから始まると思う．</p>
+<p><a href="https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%B3%E3%83%88%E3%83%BC%E3%83%AB%E9%9B%86%E5%90%88" target="_blank" rel="noopener noreferrer">カントール集合<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>
+<a href="https://ja.wikipedia.org/wiki/%E3%82%B7%E3%82%A7%E3%83%AB%E3%83%94%E3%83%B3%E3%82%B9%E3%82%AD%E3%83%BC%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%9A%E3%83%83%E3%83%88" target="_blank" rel="noopener noreferrer">シェルピンスキーのカーペット<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>
+<a href="https://ja.wikipedia.org/wiki/%E3%83%A1%E3%83%B3%E3%82%AC%E3%83%BC%E3%81%AE%E3%82%B9%E3%83%9D%E3%83%B3%E3%82%B8" target="_blank" rel="noopener noreferrer">メンガーのスポンジ<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p>
+<p>いずれもルベーグ濃度は0である．</p>
+<h3 id="集積点">集積点<a class="anchor ms-1" href="#集積点"><i class="fas fa-link"></i></a></h3>
+<p>有理数の集合</p>
+<p>$$\begin{align*}
+\left[1, \dfrac{1}{2}, \cdots \dfrac{1}{n} \cdots \right]
+\end{align*}$$</p>
+<p>の収束先は0であり(0自体はこの集合には含まれないが)，0に近い点が無限にある．これは「どれだけ拡大してもその近くに点がある」ということである．このような点は集積点という．以下が厳密な定義である．</p>
+<blockquote>
+<p>ある点 $a$ が集合 $E$ の集積点であるとは，任意の $\epsilon$ をどれだけ小さくしても $| x - a | &lt; \epsilon$ なる $x \in E$ が無限個存在している</p>
+</blockquote>
+<h3 id="有理数の可算性">有理数の可算性<a class="anchor ms-1" href="#有理数の可算性"><i class="fas fa-link"></i></a></h3>
+<p>$[0, 1]$ の間にある有理数は</p>
+<p>$$\begin{align*}
+\left[ \dfrac{1}{2}, \dfrac{1}{3}, \dfrac{2}{3}, \dfrac{1}{4}, \dfrac{2}{4}, \dfrac{3}{4} \cdots \right]
+\end{align*}$$</p>
+<p>というふうに並べられるので可算である．</p>
+<p>有理数全体の集合も可算である．</p>
+<table>
+<thead>
+<tr>
+<th>$[a]+b$</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0/1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>2</td>
+<td>-1/1</td>
+<td>0/2</td>
+<td>1/1</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-2/1</td>
+<td>-1/2</td>
+<td>0/3</td>
+<td>1/2</td>
+<td>2/1</td>
+</tr>
+</tbody>
+</table>
+<p>この表のようにして並べると，すべての有理数を取りつくすことができる．</p>
+<h3 id="実数の非可算性">実数の非可算性<a class="anchor ms-1" href="#実数の非可算性"><i class="fas fa-link"></i></a></h3>
+<p>カントールの区間縮小法による証明．区間 $[0, 1]$ が可算であると仮定して矛盾を導く．区間 $[0, 1]$ とある数列 $a_n$ との間に全単射が存在すると仮定する．つまり任意の実数 $r \in [0, 1]$ に対して数列 $a_n$ の添え字 $N$ が対応して $a_N = r$ となる．</p>
+<p>この数列 $a_n$ を初めから順番にプロットしてゆく．まず $a[i_0] (i_0 = 0)$ をプロットする．</p>
+<blockquote>
+<p>0 &mdash;&mdash; a[i<sub>0</sub>] &mdash;&mdash; 1</p>
+</blockquote>
+<p>次に $(a[i_0], 1)$ に入る要素が現れたらそれを $b[i_0]$ としてプロットする．</p>
+<blockquote>
+<p>0 &mdash;&mdash; a[i<sub>0</sub>] &mdash;&mdash; b[i<sub>0</sub>] &mdash;&ndash; 1</p>
+</blockquote>
+<p>次に $(a[i_0)], b[i_0])$ に入る要素が現れたらそれを $a[i_1]$ とする．</p>
+<blockquote>
+<p>0 &mdash;&mdash; a[i<sub>0</sub>] &mdash;&mdash; a[i<sub>1</sub>] &mdash;&ndash; b[i<sub>0</sub>] &mdash;&ndash; 1</p>
+</blockquote>
+<p>次に $(a[i_1)], b[i_0])$ に入る要素が現れたらそれを $b[i_1]$ とする．</p>
+<blockquote>
+<p>0 &mdash;&mdash; a[i<sub>0</sub>] &mdash;&mdash; a[i<sub>1</sub>] &mdash;&ndash; b[i<sub>1</sub>] &mdash;&ndash; b[i<sub>0</sub>] &mdash;&ndash; 1</p>
+</blockquote>
+<p>$(a[i_k], b[i_k])$ に挟まれる区間を $I_k$ とすると，この $I_k$ が空でない限り，どこまでもこのように間の区間にプロットし続けることができるはずである．</p>
+<p>すると縮小区間列 $I_1 \supset I_2 \supset \cdots I_n$ は限りなく小さな区間となり， $\lim (b[i_n] - a[i_n]) = 0$ となる．また数列 $a[i_0], a[i_1], \cdots a[i_n]$ は単調増加列，$b[i_0], b[i_1], \cdots b[i_n]$は単調減少列であるが，それぞれある実数 $c$ に収束する．</p>
+<p>当然この $c$ は $I_n$ に属しているはずである．この $c$ の添え字は存在しているのかを確かめる．</p>
+<p>区間の端となる点は $a_0, b_0, a_1, b_1, \cdots$ である．これらを $r_0, r_1, \cdots$ とする．そして $r_n　(n&gt;1)$ をプロットしたときの区間を $[a_s, b_t]$ とする．このとき $n&gt;s, n&gt;t$ であるから</p>
+<p>$$
+[a_s, b_t] \subset [a_n, b_n]
+$$</p>
+<p>である．このとき $r_n$ は $[a_s, b_t]$ の両端のどちらか，あるいは区間外にある．よってこれよりも小さい $[a_n, b_n]$ の中に $r_n$ は存在しない．よって</p>
+<p>$$\begin{align*}
+r_n \notin [a_n, b_n]
+\end{align*}$$</p>
+<p>一方区間縮小法より</p>
+<p>$$\begin{align*}
+c \in [a_n, b_n]
+\end{align*}$$</p>
+<p>であるから $c \neq r_n$ である．これは任意の $n$ について成立しているから，実数 $c$ は $[0, 1]$ との一対一対応から外れていることになる．よって $[0, 1]$ は非可算である．</p>
+<h2 id="参考">参考<a class="anchor ms-1" href="#参考"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://lemniscus.hatenablog.com/entry/20180510/1525976463" target="_blank" rel="noopener noreferrer">参考1<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/052-weingarten-formula/">ガウス・ワインガルテンの公式
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/047-bit-operation/">ビット演算のコツ
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Electronics on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/electronics/</link>
+    <description>Recent content in Electronics on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Jan 2020 10:04:44 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/electronics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>モーターの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/038-motor-basics/</link>
+      <pubDate>Sun, 05 Jan 2020 10:04:44 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/038-motor-basics/</guid>
+      <description>&lt;p&gt;『モーター制御の全てが分かる本』を読んで一通りモーターに関する知識を付けていく。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

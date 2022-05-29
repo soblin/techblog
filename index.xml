@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/</link>
+    <description>Recent content on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 19 Apr 2021 16:19:39 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>二次計画法における内点法のアルゴリズム</title>
+      <link>https://soblin.github.io/techblog/posts/058-primal-interior-point/</link>
+      <pubDate>Mon, 19 Apr 2021 16:19:39 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/058-primal-interior-point/</guid>
+      <description>&lt;p&gt;非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]</title>
+      <link>https://soblin.github.io/techblog/posts/060-prml-10/</link>
+      <pubDate>Sun, 18 Apr 2021 11:41:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/060-prml-10/</guid>
+      <description>&lt;p&gt;今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>たまに使うgitコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/030-oftenuse-git/</link>
+      <pubDate>Sun, 04 Apr 2021 23:54:37 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/030-oftenuse-git/</guid>
+      <description>&lt;p&gt;毎回ググっている気がするので，ここでまとめておく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]</title>
+      <link>https://soblin.github.io/techblog/posts/059-prml-09/</link>
+      <pubDate>Thu, 18 Feb 2021 10:26:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/059-prml-09/</guid>
+      <description>&lt;p&gt;混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]</title>
+      <link>https://soblin.github.io/techblog/posts/057-prml-07/</link>
+      <pubDate>Wed, 17 Feb 2021 15:15:26 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/057-prml-07/</guid>
+      <description>&lt;p&gt;SVMとRVM&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]</title>
+      <link>https://soblin.github.io/techblog/posts/056-prml-06/</link>
+      <pubDate>Mon, 15 Feb 2021 06:56:33 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/056-prml-06/</guid>
+      <description>&lt;p&gt;ガウス過程回帰など&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ネットワークスペシャリスト対策のまとめ</title>
+      <link>https://soblin.github.io/techblog/posts/054-nw-specialist/</link>
+      <pubDate>Fri, 12 Feb 2021 21:17:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/054-nw-specialist/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:4000/043-networking-note/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ネットーワークの基礎知識&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;の応用編．多いのでコツコツとメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ガウス・ワインガルテンの公式</title>
+      <link>https://soblin.github.io/techblog/posts/052-weingarten-formula/</link>
+      <pubDate>Thu, 11 Feb 2021 06:35:02 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/052-weingarten-formula/</guid>
+      <description>&lt;p&gt;フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>位相と実数の連続性に関するメモ</title>
+      <link>https://soblin.github.io/techblog/posts/049-realnumber-memo/</link>
+      <pubDate>Wed, 10 Feb 2021 16:35:32 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/049-realnumber-memo/</guid>
+      <description>&lt;p&gt;収束性に着目して位相に関する概念と性質の解釈をメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ビット演算のコツ</title>
+      <link>https://soblin.github.io/techblog/posts/047-bit-operation/</link>
+      <pubDate>Wed, 10 Feb 2021 11:53:20 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/047-bit-operation/</guid>
+      <description>&lt;p&gt;「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．&lt;/p&gt;
+&lt;p&gt;またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>LinuxのVFSに関するメモ</title>
+      <link>https://soblin.github.io/techblog/posts/046-linux-vfs/</link>
+      <pubDate>Tue, 09 Feb 2021 17:12:02 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/046-linux-vfs/</guid>
+      <description>&lt;p&gt;gitでシンボリックリンクを除外することはできないのかなあと思うことがあるのだが，シンボリックリンクは対象ファイルへのパスを書いたファイルみたいなものらしいということを知って，inodeとかdentryについて調べたときのメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]</title>
+      <link>https://soblin.github.io/techblog/posts/045-prml-05/</link>
+      <pubDate>Tue, 09 Feb 2021 16:13:58 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/045-prml-05/</guid>
+      <description>&lt;p&gt;誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．&lt;/p&gt;
+&lt;p&gt;初心者がニューラルネットワークを実装する際に気をつけておきたいことは，&lt;strong&gt;逆伝播では順伝播の値をキャッシュする&lt;/strong&gt;必要があるということである．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>モンテカルロ木探索について</title>
+      <link>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</link>
+      <pubDate>Sat, 07 Nov 2020 17:12:50 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Decision Making under Uncertainty&amp;quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．&lt;/p&gt;
+&lt;p&gt;木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>反復深化について</title>
+      <link>https://soblin.github.io/techblog/posts/053-iterative-depthning/</link>
+      <pubDate>Sat, 07 Nov 2020 04:11:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/053-iterative-depthning/</guid>
+      <description>&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>コピーと参照とビュー</title>
+      <link>https://soblin.github.io/techblog/posts/051-copy-ref-view/</link>
+      <pubDate>Wed, 19 Aug 2020 15:08:55 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/051-copy-ref-view/</guid>
+      <description>&lt;p&gt;文字列と配列を対象にC++/Python/Juliaでこれらの違いをメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>gtestでプライベートなメソッドや変数をテストする</title>
+      <link>https://soblin.github.io/techblog/posts/050-gtest-private/</link>
+      <pubDate>Mon, 10 Aug 2020 23:08:27 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/050-gtest-private/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/google/googletest&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;gtest&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;はC++のコードをテストするフレームワークである．あるクラスの単体テストにおいて，プライベートな変数の値やメソッドのチェックをgtestで行う一つの方法についてメモっておく．&lt;/p&gt;
+&lt;p&gt;レポジトリは&lt;a href=&#34;https://github.com/soblin/gtest-private&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ここ&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;に作った．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]</title>
+      <link>https://soblin.github.io/techblog/posts/044-prml-03/</link>
+      <pubDate>Mon, 09 Mar 2020 19:58:46 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/044-prml-03/</guid>
+      <description>&lt;p&gt;ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ネットワークの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/043-networking-note/</link>
+      <pubDate>Sun, 08 Mar 2020 09:47:49 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/043-networking-note/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www5e.biglobe.ne.jp/aji/3min/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;こちらのサイト&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;と『マスタリングTCP/IP』を参考にゆるふわなまとめ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]</title>
+      <link>https://soblin.github.io/techblog/posts/041-prml-02/</link>
+      <pubDate>Wed, 26 Feb 2020 17:38:41 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/041-prml-02/</guid>
+      <description>&lt;p&gt;前半のパラメトリック分布は計算すればよいので省略．ノンパラメトリックな密度推定についてメモりたい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>WSL上でコマンドラインからVirtualBox上のUbuntu18を起動・終了する</title>
+      <link>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</link>
+      <pubDate>Fri, 21 Feb 2020 21:25:18 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</guid>
+      <description>&lt;p&gt;WSLはgitなどの処理速度に若干のオーバーヘッドを感じることがある．そこでUbuntu自体はVirtulBox上で走らせてWSLからssh越しで作業することにした．&lt;code&gt;logon&lt;/code&gt;，&lt;code&gt;logoff&lt;/code&gt;というコマンドをWSLから使うことで自動的にVMの起動とsshログインするようにした．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]</title>
+      <link>https://soblin.github.io/techblog/posts/039-prml-01/</link>
+      <pubDate>Wed, 12 Feb 2020 07:07:57 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/039-prml-01/</guid>
+      <description>&lt;p&gt;読んでいて詰まったところをメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[5章]</title>
+      <link>https://soblin.github.io/techblog/posts/034-goodwin-chapter5/</link>
+      <pubDate>Fri, 31 Jan 2020 18:43:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/034-goodwin-chapter5/</guid>
+      <description>&lt;p&gt;感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ナイキスト線図</title>
+      <link>https://soblin.github.io/techblog/posts/036-nyquist-diagram/</link>
+      <pubDate>Mon, 27 Jan 2020 09:40:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/036-nyquist-diagram/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Control System Design&amp;quot;の第5章のほぼ和訳。なんで時計回り？って始めに感じるかもしれないが，読むと理由が分かる(ベクトル線図を意識している)。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>モーターの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/038-motor-basics/</link>
+      <pubDate>Sun, 05 Jan 2020 10:04:44 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/038-motor-basics/</guid>
+      <description>&lt;p&gt;『モーター制御の全てが分かる本』を読んで一通りモーターに関する知識を付けていく。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>根軌跡の描き方</title>
+      <link>https://soblin.github.io/techblog/posts/033-root-locus/</link>
+      <pubDate>Sat, 28 Dec 2019 12:03:30 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/033-root-locus/</guid>
+      <description>&lt;p&gt;根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>有限群におけるいくつかの基本的なワード</title>
+      <link>https://soblin.github.io/techblog/posts/020-group-theory/</link>
+      <pubDate>Fri, 27 Dec 2019 21:04:48 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/020-group-theory/</guid>
+      <description>&lt;p&gt;ネット上に落ちていた&lt;a href=&#34;http://cat.phys.s.u-tokyo.ac.jp/lecture/MP3_14/mp3_note.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;このノート&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;の第1章を読んで部分群，正規部分群，共役類，準同型写像などについて学んだ時のメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>たまに使うEmacsコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/032-emacs-utils/</link>
+      <pubDate>Thu, 28 Nov 2019 18:29:30 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/032-emacs-utils/</guid>
+      <description>&lt;p&gt;たまに使うけどよく忘れるのでメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>nmcliでwifiに接続する</title>
+      <link>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</link>
+      <pubDate>Wed, 20 Nov 2019 09:05:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</guid>
+      <description>&lt;p&gt;nmcliコマンドを使うと，ユーザー名やPEAPの設定が必要なネットワークにもコマンドラインから接続できます．nmcliとはUbuntuの(主にGUIでの)ネットワーク設定を行う&lt;code&gt;Network Manager&lt;/code&gt;のコマンドラインバージョンです．今回はnmcliコマンドを用いて大学のWiFiにコマンドラインから接続してみました．ちなみに最近知ったのですが，WiFiは &lt;code&gt;Wireless Fidelity&lt;/code&gt; の略です．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[4章]</title>
+      <link>https://soblin.github.io/techblog/posts/031-goodwin-chapter4/</link>
+      <pubDate>Mon, 18 Nov 2019 10:08:31 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/031-goodwin-chapter4/</guid>
+      <description>&lt;p&gt;主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>報われない努力の意味</title>
+      <link>https://soblin.github.io/techblog/drafts/029-making-efforts/</link>
+      <pubDate>Sat, 16 Nov 2019 23:57:06 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/drafts/029-making-efforts/</guid>
+      <description>羽生善治氏の名言「何かに挑戦したら確実に報われるのであれば、誰でも必ず挑戦するだろう。報われないかもしれないところで、同じ情熱、気力、モチベ</description>
+    </item>
+    
+    <item>
+      <title>bashコマンドの備忘録</title>
+      <link>https://soblin.github.io/techblog/posts/028-useful-bash/</link>
+      <pubDate>Fri, 15 Nov 2019 11:02:14 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/028-useful-bash/</guid>
+      <description>&lt;p&gt;かゆいところに手が届かないなーと思いつつもコマンドラインで操作していなかった事項．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[2章]</title>
+      <link>https://soblin.github.io/techblog/posts/025-goodwin-chapter2/</link>
+      <pubDate>Wed, 13 Nov 2019 15:51:14 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/025-goodwin-chapter2/</guid>
+      <description>&lt;p&gt;第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>CMakeで自動でclang-formatする</title>
+      <link>https://soblin.github.io/techblog/drafts/024-clang-format/</link>
+      <pubDate>Sun, 06 Oct 2019 23:30:59 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/drafts/024-clang-format/</guid>
+      <description>CMakeでビルド中にclang-formatするためのメモ．よくするけど忘れるため．こちらのサイト にまとめている． ディレクトリ構造 ├── .clang-format</description>
+    </item>
+    
+    <item>
+      <title>不変部分空間について</title>
+      <link>https://soblin.github.io/techblog/posts/021-invariant-subspace/</link>
+      <pubDate>Mon, 02 Sep 2019 04:14:16 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/021-invariant-subspace/</guid>
+      <description>&lt;p&gt;群論における&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%97%A2%E7%B4%84%E8%A1%A8%E7%8F%BE&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;群の規約表現&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;について勉強していた時に不変部分空間というタームが出てきて詰まったのでメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>山本『解析力学』第3章のまとめ</title>
+      <link>https://soblin.github.io/techblog/posts/019-memo/</link>
+      <pubDate>Thu, 08 Aug 2019 19:00:20 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/019-memo/</guid>
+      <description>&lt;p&gt;山本『解析力学』第3章の読書メモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>1形式の公式</title>
+      <link>https://soblin.github.io/techblog/posts/018-oneform/</link>
+      <pubDate>Wed, 07 Aug 2019 20:24:25 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/018-oneform/</guid>
+      <description>&lt;p&gt;1形式 $\theta$ とベクトル場 $X, Y$ に関する公式&lt;/p&gt;
+&lt;p&gt;$$
+(d\theta)(X, Y) = X(\theta(Y)) - Y(\theta(X)) - \theta([X, Y]_L)
+$$&lt;/p&gt;
+&lt;p&gt;についてのメモ．&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>非ホロノミック拘束に対するオイラーラグランジュ方程式</title>
+      <link>https://soblin.github.io/techblog/posts/017-nonholonomic-el/</link>
+      <pubDate>Mon, 05 Aug 2019 14:50:44 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/017-nonholonomic-el/</guid>
+      <description>&lt;p&gt;転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>幾何的なオイラーラグランジュ方程式</title>
+      <link>https://soblin.github.io/techblog/posts/016-geometric-el/</link>
+      <pubDate>Sun, 04 Aug 2019 17:08:41 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/016-geometric-el/</guid>
+      <description>&lt;p&gt;山本『解析力学』第二章の読書メモ．オイラーラグランジュ方程式を微分形式で表す．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベクトルの偏微分，縦から読むか横から読むか</title>
+      <link>https://soblin.github.io/techblog/posts/014-multivariable/</link>
+      <pubDate>Thu, 01 Aug 2019 17:35:58 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/014-multivariable/</guid>
+      <description>&lt;p&gt;多変数を引数にとるスカラー関数のベクトルや行列による偏微分というものが応用数学ではよく現れる．とくにベクトルによる偏微分を列ベクトルとするか行ベクトルとするかは教科書によって流儀が異なる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベクトル場のディストリビューションが作る積分多様体</title>
+      <link>https://soblin.github.io/techblog/posts/015-integralmanifold/</link>
+      <pubDate>Thu, 01 Aug 2019 12:02:35 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/015-integralmanifold/</guid>
+      <description>&lt;p&gt;非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>反変ベクトルと共変ベクトル</title>
+      <link>https://soblin.github.io/techblog/posts/013-cocontra/</link>
+      <pubDate>Sun, 21 Jul 2019 04:20:13 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/013-cocontra/</guid>
+      <description>&lt;p&gt;結局のところベクトルが反変なのか共変なのかは，そのベクトルの &lt;strong&gt;成分&lt;/strong&gt; が座標変換の際にヤコビアン分の1倍されるのか，それともヤコビアン倍されるのかという違い．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラグランジュのコマのラグランジアン(あるいはラウシアン)と歳差運動</title>
+      <link>https://soblin.github.io/techblog/posts/012-eular-spinner/</link>
+      <pubDate>Tue, 16 Jul 2019 11:11:13 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/012-eular-spinner/</guid>
+      <description>&lt;p&gt;ラウシアンを用いてラグランジュのコマの運動方程式を解く．ラグランジュのコマは可積分なので，数値シミュレーションに向いた綺麗な方程式を導出することができる．またそれを用いて章動や歳差運動の解析を行うことができる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラウシアンとは</title>
+      <link>https://soblin.github.io/techblog/posts/011-routhian/</link>
+      <pubDate>Tue, 16 Jul 2019 11:10:43 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/011-routhian/</guid>
+      <description>&lt;p&gt;ラグランジアンに循環座標が存在する場合，それに対応する運動量は保存する．そしてそれらを用いて一般化座標を消去すると，ラグランジアンの変数を2つ減らすことができる．しかしそのままラグランジアンにそれを代入したものを使って残りの変数についてオイラーラグランジュ方程式を立てても，正しい方程式は与えられない．ここでは保存量が見つかった場合に用いる代わりの量，ラウシアンについて説明する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>コマの自転運動の方程式の導出</title>
+      <link>https://soblin.github.io/techblog/posts/010-spinner-equation/</link>
+      <pubDate>Tue, 16 Jul 2019 08:49:07 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/010-spinner-equation/</guid>
+      <description>&lt;p&gt;表題の通りコマの重心周りの自転の運動方程式を解析力学で求める．ニュートン力学でこれを求めるのは厳しいと思う．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラグランジアンのゲージ変換と電磁場のラグランジアン</title>
+      <link>https://soblin.github.io/techblog/posts/009-lagrangian-gauge/</link>
+      <pubDate>Tue, 16 Jul 2019 06:57:37 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/009-lagrangian-gauge/</guid>
+      <description>&lt;p&gt;ゲージ変換は別に理論物理における崇高な概念というわけではなく，単にオイラーラグランジュ方程式に代入するとゼロになってしまう関数，つまりオイラーラグランジュ方程式にとっては「定数」のように見える関数に過ぎない．つまりラグランジアンはその「定数」の分だけ不定性があるということ．本節では具体的にどのような関数がその条件を満たすのか求めてみる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>電磁場のラグランジアンとハミルトニアン</title>
+      <link>https://soblin.github.io/techblog/posts/008-general-potential/</link>
+      <pubDate>Tue, 16 Jul 2019 06:30:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/008-general-potential/</guid>
+      <description>&lt;p&gt;一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>マークダウンの確認</title>
+      <link>https://soblin.github.io/techblog/posts/000-markdown-test/</link>
+      <pubDate>Tue, 02 Jul 2019 23:26:27 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/000-markdown-test/</guid>
+      <description>&lt;p&gt;テスト投稿．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

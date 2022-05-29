@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Manifold on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/manifold/</link>
+    <description>Recent content in Manifold on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Feb 2021 06:35:02 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/manifold/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ガウス・ワインガルテンの公式</title>
+      <link>https://soblin.github.io/techblog/posts/052-weingarten-formula/</link>
+      <pubDate>Thu, 11 Feb 2021 06:35:02 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/052-weingarten-formula/</guid>
+      <description>&lt;p&gt;フレネーセレの公式の曲面版としてガウス・ワインガルテンの公式を導入する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>1形式の公式</title>
+      <link>https://soblin.github.io/techblog/posts/018-oneform/</link>
+      <pubDate>Wed, 07 Aug 2019 20:24:25 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/018-oneform/</guid>
+      <description>&lt;p&gt;1形式 $\theta$ とベクトル場 $X, Y$ に関する公式&lt;/p&gt;
+&lt;p&gt;$$
+(d\theta)(X, Y) = X(\theta(Y)) - Y(\theta(X)) - \theta([X, Y]_L)
+$$&lt;/p&gt;
+&lt;p&gt;についてのメモ．&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベクトルの偏微分，縦から読むか横から読むか</title>
+      <link>https://soblin.github.io/techblog/posts/014-multivariable/</link>
+      <pubDate>Thu, 01 Aug 2019 17:35:58 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/014-multivariable/</guid>
+      <description>&lt;p&gt;多変数を引数にとるスカラー関数のベクトルや行列による偏微分というものが応用数学ではよく現れる．とくにベクトルによる偏微分を列ベクトルとするか行ベクトルとするかは教科書によって流儀が異なる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ベクトル場のディストリビューションが作る積分多様体</title>
+      <link>https://soblin.github.io/techblog/posts/015-integralmanifold/</link>
+      <pubDate>Thu, 01 Aug 2019 12:02:35 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/015-integralmanifold/</guid>
+      <description>&lt;p&gt;非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>反変ベクトルと共変ベクトル</title>
+      <link>https://soblin.github.io/techblog/posts/013-cocontra/</link>
+      <pubDate>Sun, 21 Jul 2019 04:20:13 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/013-cocontra/</guid>
+      <description>&lt;p&gt;結局のところベクトルが反変なのか共変なのかは，そのベクトルの &lt;strong&gt;成分&lt;/strong&gt; が座標変換の際にヤコビアン分の1倍されるのか，それともヤコビアン倍されるのかという違い．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

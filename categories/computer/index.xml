@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/categories/computer/</link>
+    <description>Recent content in Computer on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Apr 2021 11:41:08 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/categories/computer/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]</title>
+      <link>https://soblin.github.io/techblog/posts/060-prml-10/</link>
+      <pubDate>Sun, 18 Apr 2021 11:41:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/060-prml-10/</guid>
+      <description>&lt;p&gt;今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>たまに使うgitコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/030-oftenuse-git/</link>
+      <pubDate>Sun, 04 Apr 2021 23:54:37 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/030-oftenuse-git/</guid>
+      <description>&lt;p&gt;毎回ググっている気がするので，ここでまとめておく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]</title>
+      <link>https://soblin.github.io/techblog/posts/059-prml-09/</link>
+      <pubDate>Thu, 18 Feb 2021 10:26:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/059-prml-09/</guid>
+      <description>&lt;p&gt;混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]</title>
+      <link>https://soblin.github.io/techblog/posts/057-prml-07/</link>
+      <pubDate>Wed, 17 Feb 2021 15:15:26 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/057-prml-07/</guid>
+      <description>&lt;p&gt;SVMとRVM&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]</title>
+      <link>https://soblin.github.io/techblog/posts/056-prml-06/</link>
+      <pubDate>Mon, 15 Feb 2021 06:56:33 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/056-prml-06/</guid>
+      <description>&lt;p&gt;ガウス過程回帰など&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ネットワークスペシャリスト対策のまとめ</title>
+      <link>https://soblin.github.io/techblog/posts/054-nw-specialist/</link>
+      <pubDate>Fri, 12 Feb 2021 21:17:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/054-nw-specialist/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:4000/043-networking-note/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ネットーワークの基礎知識&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;の応用編．多いのでコツコツとメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ビット演算のコツ</title>
+      <link>https://soblin.github.io/techblog/posts/047-bit-operation/</link>
+      <pubDate>Wed, 10 Feb 2021 11:53:20 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/047-bit-operation/</guid>
+      <description>&lt;p&gt;「上位nビットを求める」「下位nビットを求める」といった操作をアドレス演算ではよく行う．そのときのマスクを16進数表記ですぐに求められるのが望ましい．&lt;/p&gt;
+&lt;p&gt;またCIDR表記からサブネットアドレスなどをすぐに求められると嬉しい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>LinuxのVFSに関するメモ</title>
+      <link>https://soblin.github.io/techblog/posts/046-linux-vfs/</link>
+      <pubDate>Tue, 09 Feb 2021 17:12:02 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/046-linux-vfs/</guid>
+      <description>&lt;p&gt;gitでシンボリックリンクを除外することはできないのかなあと思うことがあるのだが，シンボリックリンクは対象ファイルへのパスを書いたファイルみたいなものらしいということを知って，inodeとかdentryについて調べたときのメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]</title>
+      <link>https://soblin.github.io/techblog/posts/045-prml-05/</link>
+      <pubDate>Tue, 09 Feb 2021 16:13:58 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/045-prml-05/</guid>
+      <description>&lt;p&gt;誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．&lt;/p&gt;
+&lt;p&gt;初心者がニューラルネットワークを実装する際に気をつけておきたいことは，&lt;strong&gt;逆伝播では順伝播の値をキャッシュする&lt;/strong&gt;必要があるということである．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>モンテカルロ木探索について</title>
+      <link>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</link>
+      <pubDate>Sat, 07 Nov 2020 17:12:50 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Decision Making under Uncertainty&amp;quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．&lt;/p&gt;
+&lt;p&gt;木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>反復深化について</title>
+      <link>https://soblin.github.io/techblog/posts/053-iterative-depthning/</link>
+      <pubDate>Sat, 07 Nov 2020 04:11:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/053-iterative-depthning/</guid>
+      <description>&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>コピーと参照とビュー</title>
+      <link>https://soblin.github.io/techblog/posts/051-copy-ref-view/</link>
+      <pubDate>Wed, 19 Aug 2020 15:08:55 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/051-copy-ref-view/</guid>
+      <description>&lt;p&gt;文字列と配列を対象にC++/Python/Juliaでこれらの違いをメモる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>gtestでプライベートなメソッドや変数をテストする</title>
+      <link>https://soblin.github.io/techblog/posts/050-gtest-private/</link>
+      <pubDate>Mon, 10 Aug 2020 23:08:27 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/050-gtest-private/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/google/googletest&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;gtest&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;はC++のコードをテストするフレームワークである．あるクラスの単体テストにおいて，プライベートな変数の値やメソッドのチェックをgtestで行う一つの方法についてメモっておく．&lt;/p&gt;
+&lt;p&gt;レポジトリは&lt;a href=&#34;https://github.com/soblin/gtest-private&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ここ&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;に作った．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]</title>
+      <link>https://soblin.github.io/techblog/posts/044-prml-03/</link>
+      <pubDate>Mon, 09 Mar 2020 19:58:46 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/044-prml-03/</guid>
+      <description>&lt;p&gt;ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ネットワークの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/043-networking-note/</link>
+      <pubDate>Sun, 08 Mar 2020 09:47:49 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/043-networking-note/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www5e.biglobe.ne.jp/aji/3min/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;こちらのサイト&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;と『マスタリングTCP/IP』を参考にゆるふわなまとめ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]</title>
+      <link>https://soblin.github.io/techblog/posts/041-prml-02/</link>
+      <pubDate>Wed, 26 Feb 2020 17:38:41 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/041-prml-02/</guid>
+      <description>&lt;p&gt;前半のパラメトリック分布は計算すればよいので省略．ノンパラメトリックな密度推定についてメモりたい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>WSL上でコマンドラインからVirtualBox上のUbuntu18を起動・終了する</title>
+      <link>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</link>
+      <pubDate>Fri, 21 Feb 2020 21:25:18 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/</guid>
+      <description>&lt;p&gt;WSLはgitなどの処理速度に若干のオーバーヘッドを感じることがある．そこでUbuntu自体はVirtulBox上で走らせてWSLからssh越しで作業することにした．&lt;code&gt;logon&lt;/code&gt;，&lt;code&gt;logoff&lt;/code&gt;というコマンドをWSLから使うことで自動的にVMの起動とsshログインするようにした．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]</title>
+      <link>https://soblin.github.io/techblog/posts/039-prml-01/</link>
+      <pubDate>Wed, 12 Feb 2020 07:07:57 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/039-prml-01/</guid>
+      <description>&lt;p&gt;読んでいて詰まったところをメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>たまに使うEmacsコマンド</title>
+      <link>https://soblin.github.io/techblog/posts/032-emacs-utils/</link>
+      <pubDate>Thu, 28 Nov 2019 18:29:30 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/032-emacs-utils/</guid>
+      <description>&lt;p&gt;たまに使うけどよく忘れるのでメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>nmcliでwifiに接続する</title>
+      <link>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</link>
+      <pubDate>Wed, 20 Nov 2019 09:05:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</guid>
+      <description>&lt;p&gt;nmcliコマンドを使うと，ユーザー名やPEAPの設定が必要なネットワークにもコマンドラインから接続できます．nmcliとはUbuntuの(主にGUIでの)ネットワーク設定を行う&lt;code&gt;Network Manager&lt;/code&gt;のコマンドラインバージョンです．今回はnmcliコマンドを用いて大学のWiFiにコマンドラインから接続してみました．ちなみに最近知ったのですが，WiFiは &lt;code&gt;Wireless Fidelity&lt;/code&gt; の略です．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>bashコマンドの備忘録</title>
+      <link>https://soblin.github.io/techblog/posts/028-useful-bash/</link>
+      <pubDate>Fri, 15 Nov 2019 11:02:14 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/028-useful-bash/</guid>
+      <description>&lt;p&gt;かゆいところに手が届かないなーと思いつつもコマンドラインで操作していなかった事項．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>CMakeで自動でclang-formatする</title>
+      <link>https://soblin.github.io/techblog/drafts/024-clang-format/</link>
+      <pubDate>Sun, 06 Oct 2019 23:30:59 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/drafts/024-clang-format/</guid>
+      <description>CMakeでビルド中にclang-formatするためのメモ．よくするけど忘れるため．こちらのサイト にまとめている． ディレクトリ構造 ├── .clang-format</description>
+    </item>
+    
+  </channel>
+</rss>

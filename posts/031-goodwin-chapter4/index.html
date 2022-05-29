@@ -1,0 +1,467 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goodwin &#34;Control System Design&#34;の読書メモ[4章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．
+" /><meta itemprop="name" content="Goodwin &#34;Control System Design&#34;の読書メモ[4章]">
+<meta itemprop="description" content="主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．
+"><meta itemprop="datePublished" content="2019-11-18T10:08:31+00:00" />
+<meta itemprop="dateModified" content="2019-11-18T10:08:31+00:00" />
+<meta itemprop="wordCount" content="3425">
+<meta itemprop="keywords" content="Control," /><meta property="og:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[4章]" />
+<meta property="og:description" content="主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/031-goodwin-chapter4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-18T10:08:31+00:00" />
+<meta property="article:modified_time" content="2019-11-18T10:08:31+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[4章]"/>
+<meta name="twitter:description" content="主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Goodwin%20%22Control%20System%20Design%22%e3%81%ae%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b4%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f031-goodwin-chapter4%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f031-goodwin-chapter4%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Goodwin &#34;Control System Design&#34;の読書メモ[4章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Goodwin &#34;Control System Design&#34;の読書メモ[4章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-11-18 19:08:31 &#43;0900 JST.">
+    Nov 18, 2019
+  </span><span class="post-reading-time">
+    7 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/engineering/" class="badge post-taxonomy">Engineering</a><a href="https://soblin.github.io/techblog/tags/control/" class="badge post-taxonomy">Control</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#482-ゼロ点">4.8.2 ゼロ点</a>
+      <ul>
+        <li><a href="#例46">例4.6</a></li>
+        <li><a href="#不安定ゼロ点がアンダーシュートを引き起こす理由">不安定ゼロ点がアンダーシュートを引き起こす理由</a></li>
+        <li><a href="#lemma42非最小位相ゼロ点とアンダーシュート">Lemma4.2(非最小位相ゼロ点とアンダーシュート)</a></li>
+      </ul>
+    </li>
+    <li><a href="#周波数応答">周波数応答</a>
+      <ul>
+        <li><a href="#ラプラス変換の収束域">ラプラス変換の収束域</a></li>
+        <li><a href="#周波数応答-1">周波数応答</a></li>
+        <li><a href="#クイズ">クイズ</a></li>
+      </ul>
+    </li>
+    <li><a href="#モデリングエラー">モデリングエラー</a>
+      <ul>
+        <li><a href="#モデリングエラーの例1-時間遅れ">モデリングエラーの例1: 時間遅れ</a></li>
+        <li><a href="#モデリングエラーの例2-極のパラメータの誤差">モデリングエラーの例2: 極のパラメータの誤差</a></li>
+        <li><a href="#モデリングエラーの例3-極の省略">モデリングエラーの例3: 極の省略</a></li>
+        <li><a href="#モデリングエラーの例4-共振モードの省略">モデリングエラーの例4: 共振モードの省略</a></li>
+        <li><a href="#モデリングエラーの性質">モデリングエラーの性質</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．</p>
+<!-- toc -->
+<h2 id="482-ゼロ点">4.8.2 ゼロ点<a class="anchor ms-1" href="#482-ゼロ点"><i class="fas fa-link"></i></a></h2>
+<p>以下のように記述されている.</p>
+<blockquote>
+<p>&quot;&quot;
+The effect that zeros have on the response of a transfer function is a little more subtle than that due to poles. One reason for this is that while poles are associated with the states in isolation, zeros arise from additive interactions amongst the states associated with different poles.
+&quot;&quot;</p>
+</blockquote>
+<p>極と比べてゼロ点の影響があまり自明でないのは，極は応答の影響においてどのようにモードが「分離しているか」を表しているのに対して，ゼロ点はその影響において各モードがどれくらいの割合で「重ねあわせられてるか」を表しているためである．</p>
+<blockquote>
+<p>&quot;&quot;
+Although the location of the poles determines the nature of system modes, it is the loctaion of the zeros which determines the proportion in which these modes are combined.
+&quot;&quot;</p>
+</blockquote>
+<p>極の位置はシステムがどのようなモードを持つかを決定するが，これらのモードがどのように組み合わされるかを決めるのはゼロ点である．</p>
+<p>ゼロ点の中で，「早いゼロ点」は支配極に比べて安定領域から離れているもの，「遅いゼロ点」は支配極に比べて安定領域に近いものを指す．</p>
+<h3 id="例46">例4.6<a class="anchor ms-1" href="#例46"><i class="fas fa-link"></i></a></h3>
+<p>以下のような伝達関数をtoy modelとして用いる．</p>
+<p>$$\begin{align*}
+H(s) &amp;= \dfrac{-s + c}{c(s + 1){(0.5s + 2)}} \\ &amp;= \left( 2 + \dfrac{2}{c}\right) \dfrac{1}{s + 1} - \left( 1 + \dfrac{2}{c} \right) \dfrac{1}{0.5s + 1}
+\end{align*}$$</p>
+<p>ステップ応答は
+$$\begin{align*}
+L^{-1}\left(\dfrac{1}{s}H(s)\right) = 1 - \left( 2 + \dfrac{2}{c} \right) e^{-t} + \left( 1 + \dfrac{2}{c} \right) e^{-2t}
+\end{align*}$$</p>
+<p>より確かに $s = -1, -2$ において片方のモードが消えてしまうので，ゼロ点 c はそれぞれのモードの重みを変化させていることが分かる．またこれだけでは分からないが過渡応答にも影響がある．ゼロ点を有する系に対してステップ入力を印加すると，ゼロ点が安定すなわち $c &gt; 0$ であるならばアンダーシュートを起こし，ゼロ点が不安定であるすなわち $c &lt; 0$ であるならばアンダーシュートを起こす．</p>
+<p><picture><img class="img-fluid" alt="Step Response" src="https://soblin.github.io/techblog/posts/031-goodwin-chapter4/031_step_response.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ゼロ点が早いゼロ点であるならば，つまり$|c| &raquo; 1$であるならばその影響はほとんど現れない．しかし極に近づいていくるとアンダーシュートやオーバーシュートを起こしている．用いたコードを下に示す．</p>
+<script type="application/javascript" src="https://gist.github.com/soblin/7dd7c4bbe3340725b817a9a9d31ce93e.js"></script>
+
+<h3 id="不安定ゼロ点がアンダーシュートを引き起こす理由">不安定ゼロ点がアンダーシュートを引き起こす理由<a class="anchor ms-1" href="#不安定ゼロ点がアンダーシュートを引き起こす理由"><i class="fas fa-link"></i></a></h3>
+<p>ここには非最小位相ゼロ点を有する系においてアンダーシュートの大きさを見積もる定理がのっている．ここでは以下のように$s=0$における値が正規化された，ゼロ点を1つ持つ伝達関数を考える．</p>
+<p>$$\begin{align*}
+H(s) = \alpha \dfrac{c-s}{(s+p_1) \cdots (s + p_m)}
+\end{align*}$$</p>
+<p>ただし $\alpha = p_1 \cdots p_m / c$ である．ここで $\alpha &gt; 0$ である．(なぜ分母を $s-c$ にしなかったのかと思うかもしれないが，その場合は$\alpha &lt;0$となるから，結局分母は $c-s$ の符号になるため)．</p>
+<p>よってステップ応答への最終値は</p>
+<p>$$\begin{align*}
+y_{\infty} = \left.  s \cdot \dfrac{1}{s}H(s) \right|_{s=0} = 1
+\end{align*}$$</p>
+<p>である．</p>
+<p>ここで上の $H(s)$ に対してステップ応答を印加するのであるが，$u(t)$ をHに印加するのではなく，擬似的に $u_1 (t) = u(t)(c-s)$ という入力を</p>
+<p>$$\begin{align*}
+H_1(s) = \alpha \dfrac{1}{(s+p_1) \cdots (s + p_m)}
+\end{align*}$$</p>
+<p>に印加するとみなそう．つまり安定なプラント $H_1(s)$ に対して $u_1(t) = cu(t) - \dot{u}(t) = cu(t) - \delta(t)$ という入力を印加するとみなすのである．すると</p>
+<ul>
+<li>$cu(t)$に対しては通常のステップ応答を</li>
+<li>$-\delta(t)$に対しては <strong>負のインパルス応答</strong>を</li>
+</ul>
+<p>示すことになる．このように負のインパルス応答が効くために，不安定ゼロ点に対してはアンダーシュートが引き起こされる．</p>
+<p>そしてこの系は以下のように「初めにアンダーシュートした後振幅が減衰しながら徐々に制定する」ので以下の図のような応答をする．全ての極が安定であるから下の図のように「いい感じに」なると考えてよい．</p>
+<p><picture><img class="img-fluid" alt="indicators" src="https://soblin.github.io/techblog/posts/031-goodwin-chapter4/031_step_response.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="lemma42非最小位相ゼロ点とアンダーシュート">Lemma4.2(非最小位相ゼロ点とアンダーシュート)<a class="anchor ms-1" href="#lemma42非最小位相ゼロ点とアンダーシュート"><i class="fas fa-link"></i></a></h3>
+<p>$v(t) = 1 - y(t)$ とする．ここの1は，最終値としての1のことである．図より「いい感じに制定するなら」v(t)の最大値はアンダーシュート時の $|1 - y(t)| = 1 + M_u$ である．</p>
+<p>ラプラス変換すると</p>
+<p>$$\begin{align*}
+V(s) = \dfrac{1 - H(s)}{s}
+\end{align*}$$</p>
+<p>である．$H(c) = 0$であるから，ラプラス変換の定義と合わせて</p>
+<p>$$\begin{align*}
+V(c) &amp;= \dfrac{1}{c} \\ V(c) &amp;= \int_{0}^{\infty}v(t) e^{-ct} dt
+\end{align*}$$</p>
+<p>の2つを見比べ，さらに制定時間 $t_s$ からの積分の絶対値をとると</p>
+<p>$$\begin{align*}
+\int_{0}^{t_s} v(t) e^{-ct} dt + \int_{t_s}^{\infty} |v(t)| e^{-ct} dt \geq \dfrac{1}{c}
+\end{align*}$$</p>
+<p>が得られる． $t &gt; t_s$ においては $|v(t)| &lt; \delta$ であるから,</p>
+<p>$$\begin{align*}
+\dfrac{1}{c} &amp;\leq \int_{0}^{t_s} V_{max} e^{-ct} dt + \int_{t_s}^{\infty} \delta e^{-ct} dt \\ &amp;= V_{max} \dfrac{1 - e^{-ct_s}}{c} + \dfrac{\delta e^{-ct_s}}{c}
+\end{align*}$$</p>
+<p>これを整理すると</p>
+<p>$$\begin{align*}
+M_u \geq \dfrac{1 - \delta}{e^{ct_s} - 1}
+\end{align*}$$</p>
+<p>が得られる．</p>
+<p>この不等式の解釈としては，アンダーシュートの量 $M_u$ が分かっているならば，逆にこの式から制定時間がある値以上になるという見積もりが計算できるので，$\delta$ 以下の振れ幅に制定するまでに少なくともどれくらい待たないといけないかが分かるという解釈ができる．</p>
+<p>あるいは，最小位相ゼロ点を持つ系において制定時間 $t_s$ を小さくしようとすると $M_u$ の下限値も大きくなるからアンダーシュートも大きくなってしまう，逆にアンダーシュートを小さくしようとすると制定時間も長くなってしまう，というトレードオフを表しているとも解釈できる．</p>
+<h2 id="周波数応答">周波数応答<a class="anchor ms-1" href="#周波数応答"><i class="fas fa-link"></i></a></h2>
+<h3 id="ラプラス変換の収束域">ラプラス変換の収束域<a class="anchor ms-1" href="#ラプラス変換の収束域"><i class="fas fa-link"></i></a></h3>
+<p>最終値の定理</p>
+<p>$$\begin{align*}
+y(\infty) = \left. sY(s) \right|_{s = 0}
+\end{align*}$$</p>
+<p>は便利であるが， $s= 0$ を代入できるかどうかは $Y(s)$ による．ベタな例として正弦波応答を取り上げる．安定なシステム $U(s)$ に正弦波を印加するとその応答は</p>
+<p>$$\begin{align*}
+Y(s) = \dfrac{\omega^2}{s^2 + \omega^2}U(s)
+\end{align*}$$</p>
+<p>である．最終値の定理を使って</p>
+<p>$$\begin{align*}
+y(\infty) = \left. \dfrac{\omega^2 s}{s^2 + \omega^2}U(s) \right|_{s = 0}
+\end{align*}$$</p>
+<p>を計算できるが，<strong>普通に考えて正弦波を印加し続けているのだから最終値に収束するはずがない</strong>．もちろんこの値に意味はなく， $\sin \omega t$ の収束域は $s &lt; 0$ であるから，この場合は最終値の定理は利用できない．</p>
+<h3 id="周波数応答-1">周波数応答<a class="anchor ms-1" href="#周波数応答-1"><i class="fas fa-link"></i></a></h3>
+<p>慣れてくるとよく忘れてしまうが，周波数応答は <strong>安定なプラントに特定の周波数の正弦波を印加した時の定常応答</strong> が定義である． $s = j\omega$ を代入する <strong>だけ</strong> で <em>周波数応答</em> を求められるのはそのプラントが安定であるからだが，意外と忘れる．</p>
+<p>対象とするプラントを
+$$\begin{align*}
+U(s) = \dfrac{N(s)}{(s - p_1) \cdots (s - p_n)}
+\end{align*}$$</p>
+<p>とするとその正弦波応答は</p>
+<p>$$\begin{align*}
+Y(s) = \dfrac{\omega^2}{s^2 + \omega^2} \dfrac{N(s)}{(s - p_1) \cdots (s - p_n)}
+\end{align*}$$</p>
+<p>であるが，部分分数分解すると</p>
+<p>$$\begin{align*}
+A_1 e^{p_1 t} + \cdots A_n e^{p_n t} + B_1 e^{j \omega t} + B_2 e^{-j \omega t}
+\end{align*}$$</p>
+<p>となるから，(安定なプラントであるから $p_i &lt; 0$ なので) $e^{p_i t}$ はゼロに収束する．そのため最後の振動成分だけが残るため，その実部は</p>
+<p>$$\begin{align*}
+2 Re (B_1 e^{j \omega t})
+\end{align*}$$</p>
+<p>に等しい．</p>
+<h3 id="クイズ">クイズ<a class="anchor ms-1" href="#クイズ"><i class="fas fa-link"></i></a></h3>
+<p>周波数特性をとるアプリケーションとして1つクイズ．モーターの入力トルクに対する <strong>角度</strong> への周波数特性を取ろうとしているとしよう．つまり1Hzから徐々に周波数を上げていき，それに対する回転角度の応答をプロットしていく．すると以下のような図の応答が得られてしまうだろう．これは周波数応答と言えるか?という問題．</p>
+<p>答えは当然Noであるのだが，何がいけないのかと言われると少し戸惑う．理由は，「トルクから角速度」の伝達関数は安定であるためは周波数応答であると言えるが，「トルクから角度」は積分器という不安定要素を含むため(積分器って，ステップ入力に対して単調に増加するでしょう？)である．</p>
+<h2 id="モデリングエラー">モデリングエラー<a class="anchor ms-1" href="#モデリングエラー"><i class="fas fa-link"></i></a></h2>
+<p>後々出て来る．プラントの真のモデルを $G(s)$ ，ノミナルモデル $G_{o}(s)$ に対してモデル化誤差を</p>
+<p>$$\begin{align*}
+G_{\Delta}(s) = \dfrac{G(s) - G_{o}(s)}{G(s)}
+\end{align*}$$</p>
+<p>で定義する．加法的誤差(Additive Modelling Error，AME)，乗法的誤差(Multiplicative Modelling Error，MME)の2つがある．基本的に線形モデルは低周波でのプラントの振る舞いを捉える．</p>
+<h3 id="モデリングエラーの例1-時間遅れ">モデリングエラーの例1: 時間遅れ<a class="anchor ms-1" href="#モデリングエラーの例1-時間遅れ"><i class="fas fa-link"></i></a></h3>
+<p>以下のように時間遅れをパデ近似する．</p>
+<p>$$\begin{align*}
+G(s) &amp;= e^{-\tau s} F(s) \\ G_{o}(s) &amp;= \left( \dfrac{-\tau s + 2k}{\tau s + 2k} \right)^{k} F(s)
+\end{align*}$$</p>
+<p>するとモデル化誤差は</p>
+<p>$$\begin{align*}
+G_{\Delta}(s) = e^{-\tau s} \left( \dfrac{-\tau s + 2k}{\tau s + 2k} \right)^{-k} - 1
+\end{align*}$$</p>
+<p>であるから,</p>
+<p>$$\begin{align*}
+|G_{\Delta}(j \omega)| &amp;= |e^{-j \tau \omega} - e^{-2jk \phi}| \\ \phi &amp;= \arctan \dfrac{\omega \tau}{2k}
+\end{align*}$$</p>
+<p>教科書に図があるが，このゲインは周波数が上がると上昇する傾向がある．</p>
+<h3 id="モデリングエラーの例2-極のパラメータの誤差">モデリングエラーの例2: 極のパラメータの誤差<a class="anchor ms-1" href="#モデリングエラーの例2-極のパラメータの誤差"><i class="fas fa-link"></i></a></h3>
+<p>以下のようにプラントの極の値が実際の値より $\delta$ だけずれていた場合．</p>
+<p>$$\begin{align*}
+G(s) &amp;= \dfrac{1}{as + 1}F(s) \\ G_o (s) &amp;= \dfrac{(a+\delta)s + 1}F(s)
+\end{align*}$$</p>
+<p>この場合モデル化誤差は</p>
+<p>$$\begin{align*}
+G_{\Delta}(s) = \dfrac{\delta s}{as + 1}
+\end{align*}$$</p>
+<h3 id="モデリングエラーの例3-極の省略">モデリングエラーの例3: 極の省略<a class="anchor ms-1" href="#モデリングエラーの例3-極の省略"><i class="fas fa-link"></i></a></h3>
+<p>以下のようにノミナルモデルに本来あるはずの極が抜けていた場合．</p>
+<p>$$\begin{align*}
+G(s) &amp;= \dfrac{1}{as+1}F(s) \\ G_o (s) &amp;= F(s)
+\end{align*}$$</p>
+<p>これに対応する物理的な状況としては，<strong>電流制御系の帯域限界</strong> が挙げられる．電流制御系は1kHzぐらいでLPFになってしまうためである．</p>
+<p>この場合はモデル化誤差は</p>
+<p>$$\begin{align*}
+G_{\Delta} = \dfrac{-as}{as+1}
+\end{align*}$$</p>
+<h3 id="モデリングエラーの例4-共振モードの省略">モデリングエラーの例4: 共振モードの省略<a class="anchor ms-1" href="#モデリングエラーの例4-共振モードの省略"><i class="fas fa-link"></i></a></h3>
+<p>剛体を仮定している制御系において高次共振モードを省略していることはよくあると思う．つまり以下のような状況．</p>
+<p>$$\begin{align*}
+G(s) &amp;= \dfrac{\omega_{n}^{2}}{s^2 + 2\psi \omega_n s + \omega_{n}^{2}}F(s) \\ G_o (s) &amp;= F(s)
+\end{align*}$$</p>
+<p>このときMMEは</p>
+<p>$$\begin{align*}
+G_{\Delta}(s) = \dfrac{-s(s + 2 \psi \omega_n)}{s^2 + 2 \psi \omega_n s + \omega_{n}^{2}}
+\end{align*}$$</p>
+<p>である．これも高周波に行くほどゲインが大きくなる特性を持っている．</p>
+<h3 id="モデリングエラーの性質">モデリングエラーの性質<a class="anchor ms-1" href="#モデリングエラーの性質"><i class="fas fa-link"></i></a></h3>
+<p>実際のアプリケーションにおいてはモデル化誤差は未知である場合が多い．しかしこれまで見てきたようにMMEは低周波において小さいが高周波に行くほど大きくなる傾向があると言えそうである．以下のようにモデル化誤差については上限を設けることが多い．</p>
+<p>$$\begin{align*}
+| G_{\Delta}(j \omega)| &lt; \epsilon(\omega)
+\end{align*}$$</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/007-nmcli-wifi/">nmcliでwifiに接続する
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/028-useful-bash/">bashコマンドの備忘録
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/025-goodwin-chapter2/">Goodwin &#34;Control System Design&#34;の読書メモ[2章]
+</a>
+          <span class="float-end post-date">Nov 13, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

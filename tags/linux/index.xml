@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/linux/</link>
+    <description>Recent content in Linux on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Feb 2021 17:12:02 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LinuxのVFSに関するメモ</title>
+      <link>https://soblin.github.io/techblog/posts/046-linux-vfs/</link>
+      <pubDate>Tue, 09 Feb 2021 17:12:02 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/046-linux-vfs/</guid>
+      <description>&lt;p&gt;gitでシンボリックリンクを除外することはできないのかなあと思うことがあるのだが，シンボリックリンクは対象ファイルへのパスを書いたファイルみたいなものらしいということを知って，inodeとかdentryについて調べたときのメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>nmcliでwifiに接続する</title>
+      <link>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</link>
+      <pubDate>Wed, 20 Nov 2019 09:05:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</guid>
+      <description>&lt;p&gt;nmcliコマンドを使うと，ユーザー名やPEAPの設定が必要なネットワークにもコマンドラインから接続できます．nmcliとはUbuntuの(主にGUIでの)ネットワーク設定を行う&lt;code&gt;Network Manager&lt;/code&gt;のコマンドラインバージョンです．今回はnmcliコマンドを用いて大学のWiFiにコマンドラインから接続してみました．ちなみに最近知ったのですが，WiFiは &lt;code&gt;Wireless Fidelity&lt;/code&gt; の略です．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

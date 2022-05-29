@@ -1,0 +1,312 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Goodwin &#34;Control System Design&#34;の読書メモ[2章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．
+" /><meta itemprop="name" content="Goodwin &#34;Control System Design&#34;の読書メモ[2章]">
+<meta itemprop="description" content="第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．
+"><meta itemprop="datePublished" content="2019-11-13T15:51:14+00:00" />
+<meta itemprop="dateModified" content="2019-11-13T15:51:14+00:00" />
+<meta itemprop="wordCount" content="1739">
+<meta itemprop="keywords" content="Control," /><meta property="og:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[2章]" />
+<meta property="og:description" content="第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/025-goodwin-chapter2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-11-13T15:51:14+00:00" />
+<meta property="article:modified_time" content="2019-11-13T15:51:14+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Goodwin &#34;Control System Design&#34;の読書メモ[2章]"/>
+<meta name="twitter:description" content="第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Goodwin%20%22Control%20System%20Design%22%e3%81%ae%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b2%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f025-goodwin-chapter2%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f025-goodwin-chapter2%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Goodwin &#34;Control System Design&#34;の読書メモ[2章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Goodwin &#34;Control System Design&#34;の読書メモ[2章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-11-14 00:51:14 &#43;0900 JST.">
+    Nov 13, 2019
+  </span><span class="post-reading-time">
+    4 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/engineering/" class="badge post-taxonomy">Engineering</a><a href="https://soblin.github.io/techblog/tags/control/" class="badge post-taxonomy">Control</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#フィードバックとフィードフォワード">フィードバックとフィードフォワード</a></li>
+    <li><a href="#比例ゲインのトレードオフ">比例ゲインのトレードオフ</a></li>
+    <li><a href="#逆系を使ったナイーブな解決法">逆系を使ったナイーブな解決法</a>
+      <ul>
+        <li><a href="#時間遅れ系には逆系は存在しない">時間遅れ系には逆系は存在しない</a></li>
+      </ul>
+    </li>
+    <li><a href="#ハイゲインフィードバックと逆系">ハイゲインフィードバックと逆系</a></li>
+    <li><a href="#開ループから閉ループへ">開ループから閉ループへ</a></li>
+    <li><a href="#フィードバックゲインを調整する際のトレードオフ">フィードバックゲインを調整する際のトレードオフ</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．</p>
+<!-- toc -->
+<h2 id="フィードバックとフィードフォワード">フィードバックとフィードフォワード<a class="anchor ms-1" href="#フィードバックとフィードフォワード"><i class="fas fa-link"></i></a></h2>
+<p>基本的にはコントローラーK(ここでは単純に比例ゲイン)を用いてプラントPを制御するのだが，図のように指令値への外乱 $\sigma(t)$ が入ってくるとする．そこでフィードバックによって修正するだけでなく，Kによって指令値を生成する際に外乱に相当する値を差し引けばよいと考えられる．つまりコントローラへの入力値から $K^{-1} \sigma (t)$ を予め引くということ．そうすればコントローラーの出力は外乱を差し引いた値になるので，プラントへの入力は指令値通りになる．もちろん外乱の測定に際して時間遅れは存在するし，コントローラーの逆系K^(-1)が存在するとも限らない．</p>
+<p><picture><img class="img-fluid" alt="disturbance rejection" src="https://soblin.github.io/techblog/posts/025-goodwin-chapter2/025.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="比例ゲインのトレードオフ">比例ゲインのトレードオフ<a class="anchor ms-1" href="#比例ゲインのトレードオフ"><i class="fas fa-link"></i></a></h2>
+<p>上の図において，ゲインKを小さくしたら当然指令値への追従が遅くなるが，ノイズによる指令値の振動を抑えることができる．そこでゲインを大きくすると指令値への追従は早くできるが，その分ノイズの影響も受けやすくなってしまう．このトレードオフを示しているのが教科書のFigure2.5．</p>
+<h2 id="逆系を使ったナイーブな解決法">逆系を使ったナイーブな解決法<a class="anchor ms-1" href="#逆系を使ったナイーブな解決法"><i class="fas fa-link"></i></a></h2>
+<p>出力 $y(t)$ を指令値 $u(t)$ を使って 目標値 $r(t)$ へと追従させたい．プラントモデルによると出力は外乱を印加されて</p>
+<p>$$
+y = f \langle u \rangle + d
+$$</p>
+<p>と現れるので，この関数の inversion を使って</p>
+<p>$$
+u = f^{-1} \langle r - d \rangle
+$$</p>
+<p>とすれば良い．そのためには</p>
+<ul>
+<li>f を完全に正確に把握していないといけない</li>
+<li>$f$，$f^{-1}$ が共に有界な入力と出力を持つ</li>
+<li>外乱 $d$ を測定できないといけない</li>
+<li>逆系が求まったとしてその対応する入力 $u$ が制約を破ってはいけない</li>
+</ul>
+<p>ことが必要．</p>
+<p>しかし Example2.1 に書かれているように，例えば純粋な時間遅れ系は <strong>逆システムを持たない</strong> ．</p>
+<h3 id="時間遅れ系には逆系は存在しない">時間遅れ系には逆系は存在しない<a class="anchor ms-1" href="#時間遅れ系には逆系は存在しない"><i class="fas fa-link"></i></a></h3>
+<p>まず前提として制御におけるブロックは $[-\infty, t_0]$ を定義域とする，関数を関数に移す汎関数である．制御においては，$u([-\infty, t_0])$ から $y(t_0)$ が生成されている時に，$y([-\infty, t_0])$ から $u(t_0)$ を復元できるかが問題になる．ここで時間遅れ系に入力 $u(t)$ を印加して $y(t)$ が得られたとしよう．</p>
+<p>このとき $[-\infty, t_0]$ での $y(t)$ から $u(t_0)$ の値を得ることはできない．なぜならば $y(t) = u(t + \tau)$ であるから，$u(t_0)$ の値を知るためには $y(t_0 + \tau)$ の値を知らないといけない．そのため任意の入力に対してこのように $u(t)$ を推定することは不可能である．キャリブレーションによりパラメータ $\tau$ を求めることができているとしても，現在どういう値が印加されているかを推定するための情報が現在までの出力には含まれていない．</p>
+<p>時間遅れ系の逆システムが存在するとしたら，それは(誰がいつどこでどのように入力を入れたとしても)数秒後の入力の値を予測できるブロックということになる．これはありえないし，因果的ではない．よって時間遅れ系には逆系は存在しない．</p>
+<h2 id="ハイゲインフィードバックと逆系">ハイゲインフィードバックと逆系<a class="anchor ms-1" href="#ハイゲインフィードバックと逆系"><i class="fas fa-link"></i></a></h2>
+<p>直列で $f^{-1}$ のブロックを作らなくても，以下のようにフィードバック部分に $f$ を用いて $ｈ$ のゲインをいじることで近似的に $f^{-1}$ を実現することができる．つまり$f$ のブロックをそのまま流用できる．</p>
+<p>$$\begin{align*}
+u &amp;= h\langle r - f\langle u \rangle \rangle \\
+h^{-1}\langle u \rangle &amp;= r - f \langle u \rangle \\
+u &amp;= f^{-1} \langle r - h^{-1} \langle u \rangle \rangle
+\end{align*}$$</p>
+<p>もし $h^{-1} &laquo; 1$ であるならば</p>
+<p>$$
+u \approx f^{-1} \langle r \rangle
+$$</p>
+<p>を実現していることになる．このようにモデルの逆系 $f^{-1}$ を明示的には用いずに実現する手法をハイゲインフィードバックという．</p>
+<h2 id="開ループから閉ループへ">開ループから閉ループへ<a class="anchor ms-1" href="#開ループから閉ループへ"><i class="fas fa-link"></i></a></h2>
+<p>上で説明したハイゲインフィードバックにおいて，制御入力uはまだ <strong>プラントで実際に起きていること</strong> とは独立である(無関係である)．</p>
+<h2 id="フィードバックゲインを調整する際のトレードオフ">フィードバックゲインを調整する際のトレードオフ<a class="anchor ms-1" href="#フィードバックゲインを調整する際のトレードオフ"><i class="fas fa-link"></i></a></h2>
+<p>ここまでの議論の流れだとプラントの周りにハイゲインフィードバックを施せばそれで良いと思われそうである．しかし実際に適用してしまうと，例えば教科書のFig2．10において指令値とのエラー $e(t)$ が大きかった場合，過大な制御入力 $u(t)$ を計算してしまう．</p>
+<p>別の問題としては，自励振動を引き起こして不安定化することが挙げられる．例えばマイクのすぐ近くで声を出した時に起きるハウリングは，過大なフィードバックゲインが原因である．また観測ノイズに過敏に反応してしまうことも起こりうる問題として挙げられる．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/028-useful-bash/">bashコマンドの備忘録
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/021-invariant-subspace/">不変部分空間について
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Informatics on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/informatics/</link>
+    <description>Recent content in Informatics on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Apr 2021 11:41:08 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/informatics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]</title>
+      <link>https://soblin.github.io/techblog/posts/060-prml-10/</link>
+      <pubDate>Sun, 18 Apr 2021 11:41:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/060-prml-10/</guid>
+      <description>&lt;p&gt;今までは平方完成とか特定の分布の関数形への「当てはめ」をしてパラメータの事後分布を求めていたが，変分推論ではパラメータの分布をそれぞれの積として表し，平方完成とは違う形で関数形を求める．全分布 $p(X, Z)$ の形から関数形が自動的に決まる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]</title>
+      <link>https://soblin.github.io/techblog/posts/059-prml-09/</link>
+      <pubDate>Thu, 18 Feb 2021 10:26:19 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/059-prml-09/</guid>
+      <description>&lt;p&gt;混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]</title>
+      <link>https://soblin.github.io/techblog/posts/057-prml-07/</link>
+      <pubDate>Wed, 17 Feb 2021 15:15:26 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/057-prml-07/</guid>
+      <description>&lt;p&gt;SVMとRVM&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]</title>
+      <link>https://soblin.github.io/techblog/posts/056-prml-06/</link>
+      <pubDate>Mon, 15 Feb 2021 06:56:33 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/056-prml-06/</guid>
+      <description>&lt;p&gt;ガウス過程回帰など&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]</title>
+      <link>https://soblin.github.io/techblog/posts/045-prml-05/</link>
+      <pubDate>Tue, 09 Feb 2021 16:13:58 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/045-prml-05/</guid>
+      <description>&lt;p&gt;誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．&lt;/p&gt;
+&lt;p&gt;初心者がニューラルネットワークを実装する際に気をつけておきたいことは，&lt;strong&gt;逆伝播では順伝播の値をキャッシュする&lt;/strong&gt;必要があるということである．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>モンテカルロ木探索について</title>
+      <link>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</link>
+      <pubDate>Sat, 07 Nov 2020 17:12:50 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Decision Making under Uncertainty&amp;quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．&lt;/p&gt;
+&lt;p&gt;木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]</title>
+      <link>https://soblin.github.io/techblog/posts/044-prml-03/</link>
+      <pubDate>Mon, 09 Mar 2020 19:58:46 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/044-prml-03/</guid>
+      <description>&lt;p&gt;ベイズ線形回帰はガウス分布の計算をすれば導出できるが．個人的にはエビデンス近似がこの章のキモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]</title>
+      <link>https://soblin.github.io/techblog/posts/041-prml-02/</link>
+      <pubDate>Wed, 26 Feb 2020 17:38:41 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/041-prml-02/</guid>
+      <description>&lt;p&gt;前半のパラメトリック分布は計算すればよいので省略．ノンパラメトリックな密度推定についてメモりたい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]</title>
+      <link>https://soblin.github.io/techblog/posts/039-prml-01/</link>
+      <pubDate>Wed, 12 Feb 2020 07:07:57 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/039-prml-01/</guid>
+      <description>&lt;p&gt;読んでいて詰まったところをメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

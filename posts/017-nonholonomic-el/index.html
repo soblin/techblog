@@ -1,0 +1,310 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>非ホロノミック拘束に対するオイラーラグランジュ方程式 - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．
+" /><meta itemprop="name" content="非ホロノミック拘束に対するオイラーラグランジュ方程式">
+<meta itemprop="description" content="転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．
+"><meta itemprop="datePublished" content="2019-08-05T14:50:44+00:00" />
+<meta itemprop="dateModified" content="2019-08-05T14:50:44+00:00" />
+<meta itemprop="wordCount" content="620">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="非ホロノミック拘束に対するオイラーラグランジュ方程式" />
+<meta property="og:description" content="転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/017-nonholonomic-el/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-08-05T14:50:44+00:00" />
+<meta property="article:modified_time" content="2019-08-05T14:50:44+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="非ホロノミック拘束に対するオイラーラグランジュ方程式"/>
+<meta name="twitter:description" content="転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e9%9d%9e%e3%83%9b%e3%83%ad%e3%83%8e%e3%83%9f%e3%83%83%e3%82%af%e6%8b%98%e6%9d%9f%e3%81%ab%e5%af%be%e3%81%99%e3%82%8b%e3%82%aa%e3%82%a4%e3%83%a9%e3%83%bc%e3%83%a9%e3%82%b0%e3%83%a9%e3%83%b3%e3%82%b8%e3%83%a5%e6%96%b9%e7%a8%8b%e5%bc%8f&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f017-nonholonomic-el%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f017-nonholonomic-el%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">非ホロノミック拘束に対するオイラーラグランジュ方程式</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">非ホロノミック拘束に対するオイラーラグランジュ方程式
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-08-05 23:50:44 &#43;0900 JST.">
+    Aug 5, 2019
+  </span><span class="post-reading-time">
+    2 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/categories/physics/" class="badge post-taxonomy">Physics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#転がり拘束">転がり拘束</a></li>
+    <li><a href="#重心座標と角速度">重心座標と角速度</a></li>
+    <li><a href="#ラグランジアン">ラグランジアン</a></li>
+    <li><a href="#オイラーラグランジュ方程式">オイラーラグランジュ方程式</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．</p>
+<!-- toc -->
+<h2 id="転がり拘束">転がり拘束<a class="anchor ms-1" href="#転がり拘束"><i class="fas fa-link"></i></a></h2>
+<p>本の図において，重心$(X, Y)$の速度ベクトルは，ヨー角$\phi$だけ向いている．その大きさは，コインが転がる距離 $a\dot{\psi}$であるから(コインが滑らずに転がるのであれば中心の移動距離は開展により描かれる弧長に等しいから)</p>
+<p>$$\begin{align*}
+\dot{X} &amp;= -a\dot{\psi} \cos \phi \\
+\dot{Y} &amp;= -a\dot{\psi} \sin \phi
+\end{align*}$$</p>
+<p>と表される．ラグランジュ乗数 $\lambda_1, \lambda_2$ を用いて</p>
+<p>$$\begin{align*}
+\lambda_1 (dX + a \cos \phi d \psi) &amp;= 0 \\
+\lambda_2 (dY + a \sin \phi d \psi) &amp;= 0
+\end{align*}$$</p>
+<p>と表す．</p>
+<h2 id="重心座標と角速度">重心座標と角速度<a class="anchor ms-1" href="#重心座標と角速度"><i class="fas fa-link"></i></a></h2>
+<p>重心の座標$(x, y, z)$は以下の通り．</p>
+<p>$$\begin{align*}
+x &amp;= X - a \cos \theta \sin \phi \\
+y &amp;= Y + a \cos \theta \cos \phi \\
+z &amp;= a \sin \theta
+\end{align*}$$</p>
+<p>その速度は</p>
+<p>$$\begin{align*}
+\dot{x} &amp;= \dot{X} + a \dot{\theta}\sin \theta \sin \phi - a \dot{\phi}\cos \theta \sin \phi \\
+\dot{y} &amp;= \dot{Y} - a \dot{\theta} \sin \theta \cos \phi - a \dot{\phi} \cos \theta \sin \phi \\
+\dot{z} &amp;= a \dot{\theta} \cos \theta
+\end{align*}$$</p>
+<p>である．</p>
+<p>また角速度ベクトルは</p>
+<p>$$
+\boldsymbol{\omega} = \dot{\theta} \boldsymbol{e}_{\xi} + \dot{\psi} \boldsymbol{e}_{\zeta} + \dot{\phi}(\boldsymbol{e}_{\eta} \sin \phi+ \boldsymbol{e}_{\zeta} \cos \phi)
+$$</p>
+<p>より各成分は</p>
+<p>$$\begin{align*}
+\omega_{\xi} &amp;= \dot{\theta} \\
+\omega_{\eta} &amp;= \dot{\phi} \sin \theta \\
+\omega_{\zeta} &amp;= \dot{\psi} + \dot{\phi} \cos \theta
+\end{align*}$$</p>
+<p>んなる．そして$(\xi, \eta, \zeta)$は慣性主軸であり，その慣性モーメントはそれぞれ$(A, A, C = 2A) (A = ma^2 / 2)$である．</p>
+<h2 id="ラグランジアン">ラグランジアン<a class="anchor ms-1" href="#ラグランジアン"><i class="fas fa-link"></i></a></h2>
+<p>やや冗長になるが，以下のように表される．</p>
+<p>$$\begin{align*}
+K &amp;= \dfrac{m}{2}(\dot{x}^2 + \dot{y}^2 + \dot{z}^2) + \dfrac{A}{2}(\omega_{\xi}^2 + \omega_{\eta}^2) + \dfrac{C}{2}\omega_{\zeta}^2 \\
+U &amp;= mga \sin \theta
+\end{align*}$$</p>
+<p>書き下すのは大変．</p>
+<h2 id="オイラーラグランジュ方程式">オイラーラグランジュ方程式<a class="anchor ms-1" href="#オイラーラグランジュ方程式"><i class="fas fa-link"></i></a></h2>
+<p>一般化座標 $q$ について方程式をたてる時，各拘束における $dq$ の係数を足し合わせれば良い．</p>
+<p>$$\begin{align*}
+\mathcal{E}_{X}[L] &amp;= \lambda_1 \\
+\mathcal{E}_{Y}[L] &amp;= \lambda_2 \\
+\mathcal{E}_{\theta}[L] &amp;= 0 \\
+\mathcal{E}_{\psi}[L] &amp;= \lambda_1 a \cos \phi + \lambda_2 a \sin \phi \\
+\mathcal{E}_{\phi}[L] &amp;= 0 \\
+\end{align*}$$</p>
+<p>こちらも書き下すのは大変．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/018-oneform/">1形式の公式
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/016-geometric-el/">幾何的なオイラーラグランジュ方程式
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/network/</link>
+    <description>Recent content in Network on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 12 Feb 2021 21:17:00 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ネットワークスペシャリスト対策のまとめ</title>
+      <link>https://soblin.github.io/techblog/posts/054-nw-specialist/</link>
+      <pubDate>Fri, 12 Feb 2021 21:17:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/054-nw-specialist/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:4000/043-networking-note/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ネットーワークの基礎知識&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;の応用編．多いのでコツコツとメモっていく．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ネットワークの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/043-networking-note/</link>
+      <pubDate>Sun, 08 Mar 2020 09:47:49 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/043-networking-note/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://www5e.biglobe.ne.jp/aji/3min/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;こちらのサイト&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;と『マスタリングTCP/IP』を参考にゆるふわなまとめ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>nmcliでwifiに接続する</title>
+      <link>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</link>
+      <pubDate>Wed, 20 Nov 2019 09:05:08 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/007-nmcli-wifi/</guid>
+      <description>&lt;p&gt;nmcliコマンドを使うと，ユーザー名やPEAPの設定が必要なネットワークにもコマンドラインから接続できます．nmcliとはUbuntuの(主にGUIでの)ネットワーク設定を行う&lt;code&gt;Network Manager&lt;/code&gt;のコマンドラインバージョンです．今回はnmcliコマンドを用いて大学のWiFiにコマンドラインから接続してみました．ちなみに最近知ったのですが，WiFiは &lt;code&gt;Wireless Fidelity&lt;/code&gt; の略です．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

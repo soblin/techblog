@@ -1,0 +1,485 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>根軌跡の描き方 - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．
+" /><meta itemprop="name" content="根軌跡の描き方">
+<meta itemprop="description" content="根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．
+"><meta itemprop="datePublished" content="2019-12-28T12:03:30+00:00" />
+<meta itemprop="dateModified" content="2019-12-28T12:03:30+00:00" />
+<meta itemprop="wordCount" content="2493">
+<meta itemprop="keywords" content="Control," /><meta property="og:title" content="根軌跡の描き方" />
+<meta property="og:description" content="根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/033-root-locus/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-28T12:03:30+00:00" />
+<meta property="article:modified_time" content="2019-12-28T12:03:30+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="根軌跡の描き方"/>
+<meta name="twitter:description" content="根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e6%a0%b9%e8%bb%8c%e8%b7%a1%e3%81%ae%e6%8f%8f%e3%81%8d%e6%96%b9&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f033-root-locus%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f033-root-locus%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">根軌跡の描き方</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">根軌跡の描き方
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-12-28 21:03:30 &#43;0900 JST.">
+    Dec 28, 2019
+  </span><span class="post-reading-time">
+    5 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/engineering/" class="badge post-taxonomy">Engineering</a><a href="https://soblin.github.io/techblog/tags/control/" class="badge post-taxonomy">Control</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#本数">本数</a>
+      <ul>
+        <li><a href="#軌跡の連続性">軌跡の連続性</a></li>
+      </ul>
+    </li>
+    <li><a href="#実軸に関して対象">実軸に関して対象</a></li>
+    <li><a href="#極から出発してゼロ点あるいは無限遠点で終わる">極から出発してゼロ点，あるいは無限遠点で終わる</a></li>
+    <li><a href="#直線になるもの-実軸上にあるかどうか">直線になるもの: 実軸上にあるかどうか</a>
+      <ul>
+        <li><a href="#理由">理由</a></li>
+      </ul>
+    </li>
+    <li><a href="#曲線になるもの-軌跡の角度と通る点">曲線になるもの: 軌跡の角度と通る点</a>
+      <ul>
+        <li><a href="#極における初期角度">極における初期角度</a></li>
+        <li><a href="#ゼロ点における角度">ゼロ点における角度</a></li>
+        <li><a href="#無限遠点における漸近線の角度">無限遠点における(漸近線の)角度</a></li>
+        <li><a href="#証明">証明</a></li>
+      </ul>
+    </li>
+    <li><a href="#分岐と合流の仕方">分岐と合流の仕方</a></li>
+    <li><a href="#虚軸との交点">虚軸との交点</a>
+      <ul>
+        <li><a href="#復習ラウス配列">(復習)ラウス配列</a></li>
+      </ul>
+    </li>
+    <li><a href="#例題">例題</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．</p>
+<!-- toc -->
+<p>プラントの伝達関数が
+$$\begin{align*}
+\dfrac{M(s)}{D(s)}
+\end{align*}$$
+であるとき，比例ゲイン $K$ によりフィードバックすると，伝達関数の特性多項式は
+$$\begin{align*}
+1 + K \dfrac{M(s)}{D(s)} &amp;= 0 \\ D(s) + KM(s) &amp;= 0
+\end{align*}$$
+である． $K$ を動かすとこの方程式の解がどのように変化するかを可視化するのが根軌跡である． ここで $D(s)$ の次数を $n$ , $M(s)$ の次数を $m$ とすると基本的には $n &gt; m$ である． するとこの特性多項式の次数はmax(m, n) = nとなる．</p>
+<p>また
+$$\begin{align*}
+K \dfrac{M(s)}{D(s)} = -1
+\end{align*}$$
+の幾何的な意味に注目してみよう． 左辺の分母分子を因数分解すると，根軌跡上に存在する点 $s_0$ については
+$$\begin{align*}
+K \dfrac{(s_0-z_1)(s_0-z_2) \cdots (s_0-z_m)}{(s_0-p_1)(s_0-p_2) \cdots (s_0-p_n)} = -1
+\end{align*}$$
+が成立する． つまり以下の <strong>偏角条件</strong> が成立する．</p>
+<blockquote>
+<p><strong>偏角条件</strong>
+$$
+\begin{align*}
+( \angle (s_0 - p_1) + \cdots + \angle (s_0 - p_n) ) - ( \angle (s_0 - z_1) + \cdots + \angle (s_0 + z_m) ) = (2k+1)\pi
+\end{align*}$$
+なおKは実数なので $\arg K = 0$．</p>
+</blockquote>
+<h2 id="本数">本数<a class="anchor ms-1" href="#本数"><i class="fas fa-link"></i></a></h2>
+<p>特性多項式の次数がmax(m, n)=nであるから，その解の個数もn個である． よってKを動かすことによりn本の軌跡が存在することになる．</p>
+<h3 id="軌跡の連続性">軌跡の連続性<a class="anchor ms-1" href="#軌跡の連続性"><i class="fas fa-link"></i></a></h3>
+<p>軌跡上のある $K_0$ の値について，そのときのｎ個の解をプロットする． おのおのの解の任意の $\epsilon$ 近傍内の軌跡上の点において，その解に対応する $K \in B(K_0, \delta(\epsilon))$ が存在する． よって軌跡は連続である．</p>
+<h2 id="実軸に関して対象">実軸に関して対象<a class="anchor ms-1" href="#実軸に関して対象"><i class="fas fa-link"></i></a></h2>
+<p>特性多項式は実数係数であるから，複素共役な解を持つ． よって根軌跡は実軸に関して対称になるはずである．</p>
+<h2 id="極から出発してゼロ点あるいは無限遠点で終わる">極から出発してゼロ点，あるいは無限遠点で終わる<a class="anchor ms-1" href="#極から出発してゼロ点あるいは無限遠点で終わる"><i class="fas fa-link"></i></a></h2>
+<p>$K \to \infty$ にすると特性多項式において $KM(s) = 0$ の部分が支配的になる． よっていくつかの解は $M(s) = $ の解，つまりゼロ点に収束するであろう． 残りの解は無限遠点に行く(収束しない)．</p>
+<h2 id="直線になるもの-実軸上にあるかどうか">直線になるもの: 実軸上にあるかどうか<a class="anchor ms-1" href="#直線になるもの-実軸上にあるかどうか"><i class="fas fa-link"></i></a></h2>
+<p>このステップでは実軸上に存在する極とゼロ点に注目する． 右側から数えて奇数番目と偶数番目の極ゼロの間は直線で結ぶ．</p>
+<h3 id="理由">理由<a class="anchor ms-1" href="#理由"><i class="fas fa-link"></i></a></h3>
+<p>繰り返し述べるが特性多項式は実数係数なので，その極ゼロは実数または複素共役なペアである． このことを踏まえて，上の式において $s_0 \in \mathbb{R}$ であるものが満たす条件を調べてみる．</p>
+<p>図を思い浮かべるとすぐに分かるが，複素共役なペアに対しては，それが極であれゼロであれ $s_0$ が実軸上に存在するならば対称性より
+$$\begin{align*}
+\arg (s_0 - p_a) + \arg(s_0 - p_b) &amp;= 0 \\ \arg(s_0 - z_a) + \arg(s_0 - z_b) &amp;= 0
+\end{align*}$$
+となっている． したがって偏角条件においては <strong>実軸上に存在する極ゼロのみからの寄与</strong> が残り
+$$\begin{align*}
+\sum_{p \in R} \arg (s_0 - p_i) - \sum_{z \in R} \arg (s_0 - z_i) = (2k+1)\pi
+\end{align*}$$
+となる． このうち，</p>
+<blockquote>
+<p>$s_0$ よりも左側に存在する極ゼロから $s_0$ への偏角( $\arg (s_0 - p_i)$ )はゼロである．</p>
+</blockquote>
+<p>よって(=&gt;)</p>
+<blockquote>
+<p>右側を見やったときに極とゼロ点の個数の差が奇数個であればその点は実軸上の根軌跡に属する点である．</p>
+</blockquote>
+<p>よって(&lt;=&gt;)(差が奇数ならば和も奇数なので)</p>
+<blockquote>
+<p>それより右側に存在する極とゼロの個数が合わせて奇数個である点はその点は実軸上の根軌跡に属する点である．</p>
+</blockquote>
+<h2 id="曲線になるもの-軌跡の角度と通る点">曲線になるもの: 軌跡の角度と通る点<a class="anchor ms-1" href="#曲線になるもの-軌跡の角度と通る点"><i class="fas fa-link"></i></a></h2>
+<h3 id="極における初期角度">極における初期角度<a class="anchor ms-1" href="#極における初期角度"><i class="fas fa-link"></i></a></h3>
+<p>極 $p_l$ から根軌跡が出発する角度 $\theta_l$ は，kを整数として
+$$\begin{align*}
+\theta_l = (2k+1)\pi - \sum_{j=1}^{m} \angle(p_l - z_i) + \sum_{i=1, i \neq l}^{n} \angle(p_l - p_i)
+\end{align*}$$
+である． これは先程の式に $p_l$ を代入すると求められる．</p>
+<h3 id="ゼロ点における角度">ゼロ点における角度<a class="anchor ms-1" href="#ゼロ点における角度"><i class="fas fa-link"></i></a></h3>
+<p>ゼロ点 $z_l$ に向かう根軌跡が到着する角度 $\phi_l$ は，ｋを整数として
+$$\begin{align*}
+\phi_l = (2k+1)\pi - \sum_{j=1, j \neq l}^{m} \angle(z_l - z_i) + \sum_{i=1}^{n} \angle(z_l - p_i)
+\end{align*}$$
+である． これも先ほどの式に $z_l$ を代入すると求められる．</p>
+<h3 id="無限遠点における漸近線の角度">無限遠点における(漸近線の)角度<a class="anchor ms-1" href="#無限遠点における漸近線の角度"><i class="fas fa-link"></i></a></h3>
+<p>根軌跡のうち無限遠点へと向かうものは，共通の漸近線を持つ． その漸近線は実軸上の点
+$$\begin{align*}
+\sigma = \dfrac{\sum p_i - \sum z_j}{n - m}
+\end{align*}$$
+を通る． 本数の項で述べたように無限遠点へと向かう漸近線は $n - m$ 本存在するが，それぞれの角度は円分角
+$$\begin{align*}
+(2k + 1)\pi / (n - m)
+\end{align*}$$
+となっている．</p>
+<h3 id="証明">証明<a class="anchor ms-1" href="#証明"><i class="fas fa-link"></i></a></h3>
+<p><a href="https://lpsa.swarthmore.edu/Root_Locus/DeriveRootLocusRules.html" target="_blank" rel="noopener noreferrer">こちら<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>を参考にした</p>
+<p>$K G(s) H(s)$ の部分は漸近展開すると
+$$\begin{align*}
+K \dfrac{(s-z_1)(s-z_2) \cdots (s-z_m)}{(s-p_1)(s-p_2) \cdots (s-p_n)} \approx K\dfrac{1}{s^{q} - \alpha s^{q-1}}
+\end{align*}$$
+where
+$$\begin{align*}
+\alpha &amp;= \sum_{i} p_i - \sum_{i} z_i \\
+q &amp;= n-m
+\end{align*}$$
+となる．
+また
+$$\begin{align*}
+(s - \sigma)^q = s^q - q\sigma s^{q-1} \cdots
+\end{align*}$$
+より
+$$\begin{align*}
+\sigma = \dfrac{\alpha}{q}
+\end{align*}$$
+として
+$$\begin{align*}
+KG(s)H(s) &amp;\approx K \dfrac{1}{(s-\sigma)^q} = -1 \\ (s - \sigma)^q &amp;= -K
+\end{align*}$$
+が得られる． よって漸近線は
+$$\begin{align*}
+\sigma &amp;= \dfrac{\sum p_i - \sum z_i}{n-m} \\ \theta &amp;= \dfrac{(2k+1)\pi}{n-m}
+\end{align*}$$
+なる直線である．</p>
+<h2 id="分岐と合流の仕方">分岐と合流の仕方<a class="anchor ms-1" href="#分岐と合流の仕方"><i class="fas fa-link"></i></a></h2>
+<ul>
+<li>実軸上にある両端が極の根軌跡は途中で実軸から直角方向に分岐し，この分岐点で $G(s)H(s)$ のゲインは極大値をとる</li>
+<li>両端がゼロ点の根軌跡では，$G(s)H(s)$ のゲインが極小値となる点で上下から根軌跡が存在する</li>
+<li>両端がそれぞれ極とゼロ点の場合，ゲインの極大点で分岐点，ゲインの極小点で合流点となる</li>
+</ul>
+<p>よって(面倒くさいが)伝達関数を微分して極大点と極小点求めるしかない．</p>
+<h2 id="虚軸との交点">虚軸との交点<a class="anchor ms-1" href="#虚軸との交点"><i class="fas fa-link"></i></a></h2>
+<p>ラウスの判定法で安定限界を求める．</p>
+<h3 id="復習ラウス配列">(復習)ラウス配列<a class="anchor ms-1" href="#復習ラウス配列"><i class="fas fa-link"></i></a></h3>
+<p>表のように特性多項式の係数を1番目および2番目から一つおきに並べたものをそれぞれ1段目，2段目に並べる． そして各 $i$ 行目について，$i-1$と $i-2$ 行目の1列目と $j+1$ 列目(ピボット)の要素を使ってたすき掛けを求めて $(i, j)$ 番目の要素の値とする．</p>
+<p><picture><img class="img-fluid" alt="ラウス表" src="https://soblin.github.io/techblog/posts/033-root-locus/033.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>1列目の要素を上から下まで見た時の数列の符号の変化数が，この特性多項式が右側に持つ極の個数である．例えば数列の符号が</p>
+<ul>
+<li>[+, +, -, +, +]と変化したならば2個の不安定極を</li>
+<li>[+, +, +, -, -]と変化したならば1個の不安定極を</li>
+<li>[+, +, +]や[-, -, -]と変化したならば0個の不安定極を</li>
+</ul>
+<p>持つことになる． したがってこの数列の符号が変化しなれけば(つまり全て正であれば)システムは安定である．</p>
+<p>$K$ を含んだ状態でこのラウス配列を求めたときの臨界値が，根軌跡と虚軸の交点における $K$ の値である．</p>
+<h2 id="例題">例題<a class="anchor ms-1" href="#例題"><i class="fas fa-link"></i></a></h2>
+<p>ノミナルプラント，コントローラを
+$$\begin{align*}
+G_o(s) &amp;= \dfrac{1}{(s-1)(s+2)} \\ C(s) &amp;= 4 \dfrac{s + \alpha}{s}
+\end{align*}$$
+とする． つまり積分ゲインをチューニングしたい． 特性多項式は
+$$\begin{align*}
+s(s^2 + s + 2) + 4\alpha = 0
+\end{align*}$$
+となるがこれは比例ゲイン $K = 4\alpha$ をフィードバックに用いて
+$$\begin{align*}
+G(s)C(s) = \dfrac{1}{s(s^2 + s + 2)}
+\end{align*}$$
+を制御するのと等価である．</p>
+<ul>
+<li>極は3つ($0, -0.5 \pm \sqrt{7}j$)，ゼロ点は0個だからそれぞれの極から無限遠点に軌跡が3本伸びる</li>
+<li>実軸の直線は，0から $-\infty$ へと伸びる</li>
+<li>曲線は $-0.5 \pm \sqrt{7}j$ から無限遠点へと伸びる2本． その実軸との交点は $-1.0 / 3$，角度は $\pm 60^{\circ}$ ．</li>
+<li>その初期の傾きは $180 + \angle (-0.5 + \sqrt{7}j - 0)$ である．</li>
+<li>ラウス表は以下のようになるので，安定限界は $K=2$．そのとき $s^2$ の項は $s^2 +2 = 0$． よって虚軸との交点は $\pm \sqrt{2}j$ である．</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>/</th>
+<th>/</th>
+<th>/</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$s^3$</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>$s^2$</td>
+<td>1</td>
+<td>$K$</td>
+</tr>
+<tr>
+<td>$s^1$</td>
+<td>$2-K$</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>$s^0$</td>
+<td>$K$</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/038-motor-basics/">モーターの基礎知識
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/020-group-theory/">有限群におけるいくつかの基本的なワード
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/031-goodwin-chapter4/">Goodwin &#34;Control System Design&#34;の読書メモ[4章]
+</a>
+          <span class="float-end post-date">Nov 18, 2019
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/025-goodwin-chapter2/">Goodwin &#34;Control System Design&#34;の読書メモ[2章]
+</a>
+          <span class="float-end post-date">Nov 13, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

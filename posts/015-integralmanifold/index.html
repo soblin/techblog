@@ -1,0 +1,344 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ベクトル場のディストリビューションが作る積分多様体 - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．
+" /><meta itemprop="name" content="ベクトル場のディストリビューションが作る積分多様体">
+<meta itemprop="description" content="非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．
+"><meta itemprop="datePublished" content="2019-08-01T12:02:35+00:00" />
+<meta itemprop="dateModified" content="2019-08-01T12:02:35+00:00" />
+<meta itemprop="wordCount" content="1314">
+<meta itemprop="keywords" content="Manifold," /><meta property="og:title" content="ベクトル場のディストリビューションが作る積分多様体" />
+<meta property="og:description" content="非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/015-integralmanifold/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-08-01T12:02:35+00:00" />
+<meta property="article:modified_time" content="2019-08-01T12:02:35+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ベクトル場のディストリビューションが作る積分多様体"/>
+<meta name="twitter:description" content="非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%83%99%e3%82%af%e3%83%88%e3%83%ab%e5%a0%b4%e3%81%ae%e3%83%87%e3%82%a3%e3%82%b9%e3%83%88%e3%83%aa%e3%83%93%e3%83%a5%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%8c%e4%bd%9c%e3%82%8b%e7%a9%8d%e5%88%86%e5%a4%9a%e6%a7%98%e4%bd%93&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f015-integralmanifold%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f015-integralmanifold%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">ベクトル場のディストリビューションが作る積分多様体</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">ベクトル場のディストリビューションが作る積分多様体
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-08-01 21:02:35 &#43;0900 JST.">
+    Aug 1, 2019
+  </span><span class="post-reading-time">
+    3 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/tags/manifold/" class="badge post-taxonomy">Manifold</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ベクトル場から曲面を作れないか">ベクトル場から曲面を作れないか？</a></li>
+    <li><a href="#そのような曲面が満たすべき条件">そのような曲面が満たすべき条件</a></li>
+    <li><a href="#3次元における具体例">3次元における具体例</a></li>
+    <li><a href="#確認">確認</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>非線形制御でお世話になるフロベニウスの定理を理解するのが最終目的であるが，その第一ステップとしてベクトル場のディストリビューションが作る積分多様体について色々調べていた時のメモ．</p>
+<!-- toc -->
+<h2 id="ベクトル場から曲面を作れないか">ベクトル場から曲面を作れないか？<a class="anchor ms-1" href="#ベクトル場から曲面を作れないか"><i class="fas fa-link"></i></a></h2>
+<p>いくつかの文献を読んでいて感じたのは，<strong>積分多様体</strong>とか <strong>involutive</strong> とかいったものは，材料となる複数のベクトル場を <strong>重ねあわせて</strong> (合成して?)曲面を構成できるか，という問題意識のもとで語られているようだということである．大雑把には</p>
+<blockquote>
+<p>与えられたベクトル場Vに対して，曲面上の全ての点において，(その点での)Vのベクトルが曲面に接している</p>
+</blockquote>
+<p>ように「重ね合わせる」イメージ．ベクトル場Vの積分曲線を「積み重ねていけば」このような曲面を構成できることは想像できる．例えば以下の円環状に分布しているベクトル場を見てみると，</p>
+<p><picture><img class="img-fluid" alt="円環状に分布するベクトル場" src="https://soblin.github.io/techblog/posts/015-integralmanifold/015-field1.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>この場合は半径rの積分曲線が各ｚ平面において存在しているので，この積分曲線を「積み重ねた」円柱はその表面においてベクトル場が円柱に接しており，上の条件を満たす曲面になっていることが分かる．</p>
+<p>より一般的に複数のベクトル場 $V_1, V_2, \cdots, V_m$ を考えて</p>
+<blockquote>
+<p>与えられたベクトル場 $V_1, V_2, \cdots, V_m$ に対して，その曲面上の全ての点において $V_1, V_2, \cdots, V_m$ たちがその曲面に接している</p>
+</blockquote>
+<p>ような曲面を構成することができるかという問題を考える．</p>
+<h2 id="そのような曲面が満たすべき条件">そのような曲面が満たすべき条件<a class="anchor ms-1" href="#そのような曲面が満たすべき条件"><i class="fas fa-link"></i></a></h2>
+<p>そのような曲面があったとして，その表面に各ベクトル場が接しているということは，そのとき曲面の <strong>法線ベクトル</strong> はベクトル場 $V_1, V_2, \cdots, V_m$ の<strong>全てに直交している</strong> はずである．そこで求める曲線の方程式を $f(x_1, x_2, \cdots, x_n)$ とすると</p>
+<p>$$
+df = \dfrac{\partial f}{\partial x_1}dx_1 + \cdots + \dfrac{\partial f}{\partial x_m}dx_m
+$$</p>
+<p>より法線ベクトルの成分は $(\partial f / \partial x_1, \cdots, \partial f / \partial x_m)$．また各ベクトル場を</p>
+<p>$$
+V_i = V_{i}^1 \dfrac{\partial}{\partial x_1} + \cdots + V_{i}^n \dfrac{\partial}{\partial x_m}
+$$</p>
+<p>と定義すると，これらの内積がゼロ，すなわち</p>
+<p>$$
+df \left( V_i \right) = 0, \quad \text{for all $i$}
+$$</p>
+<p>が成立しているはずである．</p>
+<h2 id="3次元における具体例">3次元における具体例<a class="anchor ms-1" href="#3次元における具体例"><i class="fas fa-link"></i></a></h2>
+<p>例として以下のような2つのベクトル場X，Yのディストリビューションの積分多様体を求めてみる．</p>
+<p>$$\begin{align*}
+X &amp;= -y \dfrac{\partial}{\partial x} + x \dfrac{\partial}{\partial y} \\
+Y &amp;= (x - y)z \dfrac{\partial}{\partial x} + (x + y)z \dfrac{\partial}{\partial y} + (1 + z^2) \dfrac{\partial}{\partial z}
+\end{align*}$$</p>
+<p>$X$ は上で示した円環状のベクトル場，$Y$ は以下に示すようなベクトル場である．</p>
+<p><picture><img class="img-fluid" alt="ベクトル場Y" src="https://soblin.github.io/techblog/posts/015-integralmanifold/015-field2.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>求める関数の全微分を1形式 $\omega = df = a dx + b dy + c dz$ とする($a, b, c$ は関数)．ベクトル場と内積をとると</p>
+<p>$$\begin{align*}
+&amp; \omega (X) = -ay + bc = 0 \\
+&amp; \omega (Y) = a(x -y)z + b(x + y)z + c(1 + z^2) = 0
+\end{align*}$$</p>
+<p>が得られ，第1式から $a = c, b = y$ とおくと，第2式より</p>
+<p>$$
+c = -\dfrac{x^2 + y^2}{1 + z^2}z
+$$</p>
+<p>となる．第1，2式ともに$=0$なので, $a, b, c$ を $x^2 + y^2$ で割って</p>
+<p>$$
+\omega = \dfrac{x}{x^2 + y^2}dx + \dfrac{y}{x^2 + y^2}dy - \dfrac{z}{1 + z^2}dz
+$$</p>
+<p>とする．これは全微分になっていて,</p>
+<p>$$
+f(x, y, z) = x^2 + y^2 - c(1 + z^2) = 0
+$$</p>
+<p>が解の曲面となる．</p>
+<h2 id="確認">確認<a class="anchor ms-1" href="#確認"><i class="fas fa-link"></i></a></h2>
+<p>この関数の法線ベクトルは</p>
+<p>$$
+\boldsymbol{n} = (2x, 2y, -2cz)
+$$</p>
+<p>であり．X，Yとの内積は</p>
+<p>$$\begin{align*}
+&amp; 2x \cdot (-y) + 2y \cdot (x) = 0 \\
+&amp; 2x \cdot (x - y)z + 2y \cdot (x + y)z - 2cz \cdot (1 + z^2) = 2(x^2 + y^2)z - 2cz(1 + z^2) = 0
+\end{align*}$$</p>
+<p>となっている．よってこの曲面の法線ベクトルは <strong>全ての点においてX，Y両方に直交している</strong> ．あるいはこの曲面上のあらゆる曲線におけるあらゆる速度ベクトルは，X，Yの線型結合になっている．より数学的にいうならば，この積分多様体の接バンドル $\mathrm{T} M$ は,  $M$ 上に制限した $X, Y$ を部分集合として持つようになっている．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/014-multivariable/">ベクトルの偏微分，縦から読むか横から読むか
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/013-cocontra/">反変ベクトルと共変ベクトル
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/013-cocontra/">反変ベクトルと共変ベクトル
+</a>
+          <span class="float-end post-date">Jul 21, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

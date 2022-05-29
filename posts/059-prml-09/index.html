@@ -1,0 +1,415 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]">
+<meta itemprop="description" content="混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．
+"><meta itemprop="datePublished" content="2021-02-18T10:26:19+00:00" />
+<meta itemprop="dateModified" content="2021-02-18T10:26:19+00:00" />
+<meta itemprop="wordCount" content="1706">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]" />
+<meta property="og:description" content="混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/059-prml-09/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-18T10:26:19+00:00" />
+<meta property="article:modified_time" content="2021-02-18T10:26:19+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]"/>
+<meta name="twitter:description" content="混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b9%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f059-prml-09%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f059-prml-09%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[9章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-18 19:26:19 &#43;0900 JST.">
+    Feb 18, 2021
+  </span><span class="post-reading-time">
+    4 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#混合ガウス分布">混合ガウス分布</a>
+      <ul>
+        <li><a href="#最尤推定の特異性">最尤推定の特異性</a></li>
+        <li><a href="#補足">補足</a></li>
+        <li><a href="#gmmのemアルゴリズム">GMMのEMアルゴリズム</a></li>
+      </ul>
+    </li>
+    <li><a href="#emアルゴリズムの一般形">EMアルゴリズムの一般形</a></li>
+    <li><a href="#そもそも潜在変数とは">そもそも潜在変数とは</a></li>
+    <li><a href="#例">例</a>
+      <ul>
+        <li><a href="#ベイズ線形回帰">ベイズ線形回帰</a></li>
+        <li><a href="#rvm">RVM</a></li>
+      </ul>
+    </li>
+    <li><a href="#emアルゴリズムが対数尤度を極大化する理由">EMアルゴリズムが対数尤度を極大化する理由</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>混合ガウス分布の最尤推定を解く手法のひとつとしてEMアルゴリズムを導入する．</p>
+<!-- toc -->
+<h2 id="混合ガウス分布">混合ガウス分布<a class="anchor ms-1" href="#混合ガウス分布"><i class="fas fa-link"></i></a></h2>
+<p>$K$ 個のクラスがあり，それぞれを $z_k$ と表記する．そしてその実現値を1-of-K符号化で $\boldsymbol{z}$ と表す(どれか一つだけが1，残りが0)．各クラスの周辺分布は $p(\boldsymbol{z}) = \pi_k$ であるとする．そしてクラスが既知である場合の条件付き確率は</p>
+<p>$$\begin{align*}
+p (\boldsymbol{x} \mid z_{k}=1) = \mathcal{N} (\boldsymbol{x} \mid \boldsymbol{\mu}_{k}, \boldsymbol{\Sigma}_{k})
+\end{align*}$$</p>
+<p>であるとすると， $\boldsymbol{x}$ の周辺分布は</p>
+<p>$$\begin{align*}
+p(\boldsymbol{x})=\sum_{k=1}^{K} \pi_{k} \mathcal{N} (\boldsymbol{x} \mid \boldsymbol{\mu}_{k}, \boldsymbol{\Sigma}_{k})
+\end{align*}$$</p>
+<p>となる．逆に $\boldsymbol{x}$ が与えられた場合の $\boldsymbol{z}$ の条件付き確率は</p>
+<p>$$\begin{align*}
+\gamma (z_k) = p(z_k = 1 \mid \boldsymbol{z}) &amp;= \dfrac{p(z_k = 1)p(\boldsymbol{x} \mid z_k = 1)}{\sum_{j=1}^{K}p(z_j = 1)p(\boldsymbol{x} \mid z_j = 1)} \\ &amp;= \dfrac{\pi_{k} \mathcal{N} (\boldsymbol{x} \mid \boldsymbol{\mu}_{k}, \boldsymbol{\Sigma}_{k})}{\sum_{j=1}^{K} \pi_{j} \mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}_{j}, \boldsymbol{\Sigma}_{j})}
+\end{align*}$$</p>
+<p>で与えられる．これは $\boldsymbol{x}$ がクラスkを説明する度合いであると言え，負荷率と呼ばれる．</p>
+<h3 id="最尤推定の特異性">最尤推定の特異性<a class="anchor ms-1" href="#最尤推定の特異性"><i class="fas fa-link"></i></a></h3>
+<p>GMMから得られた観測値の集合 $\{ \boldsymbol{x}_1, \ldots, \boldsymbol{x}_N \}$ について $\mathbf{X}$ を各行が $\boldsymbol{x}_{i}^{\text{T}}$ である行列を $\mathbf{X}$ とする．すると尤度関数の対数は</p>
+<p>$$\begin{align*}
+\ln p(\mathbf{X} \mid \boldsymbol{\pi}, \boldsymbol{\mu}, \mathbf{\Sigma})=\sum_{n=1}^{N} \ln \left\{\sum_{k=1}^{K} \pi_{k} \mathcal{N} (\boldsymbol{x}_{n} \mid \boldsymbol{\mu}_{k}, \mathbf{\Sigma}_{k})\right\}
+\end{align*}$$</p>
+<p>で与えられる．ここではシンプルに $\mathbf{\Sigma}_k = \sigma_{k}^{2} \mathbf{I}$ とし，訓練データのうちの一つ $\boldsymbol{x}_n$ がある要素の平均 $\boldsymbol{\mu}_j$ と等しかったとする．このとき指数関数部が1になるので上の式の $\ln$ の和の中に</p>
+<p>$$\begin{align*}
+\mathcal{N}(\mathbf{x}_{n} \mid \mathbf{x}_{n}, \sigma_{j}^{2} \mathbf{I})=\frac{1}{(2 \pi)^{D / 2}} \frac{1}{\sigma_{j}^{D}}
+\end{align*}$$</p>
+<p>の項が現れる．<a href="https://soblin.github.io/techblog/posts/059-prml-09/#%e8%a3%9c%e8%b6%b3">補足
+</a>で見るように指数がかかった項は $\sigma \rightarrow 0$ で0に収束するが，この項は無限大に発散してしまう．よってこの対数尤度関数は無限大に発散し，尤度関数も発散する．</p>
+<h3 id="補足">補足<a class="anchor ms-1" href="#補足"><i class="fas fa-link"></i></a></h3>
+<p>1次元のガウス分布に従う $x \sim \mathcal{N}(\mu, \sigma^2)$ から得られたデータ $[x_1, \ldots, x_N]$ のうち $x_i$ が $\mu$ に一致しているとする．これに対して尤度関数を求めると</p>
+<p>$$\begin{align*}
+\frac{1}{\sqrt{2\pi} \sigma} \prod_{n \neq i}^N \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{(x_n-\mu)^2}{2\sigma^2}}
+\end{align*}$$</p>
+<p>となる．ここで $\sigma \rightarrow 0$ とすると指数部の収束が $1 / \sigma$ の発散より強いため0に収束する．</p>
+<h3 id="gmmのemアルゴリズム">GMMのEMアルゴリズム<a class="anchor ms-1" href="#gmmのemアルゴリズム"><i class="fas fa-link"></i></a></h3>
+<p>対数尤度を $\boldsymbol{\mu}_k$ について微分することで以下を得る．</p>
+<p>$$\begin{align*}
+\gamma_{nk} &amp;= \dfrac{\pi_k \mathcal{N}(\boldsymbol{x}_n \mid \boldsymbol{\mu}_k, \mathbf{\Sigma}_k)}{\sum_j \pi_k \mathcal{N}(\boldsymbol{x}_n \mid \boldsymbol{\mu}_j, \mathbf{\Sigma}_j)} \\
+N_k &amp;= \sum_{n=1}^{N} \gamma_{nk}
+\end{align*}$$</p>
+<p>さらにこの値を使って</p>
+<p>$$\begin{align*}
+\overline{\boldsymbol{\mu}_k} &amp;= \dfrac{1}{N_k} \sum_{n=1}^{N} \gamma_{nk} \boldsymbol{x}_n \\
+\overline{\mathbf{\Sigma}_{k}} &amp;= \dfrac{1}{N_{k}} \sum_{n=1}^{N} \gamma_{nk} (\boldsymbol{x}_{n} - \overline{\boldsymbol{\mu}_{k}}) (\boldsymbol{x}_{n} - \overline{\boldsymbol{\mu}_{k}})^{\text{T}} \\
+\overline{\pi_k} &amp;= \dfrac{N_k}{N}
+\end{align*}$$</p>
+<p>を得る．このように得られた値で $(\boldsymbol{\mu}_k, \mathbf{\Sigma}_k, \pi_k)$ を更新する処理を繰り返す．</p>
+<h2 id="emアルゴリズムの一般形">EMアルゴリズムの一般形<a class="anchor ms-1" href="#emアルゴリズムの一般形"><i class="fas fa-link"></i></a></h2>
+<p>観測値 $\mathbf{X} = \{ \boldsymbol{x}_1, \ldots, \boldsymbol{x}_N \}$ が潜在変数(例えばどのGMMにおいてどのクラスに属するか，など)を含む確率分布 $p( \mathbf{X}, \mathbf{Z} \mid \boldsymbol{\theta} )$ に従うとする．これは<strong>人間が決めるものである</strong>．そして $p( \mathbf{X} \mid \boldsymbol{\theta} )$ を最大化するような $\boldsymbol{\theta}$ を求める(ここで $\mathbf{X}$ は観測値なので定数，よって $\boldsymbol{\theta}$ の関数になる)．</p>
+<p>EMアルゴリズムでは潜在変数の事後分布 $p( \mathbf{Z} \mid \mathbf{X}, \boldsymbol{\theta} )$ を用いる．これも以下のようにして</p>
+<p>$$\begin{align*}
+p( \mathbf{Z} \mid \mathbf{X}, \boldsymbol{\theta} ) = \frac{p( \mathbf{X}, \mathbf{Z} \mid \boldsymbol{\theta})}{\int p( \mathbf{X}, \mathbf{Z} \mid  \boldsymbol{\theta}) d \mathbf{Z}}
+\end{align*}$$</p>
+<p>前提で仮定した同時分布 $p( \mathbf{X}, \mathbf{Z} \mid \boldsymbol{\theta} )$ のみから求められる．初期推定値 $\boldsymbol{\theta}_0$ を用いて以下の処理を繰り返す．</p>
+<ol>
+<li>$p( \mathbf{Z} \mid \mathbf{X}, \boldsymbol{\theta}_i )$ を計算する</li>
+<li>$Q(\boldsymbol{\theta})$ を $\int p (\mathbf{Z} \mid \mathbf{X}, \boldsymbol{\theta} ) \ln p(\mathbf{X}, \mathbf{Z} \mid \boldsymbol{\theta}_i) d\mathbf{Z}$ とする</li>
+<li>この最大値を与える $\boldsymbol{\theta}$ を $\boldsymbol{\theta}_{i+1}$ とする</li>
+</ol>
+<p><a href="https://soblin.github.io/techblog/posts/059-prml-09/#gmm%e3%81%aeem%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0">GMMのEMアルゴリズム
+</a>では負荷率 $\gamma_{nk}$ を求めた部分が(1)の事後分布を求める部分に相当する．この枠組みに当てはめると $p( \mathbf{Z} \mid \boldsymbol{x}_n, \boldsymbol{\theta}_{\mathrm{old}} )$ は</p>
+<p>$$\begin{align*}
+p( \mathbf{Z} \mid \boldsymbol{x}_n, \boldsymbol{\theta} ) = \prod_{k=1}^{K} \left( \dfrac{\pi_k \mathcal{N}(\boldsymbol{x}_n \mid \boldsymbol{\mu}_k, \mathbf{\Sigma}_k)}{\sum_j \pi_j \mathcal{N}(\boldsymbol{x}_n \mid \boldsymbol{\mu}_j, \mathbf{\Sigma}_j)} \right)^{z_{nk}}
+\end{align*}$$</p>
+<p>で与えられる．同様に $p(\boldsymbol{x}_n, \mathbf{Z} \mid \boldsymbol{\theta})$ は</p>
+<p>$$\begin{align*}
+p( \boldsymbol{x}_n, \mathbf{Z}) = \prod_{k=1}^{K} \pi_{k}^{z_{nk}}\mathcal{N}( \boldsymbol{x}_n \mid \boldsymbol{\mu}_k, \mathbf{\Sigma}_k)^{z_{nk}}
+\end{align*}$$</p>
+<p>で与えられるから対数は</p>
+<p>$$\begin{align*}
+\ln p( \boldsymbol{x}_n, \mathbf{Z}) = \sum_{k=1}^{K} {z_{nk}} \ln \pi_{k} + {z_{nk}} \ln \mathcal{N}( \boldsymbol{x}_n \mid \boldsymbol{\mu}, \mathbf{\Sigma}_k)
+\end{align*}$$</p>
+<p>となる．ここで $\mathbf{Z}$ は1-of-K符号化により $\{ (1, 0, \ldots ,0), (0, 1, 0, \ldots, 0), \ldots, (0, 0, \ldots, 1) \}$ を動くとして</p>
+<p>$$\begin{align*}
+\int p (\mathbf{Z} \mid \boldsymbol{x}_n, \boldsymbol{\theta}_{\mathrm{old}} ) \ln p(\boldsymbol{x}_n, \mathbf{Z} \mid \boldsymbol{\theta}) d\mathbf{Z} = \sum_{k=1}^{K} \gamma_{nk} \{ \ln \pi_k + \ln \mathcal{N}(\boldsymbol{x}_n \mid \boldsymbol{\mu}_k, \mathbf{\Sigma}_k) \}
+\end{align*}$$</p>
+<p>となる．これを $\boldsymbol{x}_n$ につき和をとったのが(2)の $Q(\boldsymbol{\theta})$ に相当する． $(\boldsymbol{\mu}_k, \mathbf{\Sigma}_k, \pi_k)$ について微分した連立方程式を0にする値を求めると<a href="https://soblin.github.io/techblog/posts/059-prml-09/#gmm%e3%81%aeem%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0">GMMのEMアルゴリズム
+</a>で求めた式が得られる．</p>
+<h2 id="そもそも潜在変数とは">そもそも潜在変数とは<a class="anchor ms-1" href="#そもそも潜在変数とは"><i class="fas fa-link"></i></a></h2>
+<p>個人的には説明変数として用いている $\boldsymbol{x}$ 以外の切り捨てられた変数全てのことなのかなと思った．実際説明変数を列挙しようとすれば，いくらでもきりがなく出てくると思われる．あるいはハイパーパラメータと言ってもよいかもしれない．</p>
+<h2 id="例">例<a class="anchor ms-1" href="#例"><i class="fas fa-link"></i></a></h2>
+<h3 id="ベイズ線形回帰">ベイズ線形回帰<a class="anchor ms-1" href="#ベイズ線形回帰"><i class="fas fa-link"></i></a></h3>
+<p>TODO</p>
+<h3 id="rvm">RVM<a class="anchor ms-1" href="#rvm"><i class="fas fa-link"></i></a></h3>
+<p>TODO</p>
+<h2 id="emアルゴリズムが対数尤度を極大化する理由">EMアルゴリズムが対数尤度を極大化する理由<a class="anchor ms-1" href="#emアルゴリズムが対数尤度を極大化する理由"><i class="fas fa-link"></i></a></h2>
+<p>一般的な議論を行う．以下の尤度関数</p>
+<p>$$\begin{align*}
+p(\mathbf{X} \mid \boldsymbol{\theta})=\sum_{\mathbf{Z}} p(\mathbf{X}, \mathbf{Z} \mid \boldsymbol{\theta})
+\end{align*}$$</p>
+<p>を $\boldsymbol{\theta}$ について最大化したい．</p>
+<p>$$\begin{align*}
+\ln p(\mathbf{X} \mid \boldsymbol{\theta})=\mathcal{L}(q, \boldsymbol{\theta})+\mathrm{KL}(q | p)
+\end{align*}$$</p>
+<p>ここで $\mathrm{KL}(q | p)$ はKLダイバージェンスと呼ばれるが常に0以上の値をとる．以下の図は対数尤度を分解した図である．</p>
+<p><picture><img class="img-fluid" alt="対数尤度の分解" src="https://soblin.github.io/techblog/posts/059-prml-09/059_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>Eステップでは $q(\mathbf{Z})$ について $\mathcal{L}(q, \boldsymbol{\theta})$ を最大化する．すると下の図のように $\mathrm{KL}(q | p)$ が0になる．</p>
+<p><picture><img class="img-fluid" alt="q(Z)に関する最大化(Eステップ)" src="https://soblin.github.io/techblog/posts/059-prml-09/059_2.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>次のMステップでは $\mathcal{L}(q, \boldsymbol{\theta})$ を $\boldsymbol{\theta}$ について最大化する．このとき $\mathrm{KL}(q | p)$ は必ず0以上であるから，図のように $\ln ( \mathbf{X} \mid \boldsymbol{\theta})$ も点線から増加する．</p>
+<p><picture><img class="img-fluid" alt="Mステップ" src="https://soblin.github.io/techblog/posts/059-prml-09/059_3.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/030-oftenuse-git/">たまに使うgitコマンド
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/057-prml-07/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/057-prml-07/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[7章]
+</a>
+          <span class="float-end post-date">Feb 17, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/056-prml-06/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]
+</a>
+          <span class="float-end post-date">Feb 15, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/045-prml-05/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]
+</a>
+          <span class="float-end post-date">Feb 9, 2021
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/">モンテカルロ木探索について
+</a>
+          <span class="float-end post-date">Nov 7, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/044-prml-03/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</a>
+          <span class="float-end post-date">Mar 9, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

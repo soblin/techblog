@@ -1,0 +1,348 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．
+初心者がニューラルネットワークを実装する際に気をつけておきたいことは，逆伝播では順伝播の値をキャッシュする必要があるということである．
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]">
+<meta itemprop="description" content="誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．
+初心者がニューラルネットワークを実装する際に気をつけておきたいことは，逆伝播では順伝播の値をキャッシュする必要があるということである．
+"><meta itemprop="datePublished" content="2021-02-09T16:13:58+00:00" />
+<meta itemprop="dateModified" content="2021-02-09T16:13:58+00:00" />
+<meta itemprop="wordCount" content="1123">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]" />
+<meta property="og:description" content="誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．
+初心者がニューラルネットワークを実装する際に気をつけておきたいことは，逆伝播では順伝播の値をキャッシュする必要があるということである．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/045-prml-05/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-09T16:13:58+00:00" />
+<meta property="article:modified_time" content="2021-02-09T16:13:58+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]"/>
+<meta name="twitter:description" content="誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．
+初心者がニューラルネットワークを実装する際に気をつけておきたいことは，逆伝播では順伝播の値をキャッシュする必要があるということである．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b5%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f045-prml-05%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f045-prml-05%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-10 01:13:58 &#43;0900 JST.">
+    Feb 9, 2021
+  </span><span class="post-reading-time">
+    3 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#順伝播">順伝播</a></li>
+    <li><a href="#逆伝播">逆伝播</a></li>
+    <li><a href="#オプティマイザー">オプティマイザー</a>
+      <ul>
+        <li><a href="#sgd">SGD</a></li>
+        <li><a href="#momentum-sgd">Momentum SGD</a></li>
+        <li><a href="#rmsprop">RMSProp</a></li>
+        <li><a href="#adam">Adam</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>誤差逆伝播法の公式を並べておこうと思う(特にN個のデータをバッチ形式で入力する際の公式)．</p>
+<p>初心者がニューラルネットワークを実装する際に気をつけておきたいことは，<strong>逆伝播では順伝播の値をキャッシュする</strong>必要があるということである．</p>
+<!-- toc -->
+<h2 id="順伝播">順伝播<a class="anchor ms-1" href="#順伝播"><i class="fas fa-link"></i></a></h2>
+<p>どのlayerも <code>input</code> 次元(ベクトル)の入力xを線形変換で <code>output</code> 次元の変数zに変換し，その各要素を非線形な関数 <code>f</code> で <code>output</code> 次元yとして出力する．プログラミング言語で実装する際は，このlayerオブジェクトにxとzの値をキャッシュさせておく必要がある．</p>
+<p>$$\begin{align*}
+\boldsymbol{x} \in \mathbb{R}^{\mathrm{input}} \longrightarrow \boldsymbol{z} = W \boldsymbol{x} + \boldsymbol{b} \in \mathbb{R}^{\mathrm{output}} \longrightarrow \boldsymbol{y} = f(\boldsymbol{z}) \in \mathbb{R}^{\mathrm{output}}
+\end{align*}$$</p>
+<p>ここの行列変数Wとバイアスbはlayerオブジェクトの変数であり，これが勾配法(SGD, Adam, AdaGradなど)で更新されていく．</p>
+<p>またxをベクトルではなく，N回分のデータをまとめたバッチ形式 $\boldsymbol{x} = [\boldsymbol{x}_1 \boldsymbol{x}_2 \cdots \boldsymbol{x}_N]$ で入力することがある．その場合zとyも同様に<strong>横に</strong>ベクトルを並べるので行列になるが，上の式はそのまま適用できる．</p>
+<p>これが最終層まで適用され，その出力と目標値から損失の勾配  $\partial E / \partial \boldsymbol{y}$ が求められる．</p>
+<h2 id="逆伝播">逆伝播<a class="anchor ms-1" href="#逆伝播"><i class="fas fa-link"></i></a></h2>
+<p>最終層の出力を $\boldsymbol{y}$ ，その目標値を $\boldsymbol{t}$ とすると，損失関数 $E$ の $\boldsymbol{y}$ に関する勾配は回帰でも分類でも(よく使われる損失関数については) $\boldsymbol{y} - \boldsymbol{t}$ となる．この $\partial E / \partial \boldsymbol{y} = \boldsymbol{y} - \boldsymbol{t}$ を起点に諸々の勾配を求めていく．</p>
+<p>$$\begin{align*}
+\dfrac{\partial E}{\partial \boldsymbol{z}} &amp;= \dfrac{\partial E}{\partial \boldsymbol{y}} \odot f^{\prime}(\boldsymbol{z}) = \left[ \dfrac{\partial E}{\partial \boldsymbol{z}_1}, \dfrac{\partial E}{\partial \boldsymbol{z}_2}, \cdots, \dfrac{\partial E}{\partial \boldsymbol{z}_N} \right] \in \mathbb{R}^{\mathrm{output}} \\
+\dfrac{\partial E}{\partial W} &amp;= \dfrac{\partial E}{\partial \boldsymbol{z}} \boldsymbol{x}^{\text{T}} \in \mathbb{R}^{\mathrm{output}} \times \mathbb{R}^{\mathrm{input}} \\
+\dfrac{\partial E}{\partial \boldsymbol{b}} &amp;= \sum_{i} \dfrac{\partial E}{\partial \boldsymbol{z}_i} \in \mathbb{R}^{\mathrm{output}} \\
+\dfrac{\partial E}{\partial \boldsymbol{x}} &amp;= \boldsymbol{W}^{\text{T}} f^{\prime}(\boldsymbol{z}) \in \mathbb{R}^{\mathrm{input}}
+\end{align*}$$</p>
+<p>ここで $\odot$ は要素ごとの積である．また順伝播での値xとzを用いていることに注意．</p>
+<p>そして4つ目の $\partial E / \partial \boldsymbol{x}$ が <strong>次のlayerにとっての</strong> $\partial E / \partial \boldsymbol{y}$ となるので，そこでも上の公式で各変数の勾配を求められる．このようにして，一番最初の入力についての $$\partial E / \partial \boldsymbol{x}$$ までが全て求まる．</p>
+<h2 id="オプティマイザー">オプティマイザー<a class="anchor ms-1" href="#オプティマイザー"><i class="fas fa-link"></i></a></h2>
+<p>逆伝播では上の公式で各変数の勾配を求めたあと変数の更新を行い，次のlayerへ移る．勾配法にも以下のようにいくつかの種類がある．</p>
+<p>ここで $\boldsymbol{w}_t$ などは行列変数Wまたはバイアスbである(演算は全て要素ごととする)．</p>
+<h3 id="sgd">SGD<a class="anchor ms-1" href="#sgd"><i class="fas fa-link"></i></a></h3>
+<p>学習率 $\eta$ を勾配 $\boldsymbol{g}_t$ に乗じて学習勾配 $\Delta \boldsymbol{w}_t$ とし，現在の値からそれを減じる．</p>
+<p>$$\begin{align*}
+\boldsymbol{g}_t &amp;= \nabla E(\boldsymbol{w}_t) \\
+\Delta \boldsymbol{w}_t &amp;= -\eta \boldsymbol{g}_t \\
+\boldsymbol{w}_{t+1} &amp;= \boldsymbol{w}_t + \Delta \boldsymbol{w}_t
+\end{align*}$$</p>
+<h3 id="momentum-sgd">Momentum SGD<a class="anchor ms-1" href="#momentum-sgd"><i class="fas fa-link"></i></a></h3>
+<p>以前の学習勾配 $\Delta \boldsymbol{w}_{t-1}$ を用いる．この値はlayerかfunctionにメンバ変数としてキャッシュしておく必要がある．</p>
+<p>$$\begin{align*}
+\boldsymbol{g}_t &amp;= \nabla E(\boldsymbol{w}_t) \\
+\Delta \boldsymbol{w}_t &amp;= \mu \Delta \boldsymbol{w}_{t-1} - (1 - \mu) \eta \boldsymbol{g}_t \\
+\boldsymbol{w}_{t+1} &amp;= \boldsymbol{w}_t + \Delta \boldsymbol{w}_t
+\end{align*}$$</p>
+<h3 id="rmsprop">RMSProp<a class="anchor ms-1" href="#rmsprop"><i class="fas fa-link"></i></a></h3>
+<p>$$\begin{align*}
+\boldsymbol{g}_t &amp;= \nabla E(\boldsymbol{w}_t) \\
+\boldsymbol{v}_t &amp;= \rho \boldsymbol{v}_{t-1} + (1 - \rho) \boldsymbol{g}^{2}_{t} \\
+\Delta \boldsymbol{w}_t &amp;= -\dfrac{\eta}{\sqrt{\boldsymbol{v}_t + \epsilon}} \boldsymbol{g}_t \\
+\boldsymbol{w}_{t+1} &amp;= \boldsymbol{w}_t + \Delta \boldsymbol{w}_t
+\end{align*}$$</p>
+<p>パラメータ $\boldsymbol{v}_t$ の以前の値をキャッシュしておく必要がある．</p>
+<h3 id="adam">Adam<a class="anchor ms-1" href="#adam"><i class="fas fa-link"></i></a></h3>
+<p>$$\begin{align*}
+\boldsymbol{g}_t &amp;= \nabla E(\boldsymbol{w}_t) \\
+\boldsymbol{m}_t &amp;= \rho_1 \boldsymbol{m}_{t-1} + (1 - \rho_1) \boldsymbol{g}_{t} \\
+\boldsymbol{v}_t &amp;= \rho_2 \boldsymbol{v}_{t-1} + (1 - \rho_2) \boldsymbol{g}^{2}_{t} \\
+\hat{\boldsymbol{m}}_t &amp;= \dfrac{\boldsymbol{m}_t}{1 - \rho_1} \\
+\hat{\boldsymbol{v}}_t &amp;= \dfrac{\boldsymbol{v}_t}{1 - \rho_2} \\
+\Delta \boldsymbol{w}_t &amp;= -\dfrac{\eta}{\sqrt{\hat{\boldsymbol{v}}_t + \epsilon}} \hat{\boldsymbol{m}}_t \\
+\boldsymbol{w}_{t+1} &amp;= \boldsymbol{w}_t + \Delta \boldsymbol{w}_t
+\end{align*}$$</p>
+<p>パラメータ $\boldsymbol{m}_t, \boldsymbol{v}_t$ の以前の値をキャッシュしておく必要がある．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/046-linux-vfs/">LinuxのVFSに関するメモ
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/">モンテカルロ木探索について
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/">モンテカルロ木探索について
+</a>
+          <span class="float-end post-date">Nov 7, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/044-prml-03/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</a>
+          <span class="float-end post-date">Mar 9, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/041-prml-02/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]
+</a>
+          <span class="float-end post-date">Feb 26, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/039-prml-01/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]
+</a>
+          <span class="float-end post-date">Feb 12, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

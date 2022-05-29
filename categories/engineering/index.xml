@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Engineering on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/categories/engineering/</link>
+    <description>Recent content in Engineering on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Jan 2020 18:43:00 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/categories/engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[5章]</title>
+      <link>https://soblin.github.io/techblog/posts/034-goodwin-chapter5/</link>
+      <pubDate>Fri, 31 Jan 2020 18:43:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/034-goodwin-chapter5/</guid>
+      <description>&lt;p&gt;感度関数，内部安定性，根軌跡，ボーデ線図，ナイキストの安定判定法，安定余裕(ゲイン，位相余裕)，スモールゲイン定理，ロバスト安定性など盛りだくさんの内容。 学部で習う古典制御の一歩先。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ナイキスト線図</title>
+      <link>https://soblin.github.io/techblog/posts/036-nyquist-diagram/</link>
+      <pubDate>Mon, 27 Jan 2020 09:40:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/036-nyquist-diagram/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Control System Design&amp;quot;の第5章のほぼ和訳。なんで時計回り？って始めに感じるかもしれないが，読むと理由が分かる(ベクトル線図を意識している)。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>モーターの基礎知識</title>
+      <link>https://soblin.github.io/techblog/posts/038-motor-basics/</link>
+      <pubDate>Sun, 05 Jan 2020 10:04:44 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/038-motor-basics/</guid>
+      <description>&lt;p&gt;『モーター制御の全てが分かる本』を読んで一通りモーターに関する知識を付けていく。&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>根軌跡の描き方</title>
+      <link>https://soblin.github.io/techblog/posts/033-root-locus/</link>
+      <pubDate>Sat, 28 Dec 2019 12:03:30 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/033-root-locus/</guid>
+      <description>&lt;p&gt;根軌跡は書くためのルールがたくさんあってややこしい． 自分が描きやすいように手順をまとめるが，できればなぜそうなっているのかを数学的に理解したい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[4章]</title>
+      <link>https://soblin.github.io/techblog/posts/031-goodwin-chapter4/</link>
+      <pubDate>Mon, 18 Nov 2019 10:08:31 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/031-goodwin-chapter4/</guid>
+      <description>&lt;p&gt;主にゼロ点，ラプラス変換，モデル化誤差について．4.8.2のゼロ点についてからまとめる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>Goodwin &#34;Control System Design&#34;の読書メモ[2章]</title>
+      <link>https://soblin.github.io/techblog/posts/025-goodwin-chapter2/</link>
+      <pubDate>Wed, 13 Nov 2019 15:51:14 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/025-goodwin-chapter2/</guid>
+      <description>&lt;p&gt;第2章の主に2.3節から．近似逆系についての説明をここではまとめる．時間遅れ系の逆系は存在しないことの説明が分かりやすい．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

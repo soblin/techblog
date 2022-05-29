@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Group Theory on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/tags/group-theory/</link>
+    <description>Recent content in Group Theory on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Dec 2019 21:04:48 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/tags/group-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>有限群におけるいくつかの基本的なワード</title>
+      <link>https://soblin.github.io/techblog/posts/020-group-theory/</link>
+      <pubDate>Fri, 27 Dec 2019 21:04:48 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/020-group-theory/</guid>
+      <description>&lt;p&gt;ネット上に落ちていた&lt;a href=&#34;http://cat.phys.s.u-tokyo.ac.jp/lecture/MP3_14/mp3_note.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;このノート&lt;i class=&#34;fas fa-external-link-square-alt ms-1&#34;&gt;&lt;/i&gt;
+&lt;/a&gt;の第1章を読んで部分群，正規部分群，共役類，準同型写像などについて学んだ時のメモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

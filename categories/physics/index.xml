@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Physics on Soblin&#39;s Blog</title>
+    <link>https://soblin.github.io/techblog/categories/physics/</link>
+    <description>Recent content in Physics on Soblin&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Aug 2019 19:00:20 +0000</lastBuildDate><atom:link href="https://soblin.github.io/techblog/categories/physics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>山本『解析力学』第3章のまとめ</title>
+      <link>https://soblin.github.io/techblog/posts/019-memo/</link>
+      <pubDate>Thu, 08 Aug 2019 19:00:20 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/019-memo/</guid>
+      <description>&lt;p&gt;山本『解析力学』第3章の読書メモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>非ホロノミック拘束に対するオイラーラグランジュ方程式</title>
+      <link>https://soblin.github.io/techblog/posts/017-nonholonomic-el/</link>
+      <pubDate>Mon, 05 Aug 2019 14:50:44 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/017-nonholonomic-el/</guid>
+      <description>&lt;p&gt;転がるコインを例にして非ホロノミック拘束を受ける系のオイラーラグランジュ方程式を求める．山本『解析力学』の2章の読書メモ．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>幾何的なオイラーラグランジュ方程式</title>
+      <link>https://soblin.github.io/techblog/posts/016-geometric-el/</link>
+      <pubDate>Sun, 04 Aug 2019 17:08:41 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/016-geometric-el/</guid>
+      <description>&lt;p&gt;山本『解析力学』第二章の読書メモ．オイラーラグランジュ方程式を微分形式で表す．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラグランジュのコマのラグランジアン(あるいはラウシアン)と歳差運動</title>
+      <link>https://soblin.github.io/techblog/posts/012-eular-spinner/</link>
+      <pubDate>Tue, 16 Jul 2019 11:11:13 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/012-eular-spinner/</guid>
+      <description>&lt;p&gt;ラウシアンを用いてラグランジュのコマの運動方程式を解く．ラグランジュのコマは可積分なので，数値シミュレーションに向いた綺麗な方程式を導出することができる．またそれを用いて章動や歳差運動の解析を行うことができる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラウシアンとは</title>
+      <link>https://soblin.github.io/techblog/posts/011-routhian/</link>
+      <pubDate>Tue, 16 Jul 2019 11:10:43 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/011-routhian/</guid>
+      <description>&lt;p&gt;ラグランジアンに循環座標が存在する場合，それに対応する運動量は保存する．そしてそれらを用いて一般化座標を消去すると，ラグランジアンの変数を2つ減らすことができる．しかしそのままラグランジアンにそれを代入したものを使って残りの変数についてオイラーラグランジュ方程式を立てても，正しい方程式は与えられない．ここでは保存量が見つかった場合に用いる代わりの量，ラウシアンについて説明する．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>コマの自転運動の方程式の導出</title>
+      <link>https://soblin.github.io/techblog/posts/010-spinner-equation/</link>
+      <pubDate>Tue, 16 Jul 2019 08:49:07 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/010-spinner-equation/</guid>
+      <description>&lt;p&gt;表題の通りコマの重心周りの自転の運動方程式を解析力学で求める．ニュートン力学でこれを求めるのは厳しいと思う．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>ラグランジアンのゲージ変換と電磁場のラグランジアン</title>
+      <link>https://soblin.github.io/techblog/posts/009-lagrangian-gauge/</link>
+      <pubDate>Tue, 16 Jul 2019 06:57:37 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/009-lagrangian-gauge/</guid>
+      <description>&lt;p&gt;ゲージ変換は別に理論物理における崇高な概念というわけではなく，単にオイラーラグランジュ方程式に代入するとゼロになってしまう関数，つまりオイラーラグランジュ方程式にとっては「定数」のように見える関数に過ぎない．つまりラグランジアンはその「定数」の分だけ不定性があるということ．本節では具体的にどのような関数がその条件を満たすのか求めてみる．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+    <item>
+      <title>電磁場のラグランジアンとハミルトニアン</title>
+      <link>https://soblin.github.io/techblog/posts/008-general-potential/</link>
+      <pubDate>Tue, 16 Jul 2019 06:30:00 +0000</pubDate>
+      
+      <guid>https://soblin.github.io/techblog/posts/008-general-potential/</guid>
+      <description>&lt;p&gt;一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．&lt;/p&gt;
+&lt;!-- toc --&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

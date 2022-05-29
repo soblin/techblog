@@ -1,0 +1,378 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>モンテカルロ木探索について - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="&ldquo;Decision Making under Uncertainty&quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．
+木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．
+" /><meta itemprop="name" content="モンテカルロ木探索について">
+<meta itemprop="description" content="&ldquo;Decision Making under Uncertainty&quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．
+木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．
+"><meta itemprop="datePublished" content="2020-11-07T17:12:50+00:00" />
+<meta itemprop="dateModified" content="2020-11-07T17:12:50+00:00" />
+<meta itemprop="wordCount" content="986">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="モンテカルロ木探索について" />
+<meta property="og:description" content="&ldquo;Decision Making under Uncertainty&quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．
+木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/055-montecarlo-tree-search/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-07T17:12:50+00:00" />
+<meta property="article:modified_time" content="2020-11-07T17:12:50+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="モンテカルロ木探索について"/>
+<meta name="twitter:description" content="&ldquo;Decision Making under Uncertainty&quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．
+木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%83%a2%e3%83%b3%e3%83%86%e3%82%ab%e3%83%ab%e3%83%ad%e6%9c%a8%e6%8e%a2%e7%b4%a2%e3%81%ab%e3%81%a4%e3%81%84%e3%81%a6&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f055-montecarlo-tree-search%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f055-montecarlo-tree-search%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">モンテカルロ木探索について</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">モンテカルロ木探索について
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-11-08 02:12:50 &#43;0900 JST.">
+    Nov 7, 2020
+  </span><span class="post-reading-time">
+    2 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#逐次的意思決定問題">逐次的意思決定問題</a>
+      <ul>
+        <li><a href="#反復方策評価">反復方策評価</a></li>
+        <li><a href="#方策反復">方策反復</a></li>
+        <li><a href="#価値反復">価値反復</a></li>
+      </ul>
+    </li>
+    <li><a href="#オンライン手法">オンライン手法</a>
+      <ul>
+        <li><a href="#前向き探索">前向き探索</a></li>
+        <li><a href="#分岐限定法">分岐限定法</a></li>
+      </ul>
+    </li>
+    <li><a href="#モンテカルロ木探索">モンテカルロ木探索</a>
+      <ul>
+        <li><a href="#ロールアウト">ロールアウト</a></li>
+        <li><a href="#mcts">MCTS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>&ldquo;Decision Making under Uncertainty&quot;を参考にしている．Monte Carlo Tree Search(MCTS)はアルファ碁にも用いられたことで有名である．</p>
+<p>木の上の再帰関数だから競プロ的な雰囲気で理解したほうが良いのかも．</p>
+<!-- toc -->
+<h2 id="逐次的意思決定問題">逐次的意思決定問題<a class="anchor ms-1" href="#逐次的意思決定問題"><i class="fas fa-link"></i></a></h2>
+<p>状態 $s$ における最適な方策を返す写像を $\pi(s)$ ，状態 $s$ における効用関数を $U(s)$ とする．</p>
+<h3 id="反復方策評価">反復方策評価<a class="anchor ms-1" href="#反復方策評価"><i class="fas fa-link"></i></a></h3>
+<p>期待効用の計算は方策評価と呼ばれる．反復方策評価では $\pi_0(s)$ を初期値(初期関数)で初期化して，これを使って効用関数のアップデートを繰り返す．</p>
+<p>$$\begin{align*}
+U^{\pi}_0 (s) = R(s, \pi(s)) + \gamma \sum_{s{\prime}} T(s^{\prime} \mid s, \pi(s)) U_{t-1}^{\pi}(s^{\prime})
+\end{align*}$$</p>
+<p>$T(s^{\prime} \mid s, \pi(s))$ は状態から行動 $\pi(s)$ を使って遷移する確率である．</p>
+<ol>
+<li>$U^{\prime}_0(s) \leftarrow 0$</li>
+<li>for  $t \leftarrow 1$ to $n$ do:</li>
+<li>すべての $s$ について</li>
+<li>$U^{\pi}_0 (s) = R(s, \pi(s)) + \gamma \sum_{s{\prime}} T(s^{\prime} \mid s, \pi(s)) U_{t-1}^{\pi}(s^{\prime})$</li>
+<li>return  $U_{n}^{\pi}$</li>
+</ol>
+<h3 id="方策反復">方策反復<a class="anchor ms-1" href="#方策反復"><i class="fas fa-link"></i></a></h3>
+<p>最適行動 $\pi(s)$ を求める方法は方策反復と価値反復の二つがある．方策反復では $\pi_0$ の初期値を設定して以下のように $\pi_k$ を更新する．</p>
+<p>$$\begin{align*}
+\pi_{k+1} = \underset{a}{\mathrm{argmax}} \left( R(s, a) + \gamma \sum_{s^{\prime}} T(s^{\prime} \mid s, a) U^{\pi_k} (s^{\prime}) \right)
+\end{align*}$$</p>
+<p>$\pi_{k+1}$ との差が縮まるまで繰り返す．</p>
+<h3 id="価値反復">価値反復<a class="anchor ms-1" href="#価値反復"><i class="fas fa-link"></i></a></h3>
+<p>価値反復は $U_k (s)$ 自体を更新していき，最後に $\pi^{*}(s)$ を求める．</p>
+<ol>
+<li>$U_{0}(s)$ を初期化する</li>
+<li>$U_{k+1}(s) \leftarrow \underset{a}{\max} \left( R(s, a) + \gamma \sum_{s^{\prime}} T(s^{\prime} \mid s, a) U_{k}(s^{\prime}) \right)$ で更新</li>
+</ol>
+<p>効用関数が収束したら</p>
+<p>$$\begin{align*}
+\pi(s) \leftarrow \underset{a}{\mathrm{argmax}} \left( R(s, a) + \gamma \sum_{s^{\prime}} T(s^{\prime} \mid s, a) U^{*} (s^{\prime}) \right)
+\end{align*}$$</p>
+<p>で最適方策を求める．</p>
+<h2 id="オンライン手法">オンライン手法<a class="anchor ms-1" href="#オンライン手法"><i class="fas fa-link"></i></a></h2>
+<p>方策反復と価値反復では．全状態空間を対象に効用関数や方策が収束するまで繰り返しを行う必要がある．一方で最適ではないものの与えらえた状態 $s$ に対して準最適な解を求める任意時間のアルゴリズムがMCTSを含む以下の手法である．</p>
+<h3 id="前向き探索">前向き探索<a class="anchor ms-1" href="#前向き探索"><i class="fas fa-link"></i></a></h3>
+<p>シンプルに深さ優先探索を行う．</p>
+<blockquote>
+<p><strong>function</strong> $\mathrm{SelectAction}(s, d)$<br>
+　　<strong>if</strong>  $d == 0$<br>
+　　　　<strong>return</strong> $(\mathrm{NIL}, 0)$<br>
+　　$(a^{*}, v^{*}) \leftarrow (\mathrm{NIL}, -\infty)$<br>
+　　<strong>for</strong>  $a \in A(s)$<br>
+　　　　$v \leftarrow R(s, a)$<br>
+　　　　<strong>for</strong>  $s^{\prime} \in S(s, a)$<br>
+　　　　　　$(a^{\prime}, v^{\prime}) \leftarrow \mathrm{SelectAction}(s^{\prime}, d-1)$<br>
+　　　　　　$v \leftarrow v + \gamma T(s^{\prime} \mid s, a) v^{\prime}$<br>
+　　　　<strong>if</strong>  $v &gt; v^{*}$<br>
+　　　　　　$(a^{*}, v^{*}) \leftarrow (a, v)$<br>
+<strong>return</strong>  $(a^{*}, v^{*})$</p>
+</blockquote>
+<h3 id="分岐限定法">分岐限定法<a class="anchor ms-1" href="#分岐限定法"><i class="fas fa-link"></i></a></h3>
+<p>価値関数の下限 $\underline{U}(s)$ と状態ー行動の価値関数の上限 $\overline{U}(s)$ が分かっている場合，ノードの効用値 $v$ が $\underline{U}(s) \leq v \leq \overline{U}(s, a)$ の場合それ以上の深さに対しては再帰をcallしない．</p>
+<blockquote>
+<p><strong>function</strong> $\mathrm{SelectAction}(s, d)$<br>
+　　<strong>if</strong>  $d == 0$<br>
+　　　　<strong>return</strong> $(\mathrm{NIL}, \underline{U}(s))$<br>
+　　$(a^{*}, v^{*}) \leftarrow (\mathrm{NIL}, -\infty)$<br>
+　　<strong>for</strong>  $a \in A(s)$<br>
+　　　　<strong>if</strong> $v^{*} &gt; \overline{U}(s, a)$<br>
+　　　　　　<strong>return</strong> $(a^{*}, v^{*})$<br>
+　　　　$v \leftarrow R(s, a)$<br>
+　　　　<strong>for</strong>  $s^{\prime} \in S(s, a)$<br>
+　　　　　　$(a^{\prime}, v^{\prime}) \leftarrow \mathrm{SelectAction}(s^{\prime}, d-1)$<br>
+　　　　　　$v \leftarrow v + \gamma T(s^{\prime} \mid s, a) v^{\prime}$<br>
+　　　　<strong>if</strong>  $v &gt; v^{*}$<br>
+　　　　　　$(a^{*}, v^{*}) \leftarrow (a, v)$<br>
+<strong>return</strong>  $(a^{*}, v^{*})$</p>
+</blockquote>
+<h2 id="モンテカルロ木探索">モンテカルロ木探索<a class="anchor ms-1" href="#モンテカルロ木探索"><i class="fas fa-link"></i></a></h2>
+<h3 id="ロールアウト">ロールアウト<a class="anchor ms-1" href="#ロールアウト"><i class="fas fa-link"></i></a></h3>
+<p>未探索のノード(状態)については<strong>Rollout</strong>と呼ばれるサブルーチンでヒューリスティックに効用関数を近似する(これは徐々にアップデートされる)．このロールアウトは初期の状態 $s$ とサンプリングモデル $G(s, a)$ を用いて，適当な深さ $d$ だけノードを辿って効用値を推定する．</p>
+<blockquote>
+<p><strong>function</strong>  $\mathrm{Rollout}(s, d, \pi)$<br>
+　　<strong>if</strong>  $d == 0$<br>
+　　　　<strong>return</strong> 0<br>
+　　$a \sim \pi(s)$<br>
+　　$(s^{\prime}, r) \sim G(s, a)$<br>
+<strong>return</strong> $r + \gamma \mathrm{Rollout}(s^{\prime}, d-1, \pi)$</p>
+</blockquote>
+<h3 id="mcts">MCTS<a class="anchor ms-1" href="#mcts"><i class="fas fa-link"></i></a></h3></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/045-prml-05/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[5章]
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/053-iterative-depthning/">反復深化について
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/044-prml-03/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</a>
+          <span class="float-end post-date">Mar 9, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/041-prml-02/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]
+</a>
+          <span class="float-end post-date">Feb 26, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/039-prml-01/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]
+</a>
+          <span class="float-end post-date">Feb 12, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

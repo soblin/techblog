@@ -1,0 +1,412 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章] - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="読んでいて詰まったところをメモっていく．
+" /><meta itemprop="name" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]">
+<meta itemprop="description" content="読んでいて詰まったところをメモっていく．
+"><meta itemprop="datePublished" content="2020-02-12T07:07:57+00:00" />
+<meta itemprop="dateModified" content="2020-02-12T07:07:57+00:00" />
+<meta itemprop="wordCount" content="2837">
+<meta itemprop="keywords" content="Informatics," /><meta property="og:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]" />
+<meta property="og:description" content="読んでいて詰まったところをメモっていく．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/039-prml-01/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-02-12T07:07:57+00:00" />
+<meta property="article:modified_time" content="2020-02-12T07:07:57+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]"/>
+<meta name="twitter:description" content="読んでいて詰まったところをメモっていく．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=Bishop%20%22Pattern%20Recognition%20and%20Machine%20Learning%22%20%e8%aa%ad%e6%9b%b8%e3%83%a1%e3%83%a2%5b1%e7%ab%a0%5d&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f039-prml-01%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f039-prml-01%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[1章]
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-02-12 16:07:57 &#43;0900 JST.">
+    Feb 12, 2020
+  </span><span class="post-reading-time">
+    6 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/informatics/" class="badge post-taxonomy">Informatics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-多項式曲線フィッティング">1.1 多項式曲線フィッティング</a></li>
+    <li><a href="#12-確率論">1.2 確率論</a>
+      <ul>
+        <li><a href="#123-ベイズ確率">1.2.3 ベイズ確率</a></li>
+        <li><a href="#124-ガウス分布">1.2.4 ガウス分布</a></li>
+      </ul>
+    </li>
+    <li><a href="#15-決定理論">1.5 決定理論</a>
+      <ul>
+        <li><a href="#154-推論と決定">1.5.4 推論と決定</a></li>
+        <li><a href="#モデルの結合">モデルの結合</a></li>
+      </ul>
+    </li>
+    <li><a href="#16-情報理論">1.6 情報理論</a>
+      <ul>
+        <li><a href="#161-相対エントロピーと相互情報量">1.6.1 相対エントロピーと相互情報量</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>読んでいて詰まったところをメモっていく．</p>
+<!-- toc -->
+<h2 id="11-多項式曲線フィッティング">1.1 多項式曲線フィッティング<a class="anchor ms-1" href="#11-多項式曲線フィッティング"><i class="fas fa-link"></i></a></h2>
+<p>教科書では $\sin (2 \pi x)$ に従うランダムデータを多項式でフィッティングする例題を用いている．</p>
+<p>$$\begin{align*}
+y(x, \boldsymbol{w}) = w_0 + w_1 x + w_2 x^2 + \cdots + w_M x^M
+\end{align*}$$</p>
+<p>基本的にモデルの次数は $3 &lt; M &lt; 8$ ぐらいが良さそうに見える．$M =9$ においてはデータ点数10に対して多項式の重みも10個あるため，すべてのデータ点を通るよう誤差が0となるフィッティングが行えている．しかしむちゃくちゃに発散した曲線となっており，ランダムに生成したテストデータのバッチに対しては誤差が大きくなると想定される．</p>
+<p><picture><img class="img-fluid" alt="M=3" src="https://soblin.github.io/techblog/posts/039-prml-01/prml/Figure1.4c.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p><picture><img class="img-fluid" alt="M=8" src="https://soblin.github.io/techblog/posts/039-prml-01/prml/Figure1.4d.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>一方でモデルの次数が高くても，データ集合のサイズが大きければ過学習はそれほど深刻ではなくなる．</p>
+<p><picture><img class="img-fluid" alt="N=100" src="https://soblin.github.io/techblog/posts/039-prml-01/prml/Figure1.6b.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>しかし，入手できるデータ集合のサイズに応じてモデルの次数を調整しなければならないのは不自然ではないだろうか？結局のところそのデータの生成源にはそれに特有のモデルの次数が存在するのであろうし，モデル次数がその時点で得られているデータ集合のサイズに依存するわけがない．<strong>その生成源からのデータが多かろうと少なかろうと</strong>(真に必要な，重要な)パラメータは必要であろうし，せめてデータ集合のサイズに応じてパラメータ数を調整できないだろうか？</p>
+<p>過学習の問題は最尤推定に特有であるが，ベイズ的アプローチを採用すれば回避することができる．ベイズのアプローチではモデルの次数(パラメータ数)がデータ集合のサイズを大幅に超えていてもよく，パラメータ数はデータ集合のサイズによって自動的に決定される(らしい)．</p>
+<p>過学習の問題を避けるテクニックとして正則化も有名である．</p>
+<p>$$\begin{align*}
+\tilde{E}(\boldsymbol{w}) = \dfrac{1}{2} \sum_{n=1}^{N} (y(x_n, \boldsymbol{w}) - t_n)^2 + \dfrac{\lambda}{2} | \boldsymbol{w} |^2
+\end{align*}$$</p>
+<p>先ほどの9次の多項式フィッティングにおいて正則化を用いた結果が下の図のようになる．</p>
+<p><picture><img class="img-fluid" alt="regularaization" src="https://soblin.github.io/techblog/posts/039-prml-01/prml/Figure1.7a.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h2 id="12-確率論">1.2 確率論<a class="anchor ms-1" href="#12-確率論"><i class="fas fa-link"></i></a></h2>
+<h3 id="123-ベイズ確率">1.2.3 ベイズ確率<a class="anchor ms-1" href="#123-ベイズ確率"><i class="fas fa-link"></i></a></h3>
+<p>パラメータ $\boldsymbol{w}$ は不確実性を持った確率分布で表わされる量であり，データを観測するたびに分布が更新される．
+$$\begin{align*}
+p(\boldsymbol{w} \mid \mathcal{D}) =\dfrac{p(\mathcal{D} \mid \boldsymbol{w})p(\boldsymbol{w})}{p(\mathcal{D})}
+\end{align*}$$</p>
+<ul>
+<li>$p(\boldsymbol{w})$ は $\boldsymbol{w}$ の事前分布である</li>
+<li>$p(\mathcal{D} \mid \boldsymbol{w})$ は $\boldsymbol{w}$ の関数であり，尤度関数と呼ばれている．これは $\boldsymbol{w}$ で積分しても1にならないので，確率分布ではない．$\boldsymbol{w}$ を用いて得られたデータ $\mathcal{D}$ を評価するものである．</li>
+<li>$p(\boldsymbol{w} \mid \mathcal{D})$ は $\boldsymbol{w}$ の事後分布であり，観測データ $\mathcal{D}$ の関数である，つまり $\mathcal{D}$ により確率分布が変化したものである．</li>
+</ul>
+<p>頻度主義で用いられる最尤推定はこの尤度関数 $p(\mathcal{D} \mid \boldsymbol{w})$ を最大化するものである．</p>
+<h3 id="124-ガウス分布">1.2.4 ガウス分布<a class="anchor ms-1" href="#124-ガウス分布"><i class="fas fa-link"></i></a></h3>
+<p>多変数では一般に以下のような密度関数となる．</p>
+<p>$$\begin{align*}
+\mathcal{N}(\boldsymbol{x} \mid \boldsymbol{\mu}, \Sigma) = \dfrac{1}{\sqrt{\det (2 \pi \Sigma)}} \exp \left( -\dfrac{1}{2}(\boldsymbol{x} - \boldsymbol{\mu})^{\text{T}}\Sigma^{-1}(\boldsymbol{x} - \boldsymbol{\mu}) \right)
+\end{align*}$$</p>
+<p>一変数の場合にパラメータを最尤推定すると</p>
+<p>$$\begin{align*}
+\mu_{\mathrm{ML}} &amp;= \dfrac{1}{N} \sum_{n=1}^{N} x_n \\
+\sigma^2_{\mathrm{ML}} &amp;= \dfrac{1}{N} \sum_{n=1}^{N} (x_n - \mu_{\mathrm{ML}})^2
+\end{align*}$$</p>
+<p>となる．これらの量は<strong>データの関数</strong>である．そこでデータについて期待値をとってみると</p>
+<p>$$\begin{align*}
+\mathbb{E}[\mu_{\mathrm{ML}}] &amp;= \mu \\
+\mathbb{E}[\sigma^2_{\mathrm{ML}}] &amp;= \left( \dfrac{N-1}{N} \right) \sigma^2
+\end{align*}$$</p>
+<p>となる．標本分散が実際より分散を過小評価してしまう理由を以下に述べよう．</p>
+<p><picture><img class="img-fluid" alt="sample variance" src="https://soblin.github.io/techblog/posts/039-prml-01/prml/Figure1.15.png" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>実際にデータを収集する以上，図の緑色のガウス分布から得られたデータはどうしても $\pm 3 \sigma$ 付近に集中してしまう．そして裾野からはあまりデータが得られない．そのため最尤推定でフィッティングした分布は，緑色のガウス分布の $\pm 3 \sigma$ 付近に集中したガウス分布になってしまう．<strong>裾野の方のデータがあまり得られないため，もとのガウス分布ほどには広がってくれないのである</strong>．このようにして平均的には標本分散はもとの $\sigma$ より小さくなってしまうのである．</p>
+<h2 id="15-決定理論">1.5 決定理論<a class="anchor ms-1" href="#15-決定理論"><i class="fas fa-link"></i></a></h2>
+<p>例題として医療診断問題が挙げられている．この場合入力ベクトル $\boldsymbol{x}$ はX線画像であり，出力は癌であるかないかのクラス $C_1$, $C_2$ である．</p>
+<p>$$\begin{align*}
+p(\mathcal{C}_k \mid \boldsymbol{x}) = \dfrac{p(\boldsymbol{x} \mid \mathcal{C}_k) p(\mathcal{C}_k)}{p(\boldsymbol{x})}
+\end{align*}$$</p>
+<p>ここで $p(\mathcal{C}_k)$ はクラス分類の事前分布(世の中一般的に癌にかかるかかからないか，X線検査を受ける人間が癌にかかっている確率)，$p(\boldsymbol{x} \mid \mathcal{C}_k)$ はその診断画像が癌で{ある，ない}それぞれの尤度である．</p>
+<h3 id="154-推論と決定">1.5.4 推論と決定<a class="anchor ms-1" href="#154-推論と決定"><i class="fas fa-link"></i></a></h3>
+<p>クラス分類を解くアプローチとしてはi)訓練データから<strong>モデル</strong> $p(\mathcal{C}_k \mid \boldsymbol{x})$ を学習する推論を行ってから事後確率を使ってクラス割り当ての決定を行う(識別モデル)，ii)入力から直接決定関数を学習する(生成モデル)，の二つのアプローチがある．</p>
+<blockquote>
+<p><strong>識別モデル</strong>
+最初に出力の事後確率 $p(\mathcal{C}_k \mid \boldsymbol{x})$ を求める．</p>
+</blockquote>
+<blockquote>
+<p><strong>生成モデル</strong>
+最初に入力の条件付き密度 $p(\boldsymbol{x} \mid \mathcal{C}_k)$ を求める．そしてベイズの定理により
+$$\begin{align*} p(\mathcal{C}_k \mid \boldsymbol{x}) = \dfrac{p(\boldsymbol{x} \mid \mathcal{C}_k) p(\mathcal{C}_k)}{p(\boldsymbol{x})} \end{align*}$$
+を求める．分母の密度関数は
+$$\begin{align*} p(\boldsymbol{x}) = \sum_k p(\boldsymbol{x} \mid \mathcal{C}_k) p(\mathcal{C}_k) \end{align*}$$
+により求められる．このように入力の分布もモデル化するアプローチは，モデルからのサンプリングにより入力空間で人口データを生成できることから(???まだ意味が分からない)生成モデルと呼ばれる．</p>
+</blockquote>
+<blockquote>
+<p><strong>識別関数</strong>
+入力 $\boldsymbol{x}$ から出力を得る2値関数 $f(\boldsymbol{x}) = 0, 1$ を構成する．</p>
+</blockquote>
+<p>生成モデルのアプローチは(多くの場合高次元データである) $\boldsymbol{x}$ の分布を求める必要があるため，多くの訓練集合と計算資源が必要になってしまう．しかし生成モデルでは与えられたデータ $\boldsymbol{x}$ についてその周辺分布 $p(\boldsymbol{x})$ を求めることができるため，もしあるデータの値 $p(\boldsymbol{x}_0)$ が小さければ，それは<strong>現在のクラス割り当てにおいて外れ値とみなされるべきである</strong>と推論することができる．</p>
+<p>識別関数を構成するアプローチだと事後確率 $p(\mathcal{C}_k \mid \boldsymbol{x})$ がもはや分からない．最終的に決定を下す場合にしても(リスク的な意味合いで)事後確率を計算したくなる．</p>
+<h3 id="モデルの結合">モデルの結合<a class="anchor ms-1" href="#モデルの結合"><i class="fas fa-link"></i></a></h3>
+<p>癌の診断を行う先ほどの具体例では，X線画像(x1)のほかに血液検査の結果(x2)も利用できるかもしれない．しかしこれらの入力をまとめるよりは，それぞれを個別に扱った後に統合したほうが良い．そのための単純な方法としてはx1，x2が独立であるという仮定を置いて</p>
+<p>$$\begin{align*}
+p(\boldsymbol{x}_a, \boldsymbol{x}_b \mid \mathcal{C}_k) = p(\boldsymbol{x}_a \mid \mathcal{C}_k) p(\boldsymbol{x}_ \mid \mathcal{C}_k)
+\end{align*}$$</p>
+<p>を用いることにより</p>
+<p>$$\begin{align*}
+p(\mathcal{C}_k \mid \boldsymbol{x}_1, \boldsymbol{x}_2) &amp;\propto p(\boldsymbol{x}_1, \boldsymbol{x}_2 \mid \mathcal{C}_k)p(\mathcal{C}_k) \\ &amp;\propto p(\boldsymbol{x}_1 \mid \mathcal{C}_k) p(\boldsymbol{x}_2 \mid \mathcal{C}_k) p(\mathcal{C}_k) \\ &amp;\propto \dfrac{p(\mathcal{C}_k \mid \boldsymbol{x}_1) p(\mathcal{C}_k \mid \boldsymbol{x}_2)}{p(\mathcal{C}_k)}
+\end{align*}$$</p>
+<p>のようにそれぞれの事後確率から両者を統合した事後確率が得られる．条件独立の仮定はナイーブベイズと呼ばれている．</p>
+<h2 id="16-情報理論">1.6 情報理論<a class="anchor ms-1" href="#16-情報理論"><i class="fas fa-link"></i></a></h2>
+<p>エントロピーは密度関数に関する汎関数である．離散値に対してはエントロピーは</p>
+<p>$$\begin{align*}
+H[x] = -\sum_x p(x) \log_2 p(x)
+\end{align*}$$</p>
+<p>連続分布に対しては</p>
+<p>$$\begin{align*}
+H[\boldsymbol{x}] = -\int p(\boldsymbol{x}) \ln p(\boldsymbol{x}) d\boldsymbol{x}
+\end{align*}$$</p>
+<p>で定義される(微分エントロピー)．</p>
+<p>$\boldsymbol{x}$，$\boldsymbol{y}$ の2つの確率変数に対してそれらの条件付きエントロピーは</p>
+<p>$$\begin{align*}
+H[\boldsymbol{y} \mid \boldsymbol{x}] = -\int \int p(\boldsymbol{y}, \boldsymbol{x}) \ln p(\boldsymbol{y} \mid \boldsymbol{x}) d \boldsymbol{y} d \boldsymbol{x}
+\end{align*}$$</p>
+<h3 id="161-相対エントロピーと相互情報量">1.6.1 相対エントロピーと相互情報量<a class="anchor ms-1" href="#161-相対エントロピーと相互情報量"><i class="fas fa-link"></i></a></h3>
+<p>ある未知の確率分布 $p(\boldsymbol{x})$ があってそれを別の確率分布 $q(\boldsymbol{x})$ で近似したとする．$p(\boldsymbol{x})$ からの信号を符号化する際に代わりに $q(\boldsymbol{x})$ を用いて符号化を行った場合，余分に</p>
+<p>$$\begin{align*}
+\mathrm{KL}(p | q) &amp;= -\int p(\boldsymbol{x}) \ln q(\boldsymbol{x}) d\boldsymbol{x} - (-\int p(\boldsymbol{x}) \ln p(\boldsymbol{x}) d\boldsymbol{x}) \\ &amp;= -\int p(\boldsymbol{x}) \ln \left( \dfrac{q(\boldsymbol{x})}{p(\boldsymbol{x})} \right) d \boldsymbol{x}
+\end{align*}$$</p>
+<p>だけビットが必要である．この量を相対エントロピーまたはKLダイバージェンスと呼ぶ．</p>
+<p>$\boldsymbol{x}$，$\boldsymbol{y}$ について，もし独立であるならば</p>
+<p>$$\begin{align*}
+p(\boldsymbol{x}, \boldsymbol{y}) = p(\boldsymbol{x})p(\boldsymbol{y})
+\end{align*}$$</p>
+<p>が成立する．そこで $\boldsymbol{x}$，$\boldsymbol{y}$ がどれほど独立でないかをKLダイバージェンスを用いて測るのが，以下の相互情報量である．</p>
+<p>$$\begin{align*}
+I(\boldsymbol{x}, \boldsymbol{y}) = \mathrm{KL}(p(\boldsymbol{x}, \boldsymbol{y}) | p(\boldsymbol{x})p(\boldsymbol{y}))
+\end{align*}$$</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/040-ubuntu18-virtualbox/">WSL上でコマンドラインからVirtualBox上のUbuntu18を起動・終了する
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/034-goodwin-chapter5/">Goodwin &#34;Control System Design&#34;の読書メモ[5章]
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

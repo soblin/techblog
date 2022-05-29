@@ -1,0 +1,2010 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ネットワークの基礎知識 - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="こちらのサイト
+と『マスタリングTCP/IP』を参考にゆるふわなまとめ．
+" /><meta itemprop="name" content="ネットワークの基礎知識">
+<meta itemprop="description" content="こちらのサイト
+と『マスタリングTCP/IP』を参考にゆるふわなまとめ．
+"><meta itemprop="datePublished" content="2020-03-08T09:47:49+00:00" />
+<meta itemprop="dateModified" content="2020-03-08T09:47:49+00:00" />
+<meta itemprop="wordCount" content="15720">
+<meta itemprop="keywords" content="Network," /><meta property="og:title" content="ネットワークの基礎知識" />
+<meta property="og:description" content="こちらのサイト
+と『マスタリングTCP/IP』を参考にゆるふわなまとめ．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/043-networking-note/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-08T09:47:49+00:00" />
+<meta property="article:modified_time" content="2020-03-08T09:47:49+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ネットワークの基礎知識"/>
+<meta name="twitter:description" content="こちらのサイト
+と『マスタリングTCP/IP』を参考にゆるふわなまとめ．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%81%ae%e5%9f%ba%e7%a4%8e%e7%9f%a5%e8%ad%98&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f043-networking-note%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f043-networking-note%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">ネットワークの基礎知識</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">ネットワークの基礎知識
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-03-08 18:47:49 &#43;0900 JST.">
+    Mar 8, 2020
+  </span><span class="post-reading-time">
+    32 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/network/" class="badge post-taxonomy">Network</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#osi参照モデルとカプセル化">OSI参照モデルとカプセル化</a></li>
+    <li><a href="#lanの機器">LANの機器</a>
+      <ul>
+        <li><a href="#物理層">物理層</a></li>
+        <li><a href="#データリンク層">データリンク層</a></li>
+      </ul>
+    </li>
+    <li><a href="#ネットワーク層">ネットワーク層</a>
+      <ul>
+        <li><a href="#ipv4">IPv4</a></li>
+        <li><a href="#クラスフルアドレッシング">クラスフルアドレッシング</a></li>
+        <li><a href="#予約済みアドレス">予約済みアドレス</a></li>
+        <li><a href="#プライベートipアドレス">プライベートIPアドレス</a></li>
+        <li><a href="#サブネットワーク">サブネットワーク</a></li>
+      </ul>
+    </li>
+    <li><a href="#dhcp">DHCP</a>
+      <ul>
+        <li><a href="#dhcpクライアントとサーバー">DHCPクライアントとサーバー</a></li>
+      </ul>
+    </li>
+    <li><a href="#arp">ARP</a>
+      <ul>
+        <li><a href="#arp要求">ARP要求</a></li>
+        <li><a href="#dnsと通信の流れ">DNSと通信の流れ</a></li>
+      </ul>
+    </li>
+    <li><a href="#ルーティング">ルーティング</a>
+      <ul>
+        <li><a href="#デフォルトゲートウェイ">デフォルトゲートウェイ</a></li>
+        <li><a href="#ルーティングテーブル">ルーティングテーブル</a></li>
+        <li><a href="#ルーティングプロトコル">ルーティングプロトコル</a></li>
+        <li><a href="#rip">RIP</a></li>
+        <li><a href="#ルーティングループ">ルーティングループ</a></li>
+        <li><a href="#icmp">ICMP</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcp">TCP</a>
+      <ul>
+        <li><a href="#tcpヘッダ">TCPヘッダ</a></li>
+        <li><a href="#シーケンス番号">シーケンス番号</a></li>
+        <li><a href="#再送タイムアウト時間">再送タイムアウト時間</a></li>
+        <li><a href="#mssの決定">MSSの決定</a></li>
+        <li><a href="#ウィンドウ制御">ウィンドウ制御</a></li>
+        <li><a href="#ウィンドウ制御と再送制御">ウィンドウ制御と再送制御</a></li>
+        <li><a href="#フロー制御">フロー制御</a></li>
+        <li><a href="#ふくそう制御">ふくそう制御</a></li>
+        <li><a href="#sstの決め方">SSTの決め方</a></li>
+      </ul>
+    </li>
+    <li><a href="#dns">DNS</a>
+      <ul>
+        <li><a href="#tldとゾーン">TLDとゾーン</a></li>
+        <li><a href="#リソースレコード">リソースレコード</a></li>
+        <li><a href="#nsレコード">NSレコード</a></li>
+        <li><a href="#その他">その他</a></li>
+        <li><a href="#dnsレゾルバー">DNSレゾルバー</a></li>
+        <li><a href="#dnsメッセージ">DNSメッセージ</a></li>
+      </ul>
+    </li>
+    <li><a href="#http">HTTP</a>
+      <ul>
+        <li><a href="#リクエスト開始行">リクエスト開始行</a></li>
+        <li><a href="#レスポンス開始行">レスポンス開始行</a></li>
+        <li><a href="#メッセージヘッダー">メッセージヘッダー</a></li>
+        <li><a href="#get">GET</a></li>
+        <li><a href="#post">POST</a></li>
+        <li><a href="#telnetでgetしてみる">telnetでGETしてみる</a></li>
+        <li><a href="#セッションとcookie">セッションとCookie</a></li>
+        <li><a href="#プロキシサーバー">プロキシサーバー</a></li>
+        <li><a href="#認証">認証</a></li>
+      </ul>
+    </li>
+    <li><a href="#メール">メール</a>
+      <ul>
+        <li><a href="#mxレコード">MXレコード</a></li>
+      </ul>
+    </li>
+    <li><a href="#smtpとpopimap">SMTPとPOP/IMAP</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p><a href="http://www5e.biglobe.ne.jp/aji/3min/" target="_blank" rel="noopener noreferrer">こちらのサイト<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>と『マスタリングTCP/IP』を参考にゆるふわなまとめ．</p>
+<!-- toc -->
+<h2 id="osi参照モデルとカプセル化">OSI参照モデルとカプセル化<a class="anchor ms-1" href="#osi参照モデルとカプセル化"><i class="fas fa-link"></i></a></h2>
+<table>
+<thead>
+<tr>
+<th>/</th>
+<th>レイヤー</th>
+<th>データ形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>7</td>
+<td><strong>アプリケーション</strong></td>
+<td>X</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>プレゼンテーション</strong></td>
+<td>X</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>セッション</strong></td>
+<td>X</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>トランスポート</strong></td>
+<td><strong>セグメント</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>ネットワーク</strong></td>
+<td><strong>パケット</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>データリンク</strong></td>
+<td><strong>フレーム</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>物理</strong></td>
+<td><strong>ビット</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="lanの機器">LANの機器<a class="anchor ms-1" href="#lanの機器"><i class="fas fa-link"></i></a></h2>
+<p>NIC(Network Interface Card)がPCとネットワークの窓口．</p>
+<table>
+<thead>
+<tr>
+<th>レイヤー</th>
+<th>機器</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ネットワーク層</strong></td>
+<td>ルーター</td>
+<td>送信先までの経路を決定</td>
+</tr>
+<tr>
+<td><strong>データリンク層</strong></td>
+<td>ブリッジ<br>スイッチングハブ</td>
+<td>近くの機器との伝送制御</td>
+</tr>
+<tr>
+<td><strong>物理層</strong></td>
+<td>リピーター<br>ハブ</td>
+<td>A/D伝送，モデム</td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 id="物理層">物理層<a class="anchor ms-1" href="#物理層"><i class="fas fa-link"></i></a></h3>
+<p>同軸ケーブルはご存じの通り．銅線を絶縁体で覆ったもの．</p>
+<p>ツイストペアケーブルは8本の銅線を2x4でより合わせている．そうすることで磁気の干渉をキャンセルしている．</p>
+<p>その他光ファイバなど．</p>
+<h3 id="データリンク層">データリンク層<a class="anchor ms-1" href="#データリンク層"><i class="fas fa-link"></i></a></h3>
+<p>メディアアクセス制御(MAC)を行う．具体的には，通信方式(TMDA，CMDA)に応じた誤り検出の情報などをパケットに付加してフレームをつくる．</p>
+<p>MACアドレスはNICに各ベンダーが製造時に割り当てた固有のIDである．MACアドレスは48bit，つまり16進数で12bitである．表記するときは2x6で区切るので，dc:fb:48:14:0d:16のように表記する．</p>
+<p>ここではLAN上のイーサネット内部で完結する通信に話を限定する．イーサネット上の情報はそのバス内すべてに伝達される仕組みになっている．つまりブロードキャストされる．しかし同軸ケーブルはベースバンド方式であるため，あるノードがブロードキャストしているときに別のノードがブロードキャストしてしまうと，信号がケーブル上で混合されてしまう．これを防ぐためにCSMA/CD(Career Sense Multiple Access Collision Detection)という制御を行う．</p>
+<p>キャリア検知では，初めにイーサネット上に他の信号が来ていないことを確認する．そして一定時間待ったあと自分の信号を送り始める．フレームを多数送らないといけないノードは，一つ一つのフレームを一定時間待ちながら送ることになる．送信中に別のノードからのフレームを受信してしまったら，自分の送信したフレームと干渉してしまっているので，いったんフレームの送信を中止する．</p>
+<p>イーサネット内での通信はブロードキャストされるので，当然XがYに送ったフレームはZにも届いてしまう．フレームには送信先のMACアドレスが記されているので，Zは自分宛てに届いたものなのかを確認することができる．</p>
+<h2 id="ネットワーク層">ネットワーク層<a class="anchor ms-1" href="#ネットワーク層"><i class="fas fa-link"></i></a></h2>
+<p>ネットワーク層では，パケットに送信元と受信先のIPアドレスをヘッダーに付加する．またpingで出てくる<strong>TTL</strong>も付加される．</p>
+<p>IPv4ではIPアドレスは32bitである．IPv6では64bitである．</p>
+<h3 id="ipv4">IPv4<a class="anchor ms-1" href="#ipv4"><i class="fas fa-link"></i></a></h3>
+<p><a href="https://tools.ietf.org/html/rfc791" target="_blank" rel="noopener noreferrer">RFC791での定義<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>による．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span> 0                   1                   2                   3
+</span></span><span style="display:flex;"><span> 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|Version|  IHL  |Type of Service|          Total Length         |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|         Identification        |Flags|      Fragment Offset    |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|  Time to Live |    Protocol   |         Header Checksum       |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|                       Source Address                          |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|                    Destination Address                        |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span><span style="display:flex;"><span>|                    Options                    |    Padding    |
+</span></span><span style="display:flex;"><span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</span></span></code></pre></div><p>そのパケットの合計サイズ，TTL，送信先・元のIPアドレスが付加される．</p>
+<h3 id="クラスフルアドレッシング">クラスフルアドレッシング<a class="anchor ms-1" href="#クラスフルアドレッシング"><i class="fas fa-link"></i></a></h3>
+<p>32bitのIPアドレスのうち，何ビットをネットワーク番号とホスト番号に使うかによってクラスが定められている．</p>
+<br>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>クラス</th>
+<th>1stオクテット</th>
+<th>2ndオクテット</th>
+<th>3rdオクテット</th>
+<th>4thオクテット</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>クラスA</td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+</tr>
+<tr>
+<td>クラスB</td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+</tr>
+<tr>
+<td>クラスC</td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Red">ネットワーク番号</font></td>
+<td><font color="Blue">ホスト番号</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<p>受信側は，第一オクテットを見ることによりそのアドレスはどのクラスに属するのかを識別する．それぞれのクラスではIPアドレスは以下のようになる．</p>
+<br>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>クラス</th>
+<th style="text-align:left">1stオクテット</th>
+<th>IPアドレス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td style="text-align:left">0xxxxxxx</td>
+<td>0.<font color="Red">host</font>.<font color="Red">host</font>.<font color="Red">host</font> - 127.<font color="Red">host</font>.<font color="Red">host</font>.<font color="Red">host</font></td>
+</tr>
+<tr>
+<td>B</td>
+<td style="text-align:left">10xxxxxx</td>
+<td>128.network.<font color="Red">host</font>.<font color="Red">host</font> - 191.network.<font color="Red">host</font>.<font color="Red">host</font></td>
+</tr>
+<tr>
+<td>C</td>
+<td style="text-align:left">110xxxxx</td>
+<td>192.network.network.<font color="Red">host</font> - 223.network.network.<font color="Red">host</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<h3 id="予約済みアドレス">予約済みアドレス<a class="anchor ms-1" href="#予約済みアドレス"><i class="fas fa-link"></i></a></h3>
+<p>ホスト番号が00000000または11111111になるもの．あるネットワークを外から見たとき，そのネットワーク自体を大雑把に指定する際に利用する．ブロードキャストアドレスと呼ばれる．</p>
+<h3 id="プライベートipアドレス">プライベートIPアドレス<a class="anchor ms-1" href="#プライベートipアドレス"><i class="fas fa-link"></i></a></h3>
+<p>最近はNATが普通に使われているからよく見るIPアドレスだと思う．</p>
+<br>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th style="text-align:right">1stオクテット</th>
+<th>2ndオクテット</th>
+<th>3rdオクテット</th>
+<th>4thオクテット</th>
+<th>表記</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">10(00001010)</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>10/8</td>
+</tr>
+<tr>
+<td style="text-align:right">172(10101100)</td>
+<td>16 - 31</td>
+<td>x</td>
+<td>x</td>
+<td>172.16/12</td>
+</tr>
+<tr>
+<td style="text-align:right">192(11000000)</td>
+<td>168</td>
+<td>x</td>
+<td>x</td>
+<td>192.168/16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+<h3 id="サブネットワーク">サブネットワーク<a class="anchor ms-1" href="#サブネットワーク"><i class="fas fa-link"></i></a></h3>
+<p>クラスAのネットワークの管理をしているとすると，その管理者は1700万のIPアドレスを自由に割り当てることができる．しかしそれらを1から割り当てることはしない．住所のように「階層」をつくるものである．そこでホスト番号の先頭にサブネット番号と呼ばれるものを付ける．</p>
+<blockquote>
+<p><strong>ホスト番号</strong>の先頭を利用する．けどどこまでがサブネットワークを示しているのか分かるのだろうか？</p>
+</blockquote>
+<p>この疑問に答えるのが<strong>サブネットマスク</strong>である．これはネットワーク部 + サブネットワーク部までのビットを1で，残りを0で埋めた32bit列である．</p>
+<pre tabindex="0"><code>$ ifconfig
+enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::53ca:a4fe:732d:1e18  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether 08:00:27:a4:cf:a8  txqueuelen 1000
+        RX packets 29394  bytes 6371743 (6.3 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 19539  bytes 6732159 (6.7 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</code></pre><p>上は仮想マシン上で<code>ifconfig</code>コマンドの出力を見たものである．これより</p>
+<ul>
+<li>IPアドレスは<code>10.0.2.15</code>つまりタイプ1のプライベートアドレスである</li>
+<li>よってネットワーク部は1stカルテットである(<code>10</code>)</li>
+<li>一方サブネットマスクが3rdカルテットまで255(b'1)で埋められている</li>
+<li>すなわちサブネットワーク部は2nd，3rdカルテットの<code>0.2</code>である</li>
+<li>そして純粋なホスト部は<code>15</code>である</li>
+</ul>
+<p>ことが分かる．</p>
+<table>
+<thead>
+<tr>
+<th>ネットワーク</th>
+<th>サブネットワーク</th>
+<th>サブネットワーク</th>
+<th>ホスト</th>
+<th>表記</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.</td>
+<td>0.</td>
+<td>2.</td>
+<td>15</td>
+<td>10.0.2/24</td>
+</tr>
+</tbody>
+</table>
+<p>もう一つ例題．<code>172.20.100.52/26</code>の場合，<code>52 = 00110100</code>の上位2bit<code>00</code>までがネットワーク部である．よって<code>172.20.100.0-63</code>が取りうるアドレスの範囲である．したがって</p>
+<ul>
+<li>IPアドレスは　　　　　　　　<code>172.20.100.52/26</code></li>
+<li>ネットワークアドレスは　　　<code>172.20.100.0 /26</code></li>
+<li>ブロードキャストアドレスは　<code>172.20.100.63/26</code></li>
+</ul>
+<p>である．</p>
+<h2 id="dhcp">DHCP<a class="anchor ms-1" href="#dhcp"><i class="fas fa-link"></i></a></h2>
+<p>ここまでで，パケットからフレームを作るときに</p>
+<ul>
+<li>送信元IPアドレス</li>
+<li>送信先IPアドレス</li>
+<li>送信元MACアドレス</li>
+<li>送信先MACアドレス</li>
+</ul>
+<p>の4つが必要であることが分かる．MACアドレスは初めから各機器に固有であるが，IPアドレスは属するネットワークによって異なる．そのため愚直にこれらを揃えるには利用者が<strong>static</strong>にIPアドレスを決め打ちする必要がある．しかしそれでは拡張性などが損なわれるので<strong>動的に</strong>IPアドレスを取得するための<strong>プロトコル</strong>としてDHCPというものが用いられている．これはサーバーに「IPアドレスが欲しい」という要求を<strong>送信元IPアドレスがない状態で</strong>送るためのプロトコルである．</p>
+<h3 id="dhcpクライアントとサーバー">DHCPクライアントとサーバー<a class="anchor ms-1" href="#dhcpクライアントとサーバー"><i class="fas fa-link"></i></a></h3>
+<p>DHCPサーバーはあらかじめ割り当てるIPアドレスの範囲のプールを持っている．また割り当てるIPアドレスのリース期限も定めている．</p>
+<p>クライアントがLAN内においてDHCPメッセージをブロードキャストすることで，サーバーがそれに応答して以下のようにやり取りを行う．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>Client &lt;-&gt; Server</th>
+<th>送信先MAC</th>
+<th>送信元MAC</th>
+<th>送信先IP</th>
+<th>送信元IP</th>
+<th>DHCPメッセージ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client<br>-&gt; Server<br>とりあえず探す</td>
+<td>ffff.ffff.ffff<br>ブロードキャスト</td>
+<td>Clientの<br>MAC</td>
+<td>255.255.<br>255.255<br>ブロードキャスト</td>
+<td>0.0.0.0<br>割り当てられていない</td>
+<td>DISCOVER<br>Clnt IP: 0.0.0.0<br>Srv IP: 0.0.0.0</td>
+</tr>
+<tr>
+<td>Server<br>-&gt; Client<br>候補を与える</td>
+<td>ffff.ffff.ffff<br>ブロードキャスト</td>
+<td>Serverの<br>MAC</td>
+<td>255.255.<br>255.255<br>ブロードキャスト</td>
+<td>192.168.1.100</td>
+<td>OFFER<br>Clnt IP: 192.168.1.10<br>Srv IP: 192.168.1.100</td>
+</tr>
+<tr>
+<td>Client<br>-&gt; Server<br>その候補でOK!</td>
+<td>ffff.ffff.ffff<br>ブロードキャスト</td>
+<td>Clientの<br>MAC</td>
+<td>255.255.<br>255.255<br>ブロードキャスト</td>
+<td>0.0.0.0<br>割り当てられていない</td>
+<td>REQUEST<br>192.168.1.10を要求!<br>Clnt IP: 0.0.0.0<br>Srv IP: 192.168.1.100</td>
+</tr>
+<tr>
+<td>Server<br>-&gt; Client<br>確定</td>
+<td>ffff.ffff.ffff<br>ブロードキャスト</td>
+<td>Serverの<br>MAC</td>
+<td>255.255.<br>255.255<br>ブロードキャスト</td>
+<td>192.168.1.100</td>
+<td>ACK<br>サブネット情報など<br>Clnt IP: 192.168.1.10<br>Srv IP: 192.168.1.100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="arp">ARP<a class="anchor ms-1" href="#arp"><i class="fas fa-link"></i></a></h2>
+<p>Webブラウザで<code>https://google.co.jp</code>をリクエストするとDNSサーバーがそのIPアドレスを教えてくれる．しかしその時点でまだGoogleのサーバーのMACアドレスは不明だからIP通信は成立しない．そこでARPという仕組みを用いてGoogleのサーバーのMACアドレスを知ることができる(&lt;-説明の便宜上こう書いているが，実は嘘．デフォルトゲートウェイのMACアドレスを使う．わざわざGoogleのサーバーのMACアドレスを調べはしない)．</p>
+<p>まず(普通はGoogleのMACアドレスを初めから知っていることはないけどルールとして)クライアント自身が持つARPテーブルを参照する．</p>
+<pre tabindex="0"><code>$ arp -a
+_gateway (10.0.2.2) at 52:54:00:12:35:02 [ether] on enp0s3
+</code></pre><p>(当然)ここにはGoogleのサーバーのIPアドレスはないので探す必要がある．</p>
+<h3 id="arp要求">ARP要求<a class="anchor ms-1" href="#arp要求"><i class="fas fa-link"></i></a></h3>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>/</th>
+<th>ARPパケット内</th>
+<th>ARPパケット内</th>
+<th>ARPパケット内</th>
+<th>ARPパケット内</th>
+<th>/</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client &lt;-&gt; Server</td>
+<td>送信先MAC</td>
+<td>送信元MAC</td>
+<td>送信先IP</td>
+<td>送信元IP</td>
+<td>動作</td>
+</tr>
+<tr>
+<td>Client<br>-&gt; Server</td>
+<td>0.0.0.0<br>まだ不明</td>
+<td>ClientのMAC</td>
+<td>DNSから得たIP addr</td>
+<td>ClientのIP addr</td>
+<td>REQUEST<br>ブロードキャスト<br>して調べる</td>
+</tr>
+<tr>
+<td>Server<br>-&gt; Client</td>
+<td>ClientのMAC</td>
+<td>ServerのMAC</td>
+<td>ClientのIP addr</td>
+<td>ServerのIP addr</td>
+<td>リクエストされた送信先IP<br>を持つサーバーが応答</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ARP要求をやり取りした後，お互いにARPテーブルを更新してお互いを登録する．なおGoogleのサーバーのMACアドレスを知ろうなんて愚直なことは実際にはやらない．そもそもブロードキャストメッセージはLANの外にまで出ていかない(そんなことしたらトラヒックがひっ迫する)．</p>
+<h3 id="dnsと通信の流れ">DNSと通信の流れ<a class="anchor ms-1" href="#dnsと通信の流れ"><i class="fas fa-link"></i></a></h3>
+<p>コンピュータにはNICが取り付けられているので，それで送信元MACアドレスが決定する．次にLANに接続するとDHCPによりLANでのIPアドレスが決定する．次にDNSによりアクセスしたいFQDNのIPアドレスが分かり，ARPによりそのFQDNのサーバーのMACアドレスが分かる．これにより必要なアドレスが全て判明したので通信を行うことができる．</p>
+<h2 id="ルーティング">ルーティング<a class="anchor ms-1" href="#ルーティング"><i class="fas fa-link"></i></a></h2>
+<h3 id="デフォルトゲートウェイ">デフォルトゲートウェイ<a class="anchor ms-1" href="#デフォルトゲートウェイ"><i class="fas fa-link"></i></a></h3>
+<p>ルーターの重要な役割は以下の2つである．</p>
+<ul>
+<li><strong>ブロードキャストを外に出さないこと</strong></li>
+<li>他ネットワークへの転送</li>
+</ul>
+<p>1つ目は2つ目ほど目立たないが重要である．これによりネットワークがブロードキャストメッセージによりひっ迫するのを防ぐ．基本的にブロードキャストされているメッセージはそのLANの内部にしか流されず，他のネットワークには転送されない．そのためARP要求をネットワーク外のWebサーバーにまで届けることができない．</p>
+<p>そこでクライアントからのARP要求に対して，デフォルトゲートウェイはそのルーター自身のMACアドレスを返答する．つまりクライアントはARP応答で受け取ったMACアドレスを，Webサーバーのものと<strong>勘違い</strong>している状態である．これでARPは完了したことにして，パケットの送信を始める．</p>
+<p>以降クライアントがpublishするパケットにおける送信先MACアドレスは，デフォルトゲートウェイのMACアドレスになる．そのパケットは以下のようにしてWebサーバーにまで届けられるとしよう．</p>
+<p><font color="Blue">(ホスト)</font><font color="Red"> ===&gt; </font><font color="Blue">(ルーターA)</font><font color="Red"> ===&gt; </font><font color="Blue">(ルーターB)</font><font color="Red"> ===&gt; </font><font color="Blue">(Webサーバー)</font></p>
+<p>最終的にパケットがWebサーバーに届くまでに，いくつかのルーターの間のLANを経由する．ルーティングは経路表を見て行われ，ルーターAからルーターBへとルーティングが行われる．その時，パケットの送信元/送信先MACアドレスは以下のように書き換えられる．</p>
+<table>
+<thead>
+<tr>
+<th>/</th>
+<th>送信元MAC</th>
+<th>送信先MAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通過前</td>
+<td>ホストのMAC</td>
+<td>ルーターAのMAC</td>
+</tr>
+<tr>
+<td>通過後</td>
+<td>ルーターAのMAC</td>
+<td>ルーターBのMAC</td>
+</tr>
+</tbody>
+</table>
+<p>ルーターAがルーターBのMACアドレスを知るには，ARP要求を出す，またはARPテーブルを参照すればよい．これがWebサーバーに至るまで繰り返され，最終的に送信が完了する．</p>
+<h3 id="ルーティングテーブル">ルーティングテーブル<a class="anchor ms-1" href="#ルーティングテーブル"><i class="fas fa-link"></i></a></h3>
+<p>ルーティングテーブルには送信先ネットワークまでの距離と，そのネットワークへパケットを転送する際に利用するポート番号が記されている．ルーターはパケットが届いてきたらそれに応じて転送を行う(MACアドレスを書き換えながら)．</p>
+<p>以下はWindows上のWSLにおいて<code>route</code>コマンド(経路表を表示する)を実行した結果である．</p>
+<pre tabindex="0"><code>受信先サイト    ゲートウェイ    ネットマスク   フラグ Metric Ref 使用数 インタフェース
+127.0.0.0       0.0.0.0         255.0.0.0       U     256    0        0 lo
+127.0.0.1       0.0.0.0         255.255.255.255 U     256    0        0 lo
+127.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+224.0.0.0       0.0.0.0         240.0.0.0       U     256    0        0 lo
+255.255.255.255 0.0.0.0         255.255.255.255 U     256    0        0 lo
+255.255.255.255 0.0.0.0         255.255.255.255 U     0      0        0 eth2
+224.0.0.0       0.0.0.0         240.0.0.0       U     0      0        0 eth2
+0.0.0.0         buffalo.setup   255.255.255.255 U     0      0        0 eth2
+192.168.11.255  0.0.0.0         255.255.255.255 U     0      0        0 eth2
+192.168.11.0    0.0.0.0         255.255.255.0   U     0      0        0 eth2
+192.168.11.6    0.0.0.0         255.255.255.255 U     0      0        0 eth2
+</code></pre><p><code>192.168.11.0</code>がネットワークアドレスである．順番に見てみよう．</p>
+<ul>
+<li><code>255.255.255.255</code>はDHCPで使うようなブロードキャストアドレスである</li>
+<li><code>192.168.11.255</code>はそのネットワーク内におけるブロードキャストに利用する</li>
+<li><code>0.0.0.0/0</code>はすべてのネットワークに用いる．これはデフォルトルートと呼ばれ，<code>0.0.0.0/0</code>の代わりに<code>default</code>と表記されることもある(IPアドレスを指してはいないため)</li>
+</ul>
+<p>ルーターはパケットが届いたらその送信先IPアドレスを調べ，それに最も一致するネットワークアドレスを持つルーターに転送する．例えば<code>172.20.100.52</code>は<code>172.20/16</code>と<code>172.20.100/24</code>の両方にマッチするが，この場合より一致する部分が長い<code>172.20.100/24</code>を選択する．</p>
+<h3 id="ルーティングプロトコル">ルーティングプロトコル<a class="anchor ms-1" href="#ルーティングプロトコル"><i class="fas fa-link"></i></a></h3>
+<p>静的ルーティングでは管理者が決め打ちでルーティングを決める．動的ルーティングはルーティングプロトコルに従ってルーター間で決定される．ルーティングテーブルは適用される範囲によって2種類に分けられる．AS内部で用いられる or AS間で用いられるである．</p>
+<blockquote>
+<p>ASとは
+ネットワークにおける自律システム(AS)とはICANNが管理するネットワークのグループ．日本ではJPNICが管理しており，<a href="https://www.nic.ad.jp/ja/ip/as-numbers.txt" target="_blank" rel="noopener noreferrer">ここで<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>で一覧を見ることができるようだ</p>
+</blockquote>
+<p>以下のプロトコルが有名．</p>
+<table>
+<thead>
+<tr>
+<th>AS内部(IGP)</th>
+<th>AS間(EGP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIP : ディスタンスベクタ<br>OSPF : リンクステート</td>
+<td>BGP</td>
+</tr>
+</tbody>
+</table>
+<p>ルーティングを決定する際にはルーター間の距離を基準に最短経路を求める．その距離関数をメトリックといい，プロトコルによって異なる．RIPではルーター間のホップ数を用いるが，OSPFでは回線速度を用いる．</p>
+<h3 id="rip">RIP<a class="anchor ms-1" href="#rip"><i class="fas fa-link"></i></a></h3>
+<p>下のようなネットワークを例にしてみる．</p>
+<p><picture><img class="img-fluid" alt="RIPの例" src="https://soblin.github.io/techblog/posts/043-networking-note/043_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>初めのルーティングテーブルは各ルーターが直接接続されているネットワークのみ登録されている．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td></td>
+<td>0</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.200/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ルーティングテーブルは連想配列のようなものだと思えばいい．まず初めにAからテーブルの情報を送ると，BCは<strong>自身のテーブルに含まれていないエントリーを，メトリックをインクリメントして追加</strong>する．すでに含まれているエントリーについては更新しない．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.10/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.2/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.200/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.1/24</font></td>
+<td></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.10/24</font></td>
+<td></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>さらにBとCからもAに送信する．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td></td>
+<td>0</td>
+<td>P3</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.100/24</font></td>
+<td><font color="Red">B</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P2</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.200/24</font></td>
+<td><font color="Red">C</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>再度Aから送信する．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.10/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.2/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Blue">192.168.200/24</font></td>
+<td><font color="Blue">A</font></td>
+<td><font color="Blue">2</font></td>
+<td><font color="Blue">P1</font></td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.200/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.1/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.10/24</font></td>
+<td><font color="Red">A</font></td>
+<td><font color="Red">1</font></td>
+<td><font color="Red">P1</font></td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Blue">192.168.100/24</font></td>
+<td><font color="Blue">A</font></td>
+<td><font color="Blue">2</font></td>
+<td><font color="Blue">P2</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ルーティングテーブルが最適な状態に達した後にネットワークのトポロジーが変化すると，アップデート情報を受け取ったルーターは，それによりメトリックが低下するネットワークについては更新を行う．以下を参照．</p>
+<p><a href="http://www5e.biglobe.ne.jp/aji/3min/33.html" target="_blank" rel="noopener noreferrer">link<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p>
+<h3 id="ルーティングループ">ルーティングループ<a class="anchor ms-1" href="#ルーティングループ"><i class="fas fa-link"></i></a></h3>
+<p>ディスタンスベクタ型のルーティングプロトコルでは起こりうる問題である．</p>
+<p><picture><img class="img-fluid" alt="ルーティングループ" src="https://soblin.github.io/techblog/posts/043-networking-note/043_1_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>先ほどの状態で，上の図のようにルーターBとルーターCが接続されているとしよう．そして<code>192.168.200/24</code>において障害が起きたとしよう．まずルーターCでは<code>192.168.200/24</code>へのエントリーは削除されるので，以下の状態からスタート．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.2/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.200/24</td>
+<td>C</td>
+<td>1</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>~192.168.200/24~</td>
+<td></td>
+<td>~0~</td>
+<td>~P2~</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.1/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td>B</td>
+<td>1</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ルーターBは<code>192.168.200/24</code>へのルートがあると勘違いしていることに注意．そしてBとCが同時に更新情報を送ったとしよう．この時各ルーターがとる行動は</p>
+<ul>
+<li>BがCから受け取るテーブルには<code>192.168.200/24</code>へのエントリーがないので，Bでも削除</li>
+<li>CがBから受け取るテーブルには<code>192.168.200/24</code>という<strong>未知のネットワークへのエントリー</strong>があるので，メトリックをインクリメントして追加</li>
+</ul>
+<p>である．よって以下のようなテーブルに更新されてしまう．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.2/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>~192.168.200/24~</td>
+<td>~C~</td>
+<td>~1~</td>
+<td>~P3~</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.1/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td>A</td>
+<td>1</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.200/24</font></td>
+<td><font color="Red">B</font></td>
+<td><font color="Red">2</font></td>
+<td><font color="Red">P3</font></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>再度交換し合うと，メトリックが加算され続けてしまう．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ルーター</th>
+<th>送信先</th>
+<th>NextHop</th>
+<th>Metric</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B</td>
+<td>192.168.1/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td></td>
+<td>0</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.2/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td><font color="Red">192.168.200/24</font></td>
+<td><font color="Red">C</font></td>
+<td><font color="Red">3</font></td>
+<td><font color="Red">P3</font></td>
+</tr>
+<tr>
+<td>C</td>
+<td>192.168.2/24</td>
+<td></td>
+<td>0</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.1/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.10/24</td>
+<td>A</td>
+<td>1</td>
+<td>P1</td>
+</tr>
+<tr>
+<td></td>
+<td>192.168.100/24</td>
+<td>A</td>
+<td>1</td>
+<td>P2</td>
+</tr>
+<tr>
+<td></td>
+<td>~192.168.200/24~</td>
+<td>~B~</td>
+<td>~2~</td>
+<td>~P3~</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ルーターBが更新情報を送る前にCが<code>192.168.200/24</code>への接続障害を先にBに送ることができるのであれば，この問題は生じない．ディスタンスベクタ型のルーティングプロトコルではすべてのルーターが同じ情報を持つまで更新が収束しない．</p>
+<p>これを防ぐ方法として，スプリットホライズンというものが知られている．スプリットホライズンを有効にすると，ルーターXから教えてもらったエントリー(NextHopがXになっているエントリー)はXに送る更新のメッセージから削除される．それにより送信するエントリー数を減らすことができるという仕組みだが，障害が発生している場合は無限カウントを防ぐことができる．上の例だと，ルーターBはNextHopがCになっている<code>192.168.200/24</code>のエントリーをCに再送はしない．</p>
+<h3 id="icmp">ICMP<a class="anchor ms-1" href="#icmp"><i class="fas fa-link"></i></a></h3>
+<p>ICMP(Internet Control Message Protocol)はネットワークの状態を管理するのに利用されるプロトコルである．ICMPメッセージはIPヘッダ+ICMPメッセージのみである．トランスポート層の情報は含まれない．</p>
+<p>ICMPメッセージの中でも重要なのは以下の5つである．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>タイプ</th>
+<th>説明</th>
+<th>意味</th>
+<th>種類</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Echo Reply</td>
+<td>Echo応答</td>
+<td>Query</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Destination<br>Unreachable</td>
+<td>IPアドレスの<br>宛先到達不能</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Redirect</td>
+<td>最適(ベターな)経路を通知</td>
+<td>Error</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Echo Request</td>
+<td>Echo要求</td>
+<td>Query</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Time Exceeded</td>
+<td>時間超過による<br>パケット破棄</td>
+<td>Error</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>パケットを受け取った<strong>ルーター</strong>が何かエラーが起きたり要求を受け取ると，ICMPメッセージを発行する．</p>
+<ul>
+<li>Destination Unreachable: 宛先IPアドレスにパケットを送ることができない</li>
+<li>Redirect: ホストがyyy.yyy.yyy.yyyへのパケットを送ろうとしており，デフォルトゲートウェイであるルーターAにパケットを送る．しかしルーターAを経由してからさらにルーターB(ホストのLAN内にある)を経由した方がメトリックが低下することが分かったとしよう．するとルーターAは「yyy.yyy.yyy.yyyへのデフォルトゲートウェイをルーターBに設定するよう経路表の変更を行う」旨のICMPメッセージをホストに送信する．</li>
+<li>宛先のホストYのIPアドレスを指定してホストXからRequestを送る．それが届いたらホストYはホストX宛てにReplyを送る．pingではひたすらRequestを送るコマンドであり，TTLやDestination Unreachableを知ることができる．</li>
+</ul>
+<p>pingはレイヤー3のプロトコルである．もし<strong>pingが上手くいくのに繋がらない</strong>という事態が発生した場合，それはレイヤー4以上で何らかのエラーが発生しているということである．</p>
+<p>TTLは<strong>通過できるゲートウェイの個数</strong>である．ゲートウェイを通過するたびにデクリメントされる．あるルーターでゼロになるとそのパケットは破棄される．パケットを廃棄したルーターは送信元にICMP::11&quot;Time Exceeded&quot;を送信する．</p>
+<h2 id="tcp">TCP<a class="anchor ms-1" href="#tcp"><i class="fas fa-link"></i></a></h2>
+<h3 id="tcpヘッダ">TCPヘッダ<a class="anchor ms-1" href="#tcpヘッダ"><i class="fas fa-link"></i></a></h3>
+<p>TCPヘッダーは以下のようになる(<a href="https://tools.ietf.org/html/rfc793" target="_blank" rel="noopener noreferrer">RFC793より<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>)．</p>
+<pre tabindex="0"><code> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Source Port          |       Destination Port        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                        Sequence Number                        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Acknowledgment Number                      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  Data |           |U|A|P|R|S|F|                               |
+| Offset| Reserved  |R|C|S|S|Y|I|            Window             |
+|       |           |G|K|H|T|N|N|                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|           Checksum            |         Urgent Pointer        |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Options                    |    Padding    |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                             data                              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre><p>サイズは4バイトx5=20バイトである．</p>
+<p>制御番号のうち<code>ACK</code>，<code>SYN</code>，<code>FIN</code>はよく用いられる．TCPにおけるアプリケーション間のコネクションの確立方法はthree-way handshakeと呼ばれる．ホストXからホストYに向けてコネクションの確立を行う際は以下の手順をとる．</p>
+<table>
+<thead>
+<tr>
+<th>X &lt;-&gt; Y</th>
+<th>説明</th>
+<th>ACK</th>
+<th>SYN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X -&gt; Y</td>
+<td>Yへ接続要求</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>@Y</td>
+<td>受け取る</td>
+<td>/</td>
+<td>/</td>
+</tr>
+<tr>
+<td>Y -&gt; X</td>
+<td>XへとACK<br>&amp;<br>Xへ接続要求</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>@X</td>
+<td>受け取る</td>
+<td>/</td>
+<td>/</td>
+</tr>
+<tr>
+<td>X -&gt; Y</td>
+<td>Yに応答する</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="シーケンス番号">シーケンス番号<a class="anchor ms-1" href="#シーケンス番号"><i class="fas fa-link"></i></a></h3>
+<p>シーケンス番号は<strong>データ本体が初めから数えて何バイト目であるか</strong>を示す番号である．</p>
+<p>TCPでは送る一つ一つのパケットにシーケンス番号をつける．一つのパケットが何バイトであるかはMTU，そのうちデータ部が何バイトであるかはMSSとして定められている．サーバーは次に何バイト目のデータを要求するかを確認応答で提示する．</p>
+<p>あるパケットのサイズを1020バイトとしよう．つまりデータ本体は1000バイトである．そのシーケンス番号が1であった場合，そのパケットを受け取ったサーバーは確認応答(ACK)により1001を要求する．クライアントは同様にシーケンス番号1001から初めて1020バイトのデータを送る，というのを繰り返す．</p>
+<h3 id="再送タイムアウト時間">再送タイムアウト時間<a class="anchor ms-1" href="#再送タイムアウト時間"><i class="fas fa-link"></i></a></h3>
+<p>基本的にサーバーは「パケットを送る」「ACKを待つ」「次のパケットを送る」の繰り返しを行うが，途中でACKが消失してしまうこともあり得る．そのため再送タイムアウト時間だけ待ってもACKがこない場合はもう一度そのパケットを送りなおす．TCPではクライアントはパケットを送るたびに，(そのパケットに対応する)確認応答が来るまでの時間RTT(Round Trip Time)を測定している．RTTの分散(ジッタ)を加算して再送タイムアウト時間を更新する．</p>
+<h3 id="mssの決定">MSSの決定<a class="anchor ms-1" href="#mssの決定"><i class="fas fa-link"></i></a></h3>
+<p>TCPではパケットにおけるデータの最大サイズ(バイト)をMSSという．スリーウェイハンドシェイクを行う際に，サーバーとクライアントはTCPヘッダに自分のインターフェース(FDDIなのかEtherなのか)の最大MSSをセットして送る．双方のうち小さいほうをMSSとして採用する．</p>
+<h3 id="ウィンドウ制御">ウィンドウ制御<a class="anchor ms-1" href="#ウィンドウ制御"><i class="fas fa-link"></i></a></h3>
+<p>一つのパケットを送ってACKを待ち，またパケットを送るというのは効率が悪い．そこで一度に送るパケットの個数を多重化するのがウィンドウ制御である．</p>
+<p><picture><img class="img-fluid" alt="Sliding Window" src="https://soblin.github.io/techblog/posts/043-networking-note/043_3.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ACKを待たずに送信できるデータのサイズをウィンドウサイズという．上の図の場合ウィンドウサイズは4セグメントとなっている．</p>
+<h3 id="ウィンドウ制御と再送制御">ウィンドウ制御と再送制御<a class="anchor ms-1" href="#ウィンドウ制御と再送制御"><i class="fas fa-link"></i></a></h3>
+<p>シーケンス番号が</p>
+<ul>
+<li>1-1000</li>
+<li>1001-2000</li>
+<li>2001-3000</li>
+<li>~3001-4000~</li>
+<li>4001-5000
+のデータがサーバーに届いたとする．そのときサーバーは4001-5000のデータが届いた時も(まだ3001への要求が応えられていないため)3001に対するACKを返答する．そのため3001-4000が届くまでACKでは3001を要求し続ける．以下の図は途中で消失したパケットに対してACKが何度も送られる様子である．</li>
+</ul>
+<p><picture><img class="img-fluid" alt="Retransmission" src="https://soblin.github.io/techblog/posts/043-networking-note/043_4.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>図のようにまだ受け取っていないパケット(シーケンス番号)に対するACKが複数届くことを<strong>重複確認応答</strong>という．3つの重複確認応答が確認されるとクライアントはそのパケットを再送する．one-by-oneで送ってタイムアウト処理を行うよりはこの方がまだ高速である．</p>
+<ul>
+<li>1-1000</li>
+<li>1001-2000</li>
+<li>2001-3000</li>
+<li>3001-4000</li>
+<li>4001-5000</li>
+</ul>
+<p>のパケットを送ったときにACKは4001-5000の分しか届かなかったとしよう．しかしそれだけでも4000までのパケットが届いていることは確認できている．ウィンドウ制御によりACKが必ずしも全て届く必要がないことが分かる．</p>
+<h3 id="フロー制御">フロー制御<a class="anchor ms-1" href="#フロー制御"><i class="fas fa-link"></i></a></h3>
+<p>送信側が勝手に決めたMSSでデータを送りつけると受信側のバッファーがパンクしてしまう可能性がある．TCPのヘッダーにはウィンドウサイズのフィールドがあるため，受信ホストは自分の受信能力に応じてこの値を設定して<strong>ウィンドウ更新通知</strong>により送信ホストに伝える．これによりMSSはadaptiveに変化する．</p>
+<h3 id="ふくそう制御">ふくそう制御<a class="anchor ms-1" href="#ふくそう制御"><i class="fas fa-link"></i></a></h3>
+<p>いくらウィンドウ制御によって多重化してパケットを送ることができるとしても，回線のリンク速度や混雑具合によってはネットワークをひっ迫させる可能性がある．そこでTCPではスロースタートと呼ばれるアルゴリズムによってデータの送信量を調節する．</p>
+<p>まず初めにウィンドウサイズを初期値(1，２，３などが多そう，リンクによる)に設定し，ACKが来るたびにインクリメントする．ウィンドウサイズがf(n)のときkf(n)個のACKが返ってくるとすると(0 &lt; k &lt; 1)</p>
+<pre tabindex="0"><code>f(n+1) = f(n) + k * f(n)
+</code></pre><p>よりふくそうウィンドウは指数関数的に増加することが分かる．実際に送るデータサイズには，送信側のウィンドウサイズと受信側の(ウィンドウ更新通知で知らせた)ウィンドウサイズのうち小さいほうを採用する．</p>
+<p>ただ指数関数的に増加し続けるのは防がねばならないため，スロースタート閾値(SST，Slow Start Threshold)が定められている．そしてウィンドウサイズf(n)がSSTを超えたらACKが来るたびに以下の値だけインクリメントする．</p>
+<pre tabindex="0"><code>MSS * MSS
+---------
+  f(n)
+</code></pre><p>f(n)が増えるほどACKの数も増えるので上の式によるインクリメントもより多く行われるようになるが，一回一回のインクリメント量は小さくなる．結果的にウィンドウサイズは直線的に増えることになる．</p>
+<h3 id="sstの決め方">SSTの決め方<a class="anchor ms-1" href="#sstの決め方"><i class="fas fa-link"></i></a></h3>
+<p>以下ではウィンドウサイズをcwnd(n)(Congetion Window Size)と表記する．</p>
+<p><picture><img class="img-fluid" alt="Congestion Window Control" src="https://soblin.github.io/techblog/posts/043-networking-note/043_5.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>初めはSSTは<strong>定義されていない</strong>．そしてcwnd(n)を指数関数的に増加させていく．そのうちタイムアウトが起きるので，その時は以下のように更新する．</p>
+<pre tabindex="0"><code>SST &lt;- cwnd(n)/2
+cwnd(n+1) &lt;- 1
+</code></pre><p>次からはSSTを超えた後はcwnd(n)を「少しづつインクリメント」するようになる．それでもいずれタイムアウトまたは重複確認応答がくることになる．もしタイムアウトが起きた場合</p>
+<pre tabindex="0"><code>SST &lt;- cwnd(n)/2
+cwnd(n+1) &lt;- 1
+</code></pre><p>とするが，もし重複確認応答がきた場合は以下のようにcwnd(n)を更新する．</p>
+<pre tabindex="0"><code>SST &lt;- cwnd(n)/2
+cwnd(n+1) &lt;- cwnd(n)/2 + 3
+</code></pre><p>タイムアウトの場合と異なり，この場合は少なくともACKが3回届くだけの帯域幅は確保されているためこのような処理を行う．</p>
+<h2 id="dns">DNS<a class="anchor ms-1" href="#dns"><i class="fas fa-link"></i></a></h2>
+<h3 id="tldとゾーン">TLDとゾーン<a class="anchor ms-1" href="#tldとゾーン"><i class="fas fa-link"></i></a></h3>
+<p>ドメイン名の一番後ろをTLD(Top Level Domain)という．<code>.com</code>，<code>.org</code>，<code>.net</code>などトップレベルドメインが3文字以上になっているのはgTLDと呼ばれるドメインで，もともとはアメリカ国内で使われていた．これは<code>.jp</code>とか<code>.nl</code>と組み合わせる必要がないドメインである．</p>
+<p>一つ一つのドメインに対してそのネームサーバーが存在する．各ネームサーバーは自身とその子ノードのIPアドレスを知っている．この範囲をゾーンという．</p>
+<h3 id="リソースレコード">リソースレコード<a class="anchor ms-1" href="#リソースレコード"><i class="fas fa-link"></i></a></h3>
+<p>ネームサーバーが各ノードについて有している情報をリソースレコードという．例えば<code>github.io</code>にある<code>soblin</code>のリソースレコードは以下のようになる感じ．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>所有者</th>
+<th>名前</th>
+<th>タイプ</th>
+<th>クラス</th>
+<th>TTL</th>
+<th>RD長</th>
+<th>RDATA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>github.io</td>
+<td>soblin</td>
+<td>0001</td>
+<td>0001</td>
+<td>86400</td>
+<td>4</td>
+<td>xxx.xxx.xxx.xxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>このようにして<code>soblin.github.io</code>のIPアドレスを教えている．タイプは以下のものが有名である．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>タイプ</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>6</th>
+<th>12</th>
+<th>13</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+<td>A</td>
+<td>NS</td>
+<td>CNAME</td>
+<td>SOA</td>
+<td>PTR</td>
+<td>MX</td>
+</tr>
+<tr>
+<td>意味</td>
+<td>ホストの<br>IPアドレス</td>
+<td>ネームサーバー</td>
+<td>ホスト<br>エイリアス</td>
+<td>ゾーンの<br>情報</td>
+<td>ポインタ<br>(逆引き)</td>
+<td>メールサーバー</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Aレコードは上に示した<code>soblin.github.io</code>に対するIPアドレスを直接記述しているフィールドである．</p>
+<h3 id="nsレコード">NSレコード<a class="anchor ms-1" href="#nsレコード"><i class="fas fa-link"></i></a></h3>
+<p>NSレコードはネームサーバーのIPアドレスを伝えるフィールドである．<code>soblin.netlify.com</code>にアクセスする際は</p>
+<ul>
+<li><code>.com</code>のネームサーバーにアクセスして<code>netlify</code>のネームサーバーのアドレスを知る</li>
+<li><code>.netlify.com</code>にアクセスして<code>soblin</code>のIPアドレスを知る</li>
+</ul>
+<p>ことになる．そのため<code>netlify.com</code>に対応する部分のネームサーバーのIPアドレスを知る必要がある．以下のように(適当)NSレコードを記述する．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>タイプ</th>
+<th>クラス</th>
+<th>RDATA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>github.io</td>
+<td>NS</td>
+<td>IN</td>
+<td>ns.github.io</td>
+</tr>
+<tr>
+<td>soblin</td>
+<td>NS</td>
+<td>IN</td>
+<td>ns.soblin.github.io</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>そして<code>ns.github.io</code>などのAレコードも合わせて記述する．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>タイプ</th>
+<th>クラス</th>
+<th>RDATA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ns.github.io</td>
+<td>A</td>
+<td>IN</td>
+<td>xxx.xxx.<br>xxx.xxx</td>
+</tr>
+<tr>
+<td>ns.soblin.github.io</td>
+<td>A</td>
+<td>IN</td>
+<td>xxx.xxx.<br>xxx.xxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="その他">その他<a class="anchor ms-1" href="#その他"><i class="fas fa-link"></i></a></h3>
+<p>CNAMEは<strong>C</strong>anonical Nameの略称．ドメイン名にエイリアスを付ける．</p>
+<p>SOAはDNSのキャッシュに使われる．</p>
+<p>PTRはIPアドレスにドメイン名を対応付ける．逆引きに使われる．</p>
+<p>MXはメールサーバーを教える．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>名前</th>
+<th>タイプ</th>
+<th>クラス</th>
+<th>RDATA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>soblin.com</td>
+<td>MX</td>
+<td>IN</td>
+<td>NN mail.soblin.com</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>A</td>
+<td>IN</td>
+<td>xxx.xxx.<br>xxx.xxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>NNには優先値を示す数値が入る．</p>
+<h3 id="dnsレゾルバー">DNSレゾルバー<a class="anchor ms-1" href="#dnsレゾルバー"><i class="fas fa-link"></i></a></h3>
+<p>DNSのやり取りはUDPを介して行われる(ポート番号53)．DNSサーバーには<strong>フルサービスサーバー</strong>と<strong>コンテンツサーバー</strong>(<strong>権威サーバー</strong>)の2種類が存在する．DNSサーバーに問い合わせるクライアント(スタブレゾルバー)は初めにフルサービスレゾルバーに<strong>再帰問合わせ</strong>を行う．もしフルサービスレゾルバーがそのクエリを<strong>キャッシュ</strong>していなければ，次にフルサービスレゾルバーは権威サーバーに<strong>反復問合わせ</strong>を行う．</p>
+<p><picture><img class="img-fluid" alt="DNS Resolver" src="https://soblin.github.io/techblog/posts/043-networking-note/043_6.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>プロバイダーのネームサーバーはフルサービスレゾルバーにあたる．ブログやサイトを公開しているサーバーがコンテンツサーバーにあたる．コンテンツサーバーはフルサービスレゾルバーから得たレコード情報をキャッシュするのでキャッシュサーバーとも呼ばれる．</p>
+<p>家にあるようなブロードバンドルーターが反復問合わせを行うのは非効率的である．そのようなルーター内部のDNSサーバーは<strong>スレーブサーバー</strong>として外部にある<strong>フォワーダー</strong>と呼ばれるDNSサーバーに名前解決を依頼する．</p>
+<h3 id="dnsメッセージ">DNSメッセージ<a class="anchor ms-1" href="#dnsメッセージ"><i class="fas fa-link"></i></a></h3>
+<p><a href="https://www.ietf.org/rfc/rfc1035.txt" target="_blank" rel="noopener noreferrer">RFC1035<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>によりDNSメッセージが定義されている．</p>
+<pre tabindex="0"><code>                                1  1  1  1  1  1
+  0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                      ID                       |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|QR|   Opcode  |AA|TC|RD|RA|   Z    |   RCODE   |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                    QDCOUNT                    |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                    ANCOUNT                    |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                    NSCOUNT                    |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                    ARCOUNT                    |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+</code></pre><p>フラグには以下8通りである．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>Query</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>QR</strong><br>問合わせ・応答</td>
+<td>1 : ネームサーバーからの応答<br>0 : 問合わせ</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>OPcode</strong><br>オペコード</td>
+<td>0 : 正引き<br>1 : 逆引き<br>2 : サーバー状態要求</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>AA</strong><br>オーソリティー応答</td>
+<td>1 : 「当たり」のコンテンツサーバーからの応答<br>その他</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>TX</strong><br>切り捨て</td>
+<td>/</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>RD</strong><br>再帰要望</td>
+<td>1 : レゾルバー &lt;-&gt; フルサービスレゾルバー<br>0 : その他</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>RA</strong><br>再帰有効</td>
+<td>1 : 再帰応答可能<br>0 : 不可能</td>
+</tr>
+<tr>
+<td>3</td>
+<td>予約</td>
+<td>/</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Rcode</strong><br>戻りコード</td>
+<td>0 : 応答成功</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="http">HTTP<a class="anchor ms-1" href="#http"><i class="fas fa-link"></i></a></h2>
+<h3 id="リクエスト開始行">リクエスト開始行<a class="anchor ms-1" href="#リクエスト開始行"><i class="fas fa-link"></i></a></h3>
+<p>HTTPはクライアント・サーバーモデルであり，クライアントはユーザーエージェント(UA)，サーバーはWebサーバー(apache，nginxなど)である．HTTPのメッセージの形式は以下の通りである．</p>
+<pre tabindex="0"><code>開始行 + メッセージヘッダー(+CRLF) + (CRLF + ) メッセージ本体
+</code></pre><p>メッセージヘッダーの終わりとメッセージ本体の直前にCRLF(\r\n)がある．開始行は<code>GET soblin.netlify.com HTTP/1.0</code>のような感じである．</p>
+<pre tabindex="0"><code>メソッド + リクエストURI + HTTPバージョン
+</code></pre><p><code>GET</code>の部分は一般的にメソッドと呼ばれ，以下の3つがよく使われる．</p>
+<ul>
+<li>GET</li>
+<li>HEAD</li>
+<li>POST</li>
+</ul>
+<p>HEADはヘッダーのみ要求する．GETは(html)ファイル名を要求する(<strong>データはないよ</strong>)．POSTはCGIに送るデータなども加えて送る．</p>
+<h3 id="レスポンス開始行">レスポンス開始行<a class="anchor ms-1" href="#レスポンス開始行"><i class="fas fa-link"></i></a></h3>
+<p>レスポンスも同様に以下のような形式である．</p>
+<pre tabindex="0"><code>開始行 + メッセージヘッダー(+CRLF) + (CRLF + ) メッセージ本体
+</code></pre><p>レスポンスの開始行は以下の形式である．</p>
+<pre tabindex="0"><code>HTTPバージョン + ステータスコード + 応答フレーズ
+</code></pre><p>ステータスコードと応答フレーズは以下が有名．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ステータスコード</th>
+<th>応答フレーズ</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>OK</td>
+</tr>
+<tr>
+<td>301</td>
+<td>Moved Permanently</td>
+<td>リクエストURIは別のURIに割り当てられている</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request</td>
+<td>HTTPの書式が間違っている</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>リクエストは受け取ったが実行できない</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>リクエストURIは存在しない</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>サーバーがリクエストの処理でエラー状態</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="メッセージヘッダー">メッセージヘッダー<a class="anchor ms-1" href="#メッセージヘッダー"><i class="fas fa-link"></i></a></h3>
+<p>メッセージヘッダーは以下の形式である．</p>
+<pre tabindex="0"><code>Field: val
+Field: val
+</code></pre><p>よく使われるのは以下の通り．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>ヘッダー</th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host</td>
+<td>宛先のドメイン名</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>ブラウザ情報など</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>ハイパーリンクする前のページ</td>
+</tr>
+<tr>
+<td>Accept</td>
+<td>取り扱い可能なファイル拡張子</td>
+</tr>
+<tr>
+<td>Accept/Content<br>Encoding</td>
+<td>圧縮方式</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>応答の最終更新日</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="get">GET<a class="anchor ms-1" href="#get"><i class="fas fa-link"></i></a></h3>
+<p>GETは基本的にリクエストURIをサーバーに教えるのみである．特徴的なGETメソッドとしては条件付きGETが挙げられる．ユーザーエージェントが取得しているページの更新日時を<code>If-Modified-Since</code>にセットしてGETすることで，サーバーは「その日時以降に該当URIが更新されていたら」ページを送信して，もし更新されていなかったら<code>304 Not Modified</code>を返答する(ページは送信しない)．</p>
+<p>またURIがCGIである場合，GETにより取得されるページはそのプログラムではなくそれにより生成されたHTMLである．</p>
+<h3 id="post">POST<a class="anchor ms-1" href="#post"><i class="fas fa-link"></i></a></h3>
+<p>これはGETに加えて要求メッセージに何らかのデータを付加するメソッドである．卑近な例だと入力ボックスの入力データも付加してサーバーにリクエストを送ることで，レスポンスのHTMLファイルを動的に変化させることができる．</p>
+<h3 id="telnetでgetしてみる">telnetでGETしてみる<a class="anchor ms-1" href="#telnetでgetしてみる"><i class="fas fa-link"></i></a></h3>
+<p>仮想マシン上のUbuntuでApacheを動かしている．</p>
+<pre tabindex="0"><code>$ telnet
+telnet&gt; open localhost 80
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is &#39;^]&#39;.
+GET /index.html HTTP/1.0
+
+HTTP/1.1 200 OK
+Date: Wed, 22 Apr 2020 18:06:00 GMT
+Server: Apache/2.4.29 (Ubuntu)
+Last-Modified: Wed, 22 Apr 2020 14:31:24 GMT
+Etags: &#34;2d35-5a3e1fc963046&#34;
+Accept-Ranges: bytes
+Content-Length: 11573
+Vary: Accept-Encoding
+Connection: close
+Content-Type: text/html
+
+
+&lt;!DOCTYPE html&gt;
+&lt;!--[if IE 8]&gt;&lt;html class=&#34;no-js lt-ie9&#34; lang=&#34;en&#34; &gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt; &lt;html class=&#34;no-js&#34; lang=&#34;en&#34; &gt; &lt;!--&lt;![endif]--&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34;&gt;
+    &lt;script type=&#34;text/javascript&#34;&gt;
+</code></pre><h3 id="セッションとcookie">セッションとCookie<a class="anchor ms-1" href="#セッションとcookie"><i class="fas fa-link"></i></a></h3>
+<p>OSI参照モデルで出てくるセッション層はプロセス間の通信である．HTTPでは一回のGETからレスポンスまでが一つのセッションであり，その間にデータ転送のコネクションが何度か行われる．しかし一度のセッションの情報はHTTPでは保存されない(セッションステートレス)．そのため同一ホストから何度もリクエストがある場合にそれが「同一のホストから何度もリクエストされている」ことに気づけない．例えばECサイトではXさんが注文を追加してページを遷移するたびに「新しいユーザーが注文してきた」と勘違いしてしまうため，同一のユーザーの買い物かごに注文を追加するみたいなことができない．そこであるリクエストが来た時にサーバー側からクライアントにCookieと呼ばれるIDを渡して，以降それを携帯してセッションを行う．</p>
+<ul>
+<li>初めにクライアントからリクエストがあると，サーバーは<code>Set-Cookie</code>をメッセージヘッダーにセットして返答</li>
+<li>以降クライアントは<code>Cookie</code>をその値にセットしてメッセージヘッダーを送信する</li>
+</ul>
+<p>Cookieには以下の情報が保存される．</p>
+<ul>
+<li>名前(userid)</li>
+<li>有効期限(expire)</li>
+<li>パス属性(path)</li>
+<li>サーバードメイン名(domain)</li>
+<li>その他</li>
+</ul>
+<p>もしExpireが設定されているのであればそのCookieはセッションの終了後もファイルとして保存される(永続化される)．設定されていないCookieはブラウザが閉じると消去されるためセッションCookieと呼ばれる．</p>
+<p>ドメイン名とパスはやり取りをするサーバーを特定するためにセットされる(ドメイン名が同じでも各サブディレクトリは別々のサーバーによって管理されている可能性があるため)．</p>
+<h3 id="プロキシサーバー">プロキシサーバー<a class="anchor ms-1" href="#プロキシサーバー"><i class="fas fa-link"></i></a></h3>
+<p>クライアントはWebサーバーに接続する代わりにプロキシーサーバーに接続する(というよりDNSで教えてもらったサーバーが実はプロキシーになっていて，本体のWebサーバーには直接接続しないようにするのでは)．そしてプロキシーサーバーはWebサーバーに接続してレスポンスを取得し，クライアントに横流しする．</p>
+<p>その時プロキシーはファイルをキャッシュするので，クライアントからのすべてのリクエストに対していちいちWebサーバーに問い合わせる必要がなくなる．その他，クライアントからの要求のうち一部をブロックするコンテンツフィルターの役割も果たすことがある．</p>
+<h3 id="認証">認証<a class="anchor ms-1" href="#認証"><i class="fas fa-link"></i></a></h3>
+<p>HTTPではベーシック認証とダイジェスト認証が利用できる．特定のWebサーバーにアクセスするときにサーバーのレスポンスヘッダーに<code>WWW-Authorize</code>がセットされている場合，その値(Basic or Digest)に基づいてユーザー名とパスワードを求められるようになっている．クライアントはリクエストヘッダーにおいて<code>Authorization</code>をユーザー名とパスワードに設定して再度アクセスする．ベーシック認証ではユーザー名とパスワードはBASE64により暗号化されて送られる．しかしHTTPヘッダーにユーザー名とパスワードが(暗号化されていはいるものの)そのまま書いてあるようなものである(暗号化データから直接(他のパラメータなしに)解読される可能性がある)．</p>
+<p>そこでダイジェスト認証ではハッシュ関数を使う．まずサーバーはランダムな文字列を生成してそれをクライアントに送る．クライアントはその文字列とユーザー名とパスワードをハッシュ関数により一つのビット列に変換し，それをサーバーに送る(ランダムな文字列がある分解読しにくい，あと当然ハッシュ関数は共通だよ)．サーバーはそのハッシュ値と，手元で計算したハッシュ値(ランダムな文字列と正解のユーザー名，パスワードから計算)と比較し，一致すれば認証成功とする．このときのハッシュ関数としてはMD5やSHA(いろいろバージョンがある)が知られている．実際SSL/TLSの方がセキュリティーは高いが．</p>
+<h2 id="メール">メール<a class="anchor ms-1" href="#メール"><i class="fas fa-link"></i></a></h2>
+<p>初期の電子メールでは送信者と受信者がTCPで直接コネクションを作りメールの送受信をお互いのハードディスク上で行っていた．それだと(特に)受信者が電源をOFFにしているときにメールを送信することができないので，メールサーバーにメールを送信するようになった．そして受信者はメールサーバーからPOP(IMAP)というプロトコルによってメールをフェッチする形式になった．下の図のようにメール本体をローカル(から送信|にフェッチ)するクライアントをMUA，転送を行うサーバーをMTAという．</p>
+<p><picture><img class="img-fluid" alt="MUA and MTU" src="https://soblin.github.io/techblog/posts/043-networking-note/043_7.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<h3 id="mxレコード">MXレコード<a class="anchor ms-1" href="#mxレコード"><i class="fas fa-link"></i></a></h3>
+<p>MUAから<code>xxx@yyy.com</code>宛てのメールを受け取ったMTAは，DNSにその宛先を問い合わせる．具体的には<code>yyy.com</code>のサーバーのMXレコードを問合わせ，そのAレコードと合わせて取得する．</p>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Record</th>
+<th>Addr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>yyy.com</td>
+<td>MX</td>
+<td>mail.yyy.com</td>
+</tr>
+<tr>
+<td>mail.yyy.com</td>
+<td>A</td>
+<td>xxx.xxx.<br>xxx.xxx</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>そしてその宛先のIPアドレスのサーバーにメールを転送する．</p>
+<h2 id="smtpとpopimap">SMTPとPOP/IMAP<a class="anchor ms-1" href="#smtpとpopimap"><i class="fas fa-link"></i></a></h2>
+<p>MTAがMUAからメールを受け取る，またはMTAへ転送するときに使うのがSMTPである．MUAがMTAにメールをフェッチする時に使われるのがPOP/IMAPである．</p>
+<blockquote>
+<p>大雑把に言うとメールを送る(配信と転送)のに使うのがSMTP，受け取るの(受信，フェッチ)に使うのがPOP/IMAPである</p>
+</blockquote>
+<p>メールの内容はMIMEと呼ばれる形式によってフォーマットされている．メタ情報を含んだヘッダ，空行を挟んでコンテンツが続く．</p>
+<p>POPはメールの送受信をサーバーを経由する方法である．送信者はSMTPプロトコルによってPOPサーバーまでメールを送り，受信者はPOP(IMAP)プロトコルによってユーザーの認証などを行いながらメールをフェッチする．メールの管理は送信者側で行う．</p>
+<p>IMAPではメールの管理をサーバー上で行うため既読や未読といったメールボックスの情報をクラウド上で管理してくれる．</p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/044-prml-03/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[3章]
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/041-prml-02/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[2章]
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/007-nmcli-wifi/">nmcliでwifiに接続する
+</a>
+          <span class="float-end post-date">Nov 20, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

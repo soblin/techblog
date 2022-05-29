@@ -1,0 +1,478 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>二次計画法における内点法のアルゴリズム - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．
+" /><meta itemprop="name" content="二次計画法における内点法のアルゴリズム">
+<meta itemprop="description" content="非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．
+"><meta itemprop="datePublished" content="2021-04-19T16:19:39+00:00" />
+<meta itemprop="dateModified" content="2021-04-19T16:19:39+00:00" />
+<meta itemprop="wordCount" content="2108">
+<meta itemprop="keywords" content="Optimization," /><meta property="og:title" content="二次計画法における内点法のアルゴリズム" />
+<meta property="og:description" content="非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/058-primal-interior-point/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-19T16:19:39+00:00" />
+<meta property="article:modified_time" content="2021-04-19T16:19:39+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="二次計画法における内点法のアルゴリズム"/>
+<meta name="twitter:description" content="非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e4%ba%8c%e6%ac%a1%e8%a8%88%e7%94%bb%e6%b3%95%e3%81%ab%e3%81%8a%e3%81%91%e3%82%8b%e5%86%85%e7%82%b9%e6%b3%95%e3%81%ae%e3%82%a2%e3%83%ab%e3%82%b4%e3%83%aa%e3%82%ba%e3%83%a0&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f058-primal-interior-point%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f058-primal-interior-point%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">二次計画法における内点法のアルゴリズム</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">二次計画法における内点法のアルゴリズム
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-04-20 01:19:39 &#43;0900 JST.">
+    Apr 19, 2021
+  </span><span class="post-reading-time">
+    5 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/tags/optimization/" class="badge post-taxonomy">Optimization</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一般的な定式化">一般的な定式化</a>
+      <ul>
+        <li><a href="#標準形への変換">標準形への変換</a></li>
+      </ul>
+    </li>
+    <li><a href="#主内点法">主内点法</a>
+      <ul>
+        <li><a href="#2次計画法の場合">2次計画法の場合</a></li>
+      </ul>
+    </li>
+    <li><a href="#双対問題">双対問題</a>
+      <ul>
+        <li><a href="#弱双対定理">弱双対定理</a></li>
+        <li><a href="#強双対定理">強双対定理</a></li>
+        <li><a href="#kkt条件">KKT条件</a></li>
+      </ul>
+    </li>
+    <li><a href="#主双対内点法パス追従法">主双対内点法(パス追従法)</a>
+      <ul>
+        <li><a href="#バリア関数法との比較">バリア関数法との比較</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>非線形な場合の一般論は扱わず，目的関数が2次形式，制約はアフィンなものに絞って主内点法，主双対内点法のアルゴリズムをメモる．</p>
+<!-- toc -->
+<h2 id="一般的な定式化">一般的な定式化<a class="anchor ms-1" href="#一般的な定式化"><i class="fas fa-link"></i></a></h2>
+<p>以降基本的に $\boldsymbol{x} \in \mathbb{R}^{n}$ とする．等式制約と不等式制約の下で目的関数を最小化する問題は一般的に以下のように表される．</p>
+<p>$$\begin{align*}
+\min \ &amp; f(\boldsymbol{x}) \\
+{\rm s.t.}\ \ &amp; \boldsymbol{g}(\boldsymbol{x}) = 0 \in \mathbb{R}^{m} \\
+&amp; \boldsymbol{h}(\boldsymbol{x}) \geq 0 \in \mathbb{R}^{l}
+\end{align*}$$</p>
+<p>ここで不等式制約のスラック変数 $\boldsymbol{s} \in \mathbb{R}^{l}$ を導入すると</p>
+<p>$$\begin{align*}
+\min \ &amp; f(\boldsymbol{x}) \\
+{\rm s.t.}\ \ &amp; \boldsymbol{g}(\boldsymbol{x}) = 0 \in \mathbb{R}^{m} \\
+&amp; \boldsymbol{h}(\boldsymbol{x}) - \boldsymbol{s} = 0 \in \mathbb{R}^{l} \\
+&amp; \boldsymbol{s} \geq 0 \in \mathbb{R}^{l}
+\end{align*}$$</p>
+<p>のように不等式制約を等式制約にできる．</p>
+<h3 id="標準形への変換">標準形への変換<a class="anchor ms-1" href="#標準形への変換"><i class="fas fa-link"></i></a></h3>
+<p>さらに</p>
+<ul>
+<li>$\boldsymbol{x} = \boldsymbol{x}_{+} - \boldsymbol{x}_{-}, \boldsymbol{x}_{\pm} \geq 0$</li>
+<li>$\tilde{\boldsymbol{x}}$ を $(\boldsymbol{x}_{+}, \boldsymbol{x}_{-}, \boldsymbol{s})$ を縦に並べたベクトル</li>
+<li>$\tilde{\boldsymbol{g}}(\boldsymbol{\boldsymbol{x}})$ を $(\boldsymbol{g}(\boldsymbol{x}), \boldsymbol{h}(\boldsymbol{x}) - \boldsymbol{s})$ を縦に並べたベクトル</li>
+</ul>
+<p>とすると</p>
+<p>$$\begin{align*}
+\min \ &amp; f(\tilde{\boldsymbol{x}}) \\
+{\rm s.t.}\ \ &amp; \boldsymbol{g}(\tilde{\boldsymbol{x}}) = 0 \in \mathbb{R}^{m+l} \\
+&amp; \tilde{\boldsymbol{x}} \geq 0 \in \mathbb{R}^{n+n+l}
+\end{align*}$$</p>
+<p>のように変形できる．</p>
+<h2 id="主内点法">主内点法<a class="anchor ms-1" href="#主内点法"><i class="fas fa-link"></i></a></h2>
+<p>バリア関数を用いる手法．上の標準形において $\boldsymbol{x} \geq 0$ を $\log$ を使って以下のように置き換える．</p>
+<p>$$\begin{align*}
+\min \ &amp; f(\boldsymbol{x})  - \nu \sum \log(x_i) \\
+{\rm s.t.}\ \ &amp; \boldsymbol{g}(\boldsymbol{x}) = 0 \in \mathbb{R}^{m}
+\end{align*}$$</p>
+<p>もし制約 $\boldsymbol{x} \geq 0$ が破られそうになると $-\log$ の項が無限大に近づくため目的関数が大きくなってしまう．そのため制約を破らないよう目的関数を最小化できる．</p>
+<p><a href="https://www.stat.cmu.edu/%7Eryantibs/convexopt/lectures/primal-dual.pdf" target="_blank" rel="noopener noreferrer">こちらの講義資料<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>によるとこのバリア関数法により得られた最適解 $\boldsymbol{x}^{\star}$ による最小値と真の最小値 $f^{\star}$ の差は以下のように評価される．</p>
+<p>$$\begin{align*}
+f(\boldsymbol{x}^{\star}) - f^{\star} \leq \nu \mathrm{dim}(\boldsymbol{x})
+\end{align*}$$</p>
+<p>よってある $\nu^k$ の値を使ってニュートン法などで最適値を求めてみた後，もし $\nu^k \mathrm{dim}(\boldsymbol{x})$ が $\epsilon$ 以下であればその解を採用すればよい．もし満たさなければ $\nu^{n+1} \leftarrow c\nu^{n}$ として $\nu$ を小さくし，再度最適化問題を解き直す．</p>
+<h3 id="2次計画法の場合">2次計画法の場合<a class="anchor ms-1" href="#2次計画法の場合"><i class="fas fa-link"></i></a></h3>
+<p>以下の問題を数値的に解いてみよう．</p>
+<p>$$\begin{align*}
+\min \ &amp; \frac{1}{2}\boldsymbol{x}^{\text{T}}Q\boldsymbol{x} + \boldsymbol{c}^{\text{T}}\boldsymbol{x}  - \nu \sum \log(x_i) \\
+{\rm s.t.}\ \ &amp; A\boldsymbol{x} = \boldsymbol{b} \in \mathbb{R}^{m}
+\end{align*}$$</p>
+<p>等式制約に対するラグランジュ乗数を $\boldsymbol{\lambda} \in \mathbb{R}^m$ とするとラグランジアンは</p>
+<p>$$\begin{align*}
+L(\boldsymbol{x}, \boldsymbol{\lambda}) = \frac{1}{2}\boldsymbol{x}^{\text{T}}Q\boldsymbol{x} + \boldsymbol{c}^{\text{T}}\boldsymbol{x}  - \nu \sum \log(x_i) + \boldsymbol{\lambda}^{\text{T}}(A\boldsymbol{x} + \boldsymbol{b})
+\end{align*}$$</p>
+<p>で与えられる．未定乗数法により</p>
+<p>$$\begin{align*}
+Q \boldsymbol{x} + \boldsymbol{c} - \nu [1/x_i] + A^{\text{T}} \boldsymbol{\lambda} = 0
+\end{align*}$$</p>
+<p>が最適解を与える必要条件である．勾配法によりこれを満たす $(\boldsymbol{x}^{\star}, \boldsymbol{\lambda}^{\star})$ を求めたいのであるが， $1 / x_i$ を微分するのは都合が悪い．そこで $z_i = \nu / x_i$ としてベクトル $\boldsymbol{z} \in \mathbb{R}^n$ を定義する．すると元の等式制約を含めて，以下を満たす $(\boldsymbol{x}, \boldsymbol{\lambda}, \boldsymbol{z})$ を求める問題に変形される．</p>
+<p><picture><img class="img-fluid" alt="1" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ただし $X = {\rm diag}(x_1, \ldots, x_n)$ ， $Z = {\rm diag}(z_1, \ldots, z_n)$ である．数値解法により各変数の勾配を求めて</p>
+<p><picture><img class="img-fluid" alt="2" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_2.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>のようにして更新を行うことを考えると， $(\boldsymbol{x}_{n+1}, \boldsymbol{\lambda}_{n+1}, \boldsymbol{z}_{n+1})$ を上の方程式に代入して以下の連立方程式が得られる．</p>
+<p><picture><img class="img-fluid" alt="3" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_3.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>ここで $dX_n$ は $d\boldsymbol{x}_n$ を対角成分とする行列である． また $dX_n dZ_n \approx 0$ とするとこれは以下のような連立方程式に書き換えられる．</p>
+<p><picture><img class="img-fluid" alt="4" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_4.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>初期値 $(\boldsymbol{x}_{0}, \boldsymbol{\lambda}_{0}, \boldsymbol{z}_{0})$ から左辺の行列と右辺のベクトルは具体的な数値が計算できるので，各勾配も数値的に求めることができる．さらに $\Sigma_n = X_{n}^{-1}Z_n$ とすると</p>
+<p>$$\begin{align*}
+Z_n d\boldsymbol{x}_{n} + X_n d\boldsymbol{z}_{n} =  \nu \boldsymbol{e} - X_n Z_n e
+\end{align*}$$</p>
+<p>の両辺に $X_{n}^{-1}$ をかけることで</p>
+<p>$$\begin{align*}
+\Sigma_n d\boldsymbol{x}_{n} + d\boldsymbol{z}_{n} =  \nu X_{n}^{-1} \boldsymbol{e}-\boldsymbol{z}_n
+\end{align*}$$</p>
+<p>となるので， $\nu X_{n}^{-1} \boldsymbol{e}$ の部分を無視して連立方程式に再代入すると以下の連立方程式が得られる．</p>
+<p>$$\begin{align*}
+\begin{bmatrix} A &amp; O \\ Q  + \Sigma_n&amp; A^{\text{T}} \\ \end{bmatrix} \begin{bmatrix} d\boldsymbol{x}_{n} \\ d\boldsymbol{\lambda}_{n} \end{bmatrix} = -\begin{bmatrix} A\boldsymbol{x}_{n} - \boldsymbol{b} \\ Q\boldsymbol{x}_{n} + A^{\text{T}} \boldsymbol{\lambda}_{n} \end{bmatrix}
+\end{align*}$$</p>
+<p>この連立方程式を解いて得られた解 $(d\boldsymbol{x}_{n}, d\boldsymbol{\lambda}_{n})$ を用いて</p>
+<p>$$\begin{align*}
+d\boldsymbol{z}_{n} =  \nu X_{n}^{-1} \boldsymbol{e} - \boldsymbol{z}_n - \Sigma_n d\boldsymbol{x}_{n}
+\end{align*}$$</p>
+<p>を求める．こうすることで求まった各変数の勾配に刻み幅を乗じて解を更新し，$(\boldsymbol{x}^{\star}, \boldsymbol{\lambda}^{\star}, \boldsymbol{z}^{\star})$ が収束したら終了すればよい．</p>
+<h2 id="双対問題">双対問題<a class="anchor ms-1" href="#双対問題"><i class="fas fa-link"></i></a></h2>
+<p>上の方法では不等式制約 $\boldsymbol{x} \geq 0$ は陽には用いられていなかった．ここでは不等式制約に対してもラグランジュ乗数をかけてラグランジアンを作り，KKT条件を導く．</p>
+<p>まずはじめに以下のようにラグランジアンを作る．</p>
+<p>$$\begin{align*}
+L(\boldsymbol{x}, \boldsymbol{\lambda}, \boldsymbol{\mu}) = f(\boldsymbol{x}) + \boldsymbol{\lambda}^{\text{T}} \boldsymbol{g}(\boldsymbol{x}) + \boldsymbol{\mu}^{\text{T}} \boldsymbol{h}(\boldsymbol{x})
+\end{align*}$$</p>
+<h3 id="弱双対定理">弱双対定理<a class="anchor ms-1" href="#弱双対定理"><i class="fas fa-link"></i></a></h3>
+<p>このラグランジアンを $\boldsymbol{x}$ が等式・不等式制約を満たすような範囲で最小化した以下の関数</p>
+<p>$$\begin{align*}
+q(\boldsymbol{\lambda}, \boldsymbol{\mu}) = \inf_{x} L(\boldsymbol{x}, \boldsymbol{\lambda}, \boldsymbol{\mu})
+\end{align*}$$</p>
+<p>をラグランジュ双対関数という．$\boldsymbol{\mu} \geq 0$ の下で</p>
+<p>$$\begin{align*}
+f(\boldsymbol{x}) \geq q(\boldsymbol{\lambda}, \boldsymbol{\mu})
+\end{align*}$$</p>
+<p>が成立するというのが弱双対性定理．またこの最大化問題は双対問題と呼ばれている．</p>
+<h3 id="強双対定理">強双対定理<a class="anchor ms-1" href="#強双対定理"><i class="fas fa-link"></i></a></h3>
+<p>もともとの最小化問題の最小値 $f(\boldsymbol{x}^{\star})$ と双対問題の最大値 $q(\boldsymbol{\lambda}^{\star}, \boldsymbol{\mu}^{\star})$ が一致するというのが強双対性定理．</p>
+<h3 id="kkt条件">KKT条件<a class="anchor ms-1" href="#kkt条件"><i class="fas fa-link"></i></a></h3>
+<p>以上の定理から以下のKKT条件(+元々の制約)が導かれる．</p>
+<p>$$\begin{align*}
+&amp; \nabla f(x) + \sum_{i=1}^m \lambda_i \nabla g_i(x) + \sum_{i=1}^l \mu_i\ \nabla h_i(x)=0 \\
+&amp; \mu_i \geq 0 \\
+&amp; \mu_i h_i(\boldsymbol{x}) = 0
+\end{align*}$$</p>
+<p>最後の式は相補性条件と呼ばれている．</p>
+<h2 id="主双対内点法パス追従法">主双対内点法(パス追従法)<a class="anchor ms-1" href="#主双対内点法パス追従法"><i class="fas fa-link"></i></a></h2>
+<p>先ほどと同じ2次計画問題</p>
+<p>$$\begin{align*}
+\min \ &amp; \frac{1}{2}\boldsymbol{x}^{\text{T}}Q\boldsymbol{x} + \boldsymbol{c}^{\text{T}} \boldsymbol{x} \\
+{\rm s.t.}\ \ &amp; A\boldsymbol{x} = \boldsymbol{b} \in \mathbb{R}^{m} \\
+&amp; x_i \geq 0
+\end{align*}$$</p>
+<p>にKKT条件を適用すると</p>
+<p>$$\begin{align*}
+A \boldsymbol{x} &amp;= b \\ A^{\text{T}} \boldsymbol{\lambda} + \boldsymbol{\mu} &amp;= Q \boldsymbol{x} + \boldsymbol{c} \\ \boldsymbol{\mu} &amp;\geq 0 \\ x_i \mu_i &amp;= 0
+\end{align*}$$</p>
+<p>が得られる．ここで $X = \mathrm{diag} (x_1, \cdots, x_n)$ とすると最後の式は</p>
+<p>$$\begin{align*}
+X \boldsymbol{\mu} = 0
+\end{align*}$$</p>
+<p>と表される．先ほどと同じように現在の解に差分を足して数値的に解を更新していくので，</p>
+<p><picture><img class="img-fluid" alt="5" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_5.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>を代入して差分に対する方程式を作っていく．</p>
+<p><picture><img class="img-fluid" alt="6" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_6.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>第3式において $dX_n d \boldsymbol{\mu}_n \sim 0$ とする．ここで現在の解の値を用いて</p>
+<p>$$\begin{align*}
+\nu_n = \sum_i (x_i \mu_i)_n
+\end{align*}$$</p>
+<p>とし，適当な係数 $\sigma \in [0, 1]$ を用いて第3式を</p>
+<p>$$\begin{align*}
+X_n \boldsymbol{\mu}_n+  X_n d \boldsymbol{\mu}_n + (dX_n) \boldsymbol{\mu}_n = \sigma \nu_n \boldsymbol{e}
+\end{align*}$$</p>
+<p>として以下の連立方程式により差分を求める．</p>
+<p><picture><img class="img-fluid" alt="7" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_7.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>これを用いて解を更新する際に，不等式制約 $x_i \geq 0$，$\mu_i \geq 0$ を破らないように</p>
+<p><picture><img class="img-fluid" alt="8" src="https://soblin.github.io/techblog/posts/058-primal-interior-point/058_8.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>としてこれを差分にかけて解を更新すれば良い．</p>
+<h3 id="バリア関数法との比較">バリア関数法との比較<a class="anchor ms-1" href="#バリア関数法との比較"><i class="fas fa-link"></i></a></h3>
+<p>バリア関数法は以下のように2重ループである．</p>
+<blockquote>
+<p><strong>while</strong> converge:<br>
+　　<strong>while</strong> converge:<br>
+　　　　推定解を初期化<br>
+　　　　バリア関数法で解を更新<br>
+　　　　収束したらbreak<br>
+　　end<br>
+　　$\nu \mathrm{dim}(\boldsymbol{x}) &lt; \epsilon$ ならbreak<br>
+　　$\nu \leftarrow c\nu$<br>
+end</p>
+</blockquote>
+<p>一方パス追従法は1重ループである．</p>
+<blockquote>
+<p><strong>while</strong> converge:<br>
+　　推定解を初期化<br>
+　　パス追従法で解を更新<br>
+　　相補性ギャップ $\nu$ が $\epsilon$ 以下ならbreak<br>
+end</p>
+</blockquote></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/060-prml-10/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[10章]
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

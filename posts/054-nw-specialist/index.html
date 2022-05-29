@@ -1,0 +1,391 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ネットワークスペシャリスト対策のまとめ - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="ネットーワークの基礎知識
+の応用編．多いのでコツコツとメモっていく．
+" /><meta itemprop="name" content="ネットワークスペシャリスト対策のまとめ">
+<meta itemprop="description" content="ネットーワークの基礎知識
+の応用編．多いのでコツコツとメモっていく．
+"><meta itemprop="datePublished" content="2021-02-12T21:17:00+00:00" />
+<meta itemprop="dateModified" content="2021-02-12T21:17:00+00:00" />
+<meta itemprop="wordCount" content="3621">
+<meta itemprop="keywords" content="Network," /><meta property="og:title" content="ネットワークスペシャリスト対策のまとめ" />
+<meta property="og:description" content="ネットーワークの基礎知識
+の応用編．多いのでコツコツとメモっていく．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/054-nw-specialist/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-02-12T21:17:00+00:00" />
+<meta property="article:modified_time" content="2021-02-12T21:17:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ネットワークスペシャリスト対策のまとめ"/>
+<meta name="twitter:description" content="ネットーワークの基礎知識
+の応用編．多いのでコツコツとメモっていく．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%82%b9%e3%83%9a%e3%82%b7%e3%83%a3%e3%83%aa%e3%82%b9%e3%83%88%e5%af%be%e7%ad%96%e3%81%ae%e3%81%be%e3%81%a8%e3%82%81&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f054-nw-specialist%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f054-nw-specialist%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">ネットワークスペシャリスト対策のまとめ</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">ネットワークスペシャリスト対策のまとめ
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2021-02-13 06:17:00 &#43;0900 JST.">
+    Feb 12, 2021
+  </span><span class="post-reading-time">
+    8 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/network/" class="badge post-taxonomy">Network</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ネットワーク機器">ネットワーク機器</a>
+      <ul>
+        <li><a href="#l2機器">L2機器</a></li>
+        <li><a href="#無線lan">無線LAN</a></li>
+        <li><a href="#ネットワーク仮想化">ネットワーク仮想化</a></li>
+        <li><a href="#ftth">FTTH</a></li>
+        <li><a href="#ppppppoeipoe">PPP/PPPoE/IPoE</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p><a href="http://localhost:4000/043-networking-note/" target="_blank" rel="noopener noreferrer">ネットーワークの基礎知識<i class="fas fa-external-link-square-alt ms-1"></i>
+</a>の応用編．多いのでコツコツとメモっていく．</p>
+<!-- toc -->
+<h2 id="ネットワーク機器">ネットワーク機器<a class="anchor ms-1" href="#ネットワーク機器"><i class="fas fa-link"></i></a></h2>
+<h3 id="l2機器">L2機器<a class="anchor ms-1" href="#l2機器"><i class="fas fa-link"></i></a></h3>
+<p>LANスイッチはLAN同士のポートを論理的に接続し，MACフレームが関係のないLANにも流れることを防ぐことで帯域の利用を抑える．LANスイッチを通るMACアドレスがどのポートに属するかを学習してテーブルを更新する．</p>
+<p>例えば8台のPCからなるLANがあり，もしそれぞれがイーサネットケーブルで繋がれていた場合，PC1とPC7の通信が全体のケーブルに流れてしまう(フラッディング)．そこで2台づつのグループを作りそれぞれを4つのポートで区切ると，PC1のポートから来たMACフレームをPC7のポートに転送することができる．これにより無駄な信号が流れるのを防ぐ．</p>
+<p>スイッチングハブ(L2スイッチ)と呼ばれる．</p>
+<h4 id="オートネゴシエーション">オートネゴシエーション<a class="anchor ms-1" href="#オートネゴシエーション"><i class="fas fa-link"></i></a></h4>
+<p>L2スイッチの各ポートは10Mbps，100Mbps，1Gbps等の伝送速度や半二重・全二重通信をサポートしている．通信する機器の間でこの設定を自動で折衝するのがオートネゴシエーションである．お互いの機器がFLP(Fast Link Pulse)と呼ばれるパルスを送ることで相手の伝送速度と通信方式を識別し，効率の良いモードを採用する．</p>
+<h4 id="フロー制御">フロー制御<a class="anchor ms-1" href="#フロー制御"><i class="fas fa-link"></i></a></h4>
+<p>伝送速度が速い場合(100Mbpsなど)の速度変換や大量のMACフレームが送られてきた場合，内部のバッファがオーバーフローしてしまうおそれがある．それによってフレームが失われそうになると，送信元に一時的に中止要求をする．半二重通信の場合はジャム信号を送ってCSMA/CD方式で抑制する(バックプレッシャー)．全二重通信の場合はpauseフレームを送信する．</p>
+<h4 id="ポートミラーリング">ポートミラーリング<a class="anchor ms-1" href="#ポートミラーリング"><i class="fas fa-link"></i></a></h4>
+<p>L2スイッチのあるポートを流れるMACフレームを別の監視用のポートにもコピーする機能．例えば社内PCからメールが送信されるときにSMTPパケットをコピーしたり，顧客との通話内容を記録するためにVoIPによる音声パケットをコピーしたりする．</p>
+<h4 id="スヌーピング">スヌーピング<a class="anchor ms-1" href="#スヌーピング"><i class="fas fa-link"></i></a></h4>
+<p>L2スイッチが中継するIPパケットを覗き見る機能のこと．</p>
+<blockquote>
+<p>IGMPスヌーピング
+IGMPパケットを覗き見することでマルチキャストフレームの転送を効率的に行う．</p>
+</blockquote>
+<blockquote>
+<p>DHCPスヌーピング
+[DHCPスヌーピング]を参照．DHCPメッセージの送受信に用いることができる・できないポートを事前に定義する．DHCPメッセージのパケットがこの定義に合致するかを確認することでDHCPスプーフィングを防ぐことが可能．</p>
+</blockquote>
+<h4 id="vlan">VLAN<a class="anchor ms-1" href="#vlan"><i class="fas fa-link"></i></a></h4>
+<p>Virtual LANではLAN機器の物理理的な接続構成によらず論理的にブロードキャストドメインを構成することができる(異なるハブにつながったPCを<code>192.168.10/24</code>の配下にする，など)．以下の図のように物理的に接続していないPCをブロードキャストドメインに含めることができる．</p>
+<p><picture><img class="img-fluid" alt="VLAN" src="https://soblin.github.io/techblog/posts/054-nw-specialist/054_1.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>しかしこの図の<code>L1SW1</code>，<code>L2SW2</code>，<code>L2SW3</code>ではVLANの個数だけスイッチを消費してしまう(少なくともVLANにつき<code>in/out</code>のスイッチを1つ以上)．この構成ではVLANの個数が増えたりスイッチの付け替えが起きたりすることに対応できない．</p>
+<p>そこでタグVLANでは<code>in/out</code>で使うポートを一つにまとめ，各VLANから来るMACフレームにVLANに応じたタグを割り当て，それに応じて再度別々にポートにMACフレームを流す．以下の図では<code>L2SW1 -&gt; L2SW2</code>，<code>L2SW1 -&gt; L2SW3</code>で用いるポートを一つにまとめた．ここではVLAN10とVLAN11のタグをMACフレームに付け加えているため，<code>L2SW2</code>と<code>L2SW3</code>は受け取ったフレームをどちらに流せば良いのか区別することができる．L2SWにおいてVLANタグを受信するポートのことをトランクリンクやタグ付きポートと呼ぶ．</p>
+<p><picture><img class="img-fluid" alt="タグVLAN" src="https://soblin.github.io/techblog/posts/054-nw-specialist/054_2.svg" loading="lazy"
+    
+    
+     />
+</picture>
+
+</p>
+<p>VLANタグとしては<code>2-4094</code>の値を用いることができる．</p>
+<h4 id="stp">STP<a class="anchor ms-1" href="#stp"><i class="fas fa-link"></i></a></h4>
+<p>TODO</p>
+<h4 id="リンクアグリゲーション">リンクアグリゲーション<a class="anchor ms-1" href="#リンクアグリゲーション"><i class="fas fa-link"></i></a></h4>
+<p>L2機器を複数の物理リンクで接続することで帯域を増やす技術のこと．STPが有効だとループが発生しているとみなされてしまうが，IEEE802.3adで標準化されている．各スイッチでどのポートをリンクアグリゲーションに用いるかを設定する．束ねられたポートは論理的に同じ番号となるので，そのポート宛のフレームを各ポートに分散する．例えば宛先MACアドレスをキーとして分散する，などが考えられる．</p>
+<p>各スイッチで論理グループを設定し，それを手動で起動する(スタティック)あるいはLACP(Link Aggregation Control Protocol)でダイナミックに起動する方法がある．</p>
+<h4 id="チーミング">チーミング<a class="anchor ms-1" href="#チーミング"><i class="fas fa-link"></i></a></h4>
+<p>サーバーに接続された複数のNICを論理的に一つのNICとして束ねる技術．一つのNICに利用が集中するのを防ぐことでスループットの向上を図る．</p>
+<ul>
+<li>フォールトトレランス方式では一つのNICをプライマリーとして利用し，故障時にはセカンダリーのNICを用いる．</li>
+<li>ロードバランシング方式では通信セッションごとに使用するNICを切り替えることで負荷を分散する．</li>
+<li>リンクアグリゲーション方式では各NICが一つの論理ポートとしてバインディングされるので，フレーム単位で負荷分散が行われる．</li>
+</ul>
+<h4 id="仮想化">仮想化<a class="anchor ms-1" href="#仮想化"><i class="fas fa-link"></i></a></h4>
+<p>仮想マシンは仮想NICを割り当てられ，仮想スイッチを通して物理NICで通信する．例えばVirtualboxで立ち上げたVMはソフトウェアで再現されたイーサネットケーブルを使って仮想スイッチと接続し，仮想スイッチはホストのNICを使って通信する．</p>
+<p>仮想マシンを安定して稼働させるため，物理NICはチーミングにより冗長化することが望ましい．例えば物理NICにおいてリンクアグリゲーションを有効にし，送信先・送信元に基づいたハッシュで物理NICを決定することが考えられる．そうすれば仮想ホストが異なるアドレス宛に通信すると別々の物理NICを用いることができる．</p>
+<h3 id="無線lan">無線LAN<a class="anchor ms-1" href="#無線lan"><i class="fas fa-link"></i></a></h3>
+<div class="scroll-table">
+<table>
+<thead>
+<tr>
+<th>規格</th>
+<th>周波数帯</th>
+<th>変調方式</th>
+<th>伝送速度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IEEE802.11a</td>
+<td>5GHz</td>
+<td>OFDM</td>
+<td>54Mbps</td>
+</tr>
+<tr>
+<td>IEEE802.11n</td>
+<td>2.4/5GHz</td>
+<td>OFDM</td>
+<td>600Mbps</td>
+</tr>
+<tr>
+<td>IEEE802.11ac</td>
+<td>5GHz</td>
+<td>OFDM</td>
+<td>6.9Gbps</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>IEEE802.11n</code>ではMIMO(送受信に複数のアンテナを用いる)，フレームアグリゲーション(無線フレームをまとめることでオーバーヘッドを減らす)により速度を上げている．</p>
+<p><code>IEEE802.11ac</code>では<code>IEEE802.11n</code>におけるOFDMの変調方式を64QAMから256QAMに増加するなどして高速化を図っている．</p>
+<p>無線LANのフレームは有線LANとは少し異なる．</p>
+<h4 id="csmaca">CSMA/CA<a class="anchor ms-1" href="#csmaca"><i class="fas fa-link"></i></a></h4>
+<p>無線LANでは周波数帯が他の端末によって使われることによる衝突を防ぐ必要がある．そこでアクセスポイントに対して今現在周波数帯が使われているか確認する．もし使用されていたら通信はできない．もし使用されていなければ，さらに(特定のタイムスロット) + (ランダムな時間)だけ待って使用されていなければ通信を開始する．</p>
+<p>データの送信中に混信してしまった場合に備え，APは受信したフレームのCRC検査を行って誤りがなければACKを端末に送る．</p>
+<h4 id="無線apのid">無線APのID<a class="anchor ms-1" href="#無線apのid"><i class="fas fa-link"></i></a></h4>
+<h3 id="ネットワーク仮想化">ネットワーク仮想化<a class="anchor ms-1" href="#ネットワーク仮想化"><i class="fas fa-link"></i></a></h3>
+<p>TODO</p>
+<h3 id="ftth">FTTH<a class="anchor ms-1" href="#ftth"><i class="fas fa-link"></i></a></h3>
+<p>イーサネットで使われるケーブルの一つ．&ldquo;Fiber to the home&quot;の略で，電気通信事業者の収容局から直接ユーザー宅まで光ファイバーを敷設する．敷設方式としてはP-P(Point to Point)とP-MP(Point to multi Point)がある．</p>
+<p>P-M方式では事業者から1本のケーブルを伸ばし，ユーザー宅付近でフォトカプラを用いて複数の光ファイバーに分岐させる．これはPON方式と呼ばれる(Passive Optical Network，フォトカプラが受動素子であるため)．EPONは光ファイバー上でイーサネットフレームを伝送する方式のこと．</p>
+<h3 id="ppppppoeipoe">PPP/PPPoE/IPoE<a class="anchor ms-1" href="#ppppppoeipoe"><i class="fas fa-link"></i></a></h3>
+<p>PPP(Point to Point Protocol)はWANを介して2地点間で通信を行う時に用いられるL2プロトコル．ISPと契約してモデムを自宅の回線に接続し認証を行うと，ISPからグローバルなWAN-IPアドレスが付与される．モデムにルータを接続するとルーターはプライベートアドレス(10とか172とか192で始まるやつ)を割り振ってLANを構築する．CSMA/CD方式ではMACフレームでパケットをカプセル化するが，PPPではPPPフレームでカプセル化する．</p>
+<p>PPPでは最初にLCP(Link Control Protocol)フレームをやりとりして双方向のリンクを確立する．その中には認証方式(PAP or CHAP)の情報も含まれる．認証後はIPCP(IP Control Protocol)によってモデム側で使用するWANアドレスなどを配布する．PCとモデムがADSLで接続されている場合はPPPフレームをMACフレームでカプセル化する．これをPPPoEという．</p>
+<p>PPPoEは電話回線と，ISPとの橋渡しを行うネットワーク終端装置(電話回線をイーサネットに変換する)を通過してインターネットに接続するためオーバーヘッドが生じる．IPoEは初めからイーサネットを使ってISPまで接続するため高速．</p>
+<h2 id="参考">参考<a class="anchor ms-1" href="#参考"><i class="fas fa-link"></i></a></h2>
+<p><a href="https://www.infraexpert.com/info/netspecial1.html" target="_blank" rel="noopener noreferrer">リンク1<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/056-prml-06/">Bishop &#34;Pattern Recognition and Machine Learning&#34; 読書メモ[6章]
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/052-weingarten-formula/">ガウス・ワインガルテンの公式
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/043-networking-note/">ネットワークの基礎知識
+</a>
+          <span class="float-end post-date">Mar 8, 2020
+</span>
+        </li><li>
+          <a href="https://soblin.github.io/techblog/posts/007-nmcli-wifi/">nmcliでwifiに接続する
+</a>
+          <span class="float-end post-date">Nov 20, 2019
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

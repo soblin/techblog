@@ -1,0 +1,310 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>電磁場のラグランジアンとハミルトニアン - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．
+" /><meta itemprop="name" content="電磁場のラグランジアンとハミルトニアン">
+<meta itemprop="description" content="一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．
+"><meta itemprop="datePublished" content="2019-07-16T06:30:00+00:00" />
+<meta itemprop="dateModified" content="2019-07-16T06:30:00+00:00" />
+<meta itemprop="wordCount" content="829">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="電磁場のラグランジアンとハミルトニアン" />
+<meta property="og:description" content="一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/008-general-potential/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-07-16T06:30:00+00:00" />
+<meta property="article:modified_time" content="2019-07-16T06:30:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="電磁場のラグランジアンとハミルトニアン"/>
+<meta name="twitter:description" content="一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e9%9b%bb%e7%a3%81%e5%a0%b4%e3%81%ae%e3%83%a9%e3%82%b0%e3%83%a9%e3%83%b3%e3%82%b8%e3%82%a2%e3%83%b3%e3%81%a8%e3%83%8f%e3%83%9f%e3%83%ab%e3%83%88%e3%83%8b%e3%82%a2%e3%83%b3&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f008-general-potential%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f008-general-potential%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">電磁場のラグランジアンとハミルトニアン</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">電磁場のラグランジアンとハミルトニアン
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2019-07-16 15:30:00 &#43;0900 JST.">
+    Jul 16, 2019
+  </span><span class="post-reading-time">
+    2 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/mathematics/" class="badge post-taxonomy">Mathematics</a><a href="https://soblin.github.io/techblog/categories/physics/" class="badge post-taxonomy">Physics</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#ポテンシャルが速度にも依存する場合のオイラーラグランジュ方程式">ポテンシャルが速度にも依存する場合のオイラーラグランジュ方程式</a></li>
+    <li><a href="#電磁場中の荷電粒子の運動方程式">電磁場中の荷電粒子の運動方程式</a></li>
+    <li><a href="#ラグランジアンとハミルトニアン">ラグランジアンとハミルトニアン</a>
+      <ul>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>一般化力が速度を含むような場合，つまり力がポテンシャルの位置の偏微分のみで表されない場合，一般化ポテンシャルというものを考えることで見かけ上，オイラーラグランジュ方程式を成り立たせることができる．そのような系の例として電磁場が挙げられる．本節では電磁場におけるラグランジアンとハミルトニアンを求める．</p>
+<!-- toc -->
+<h2 id="ポテンシャルが速度にも依存する場合のオイラーラグランジュ方程式">ポテンシャルが速度にも依存する場合のオイラーラグランジュ方程式<a class="anchor ms-1" href="#ポテンシャルが速度にも依存する場合のオイラーラグランジュ方程式"><i class="fas fa-link"></i></a></h2>
+<p>系の一般化座標を $q^i = q^i (i=1, \cdots, n)$ とすると，オイラーラグランジュ方程式はポテンシャルが $U = U(q)$ のように座標変数のみの関数である場合以下のように表される．</p>
+<p>$$
+\dfrac{d}{dt}\left( \dfrac{\partial L}{\partial \dot{q}^i} \right) - \dfrac{\partial L}{\partial q^i} = 0
+$$</p>
+<p>しかしポテンシャルが $U = U(q, \dot{q})$ のように一般化速度にも依存する場合，$L = T - U$ より，この方程式は</p>
+<p>$$
+\dfrac{d}{dt}\left( \dfrac{\partial T}{\partial \dot{q}^i} \right) - \dfrac{\partial T}{\partial q^i} = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i}\right)
+$$</p>
+<p>となるので，一般化力を</p>
+<p>$$
+\mathcal{F}_i = -\dfrac{\partial U}{\partial q^i} + \dfrac{d}{dt}\left( \dfrac{\partial U}{\partial \dot{q}^i}\right)
+$$</p>
+<p>と表すことができるならばオイラーラグランジュ方程式が同様に成立する．力が速度にも依存する系としては例えば電磁場が挙げられる．</p>
+<h2 id="電磁場中の荷電粒子の運動方程式">電磁場中の荷電粒子の運動方程式<a class="anchor ms-1" href="#電磁場中の荷電粒子の運動方程式"><i class="fas fa-link"></i></a></h2>
+<p>電磁場における荷電粒子の位置ベクトルを $\boldsymbol{r}$ とするとその運動方程式は</p>
+<p>$$
+m \dfrac{d^2 \boldsymbol{r}}{dt^2} = e \left( \boldsymbol{E} + \dfrac{\boldsymbol v}{c} \times \boldsymbol{B} \right)
+$$</p>
+<p>である．スカラーポテンシャルを $\Phi(\boldsymbol{r}, t)$ ，ベクトルポテンシャルを $\boldsymbol{A}(\boldsymbol{r}, t)$ とするとMaxwellの方程式より</p>
+<p>$$\begin{align*}
+\boldsymbol{E} &amp;= - \nabla \Phi - \dfrac{1}{c} \dfrac{\partial \boldsymbol{A}}{\partial t} \\
+\boldsymbol{B} &amp;= \nabla \times \boldsymbol{A}
+\end{align*}$$</p>
+<p>であるので上の運動方程式は以下のように表せる．</p>
+<p>$$\begin{align*}
+m\ddot{\boldsymbol{r}} &amp;= -e\Phi - \dfrac{e}{c}\dfrac{\partial \boldsymbol{A}}{\partial t} + \dfrac{e}{c}\boldsymbol{v} \times (\nabla \times \boldsymbol{A}) \\ &amp;= -e\Phi - \dfrac{e}{c}\dfrac{\partial \boldsymbol{A}}{\partial t} + \dfrac{e}{c} \nabla(\boldsymbol{v} \cdot \boldsymbol{A}) \\ &amp;= -\left[ \dfrac{\partial}{\partial \boldsymbol{r}} - \dfrac{d}{dt} \dfrac{\partial}{\partial \dot{\boldsymbol{r}}}\right] \left( e\Phi - \dfrac{e}{c}(\boldsymbol{v} \cdot \boldsymbol{A})\right)
+\end{align*}$$</p>
+<h2 id="ラグランジアンとハミルトニアン">ラグランジアンとハミルトニアン<a class="anchor ms-1" href="#ラグランジアンとハミルトニアン"><i class="fas fa-link"></i></a></h2>
+<p>よって先ほどの式と比べると一般化ポテンシャルは</p>
+<p>$$
+U(\boldsymbol{r}, \dot{\boldsymbol{r}}, t) = e\Phi - \dfrac{e}{c}(\boldsymbol{v} \cdot \boldsymbol{A})
+$$</p>
+<p>とすれば良い(確かに位置だけでなく速度の項も入っている)．よってこの系のラグランジアンは</p>
+<p>$$
+L(\boldsymbol{r}, \dot{\boldsymbol{r}}, t) = \dfrac{m}{2} \boldsymbol{v}^2 - e \Phi + \dfrac{e}{c}(\boldsymbol{v} \cdot \boldsymbol{A})
+$$</p>
+<p>となります．また一般化運動量は</p>
+<p>$$
+\boldsymbol{p} = \dfrac{\partial L}{\partial \boldsymbol{v}} = m \boldsymbol{r} + \dfrac{e}{c}\boldsymbol{A}
+$$</p>
+<p>であるので，ハミルトニアンは</p>
+<p>$$\begin{align*}
+H_{L}(\boldsymbol{r}, \boldsymbol{v}) &amp;= \boldsymbol{v} \cdot \boldsymbol{p} - L \\ &amp;= \boldsymbol{v} \cdot \left( m \boldsymbol{v} + \dfrac{e}{c} \boldsymbol{A} \right) - \dfrac{m}{2}\boldsymbol{v}^2 + e\Phi - \dfrac{e}{c}(\boldsymbol{v} \cdot \boldsymbol{A}) \\ &amp;= \dfrac{m}{2}\boldsymbol{v}^2 + e\Phi \\
+H(\boldsymbol{r}, \boldsymbol{p}) &amp;= \dfrac{1}{2m}\left( \boldsymbol{p} - \dfrac{e}{c}\boldsymbol{A} \right)^2 + e \Phi
+\end{align*}$$</p>
+<p>となる．</p>
+<h3 id="参考">参考<a class="anchor ms-1" href="#参考"><i class="fas fa-link"></i></a></h3>
+<p>以下の書籍を参考にしました．</p>
+<p><a href="http://www.asakura.co.jp/books/isbn/978-4-254-13671-5/" target="_blank" rel="noopener noreferrer">文献1<i class="fas fa-external-link-square-alt ms-1"></i>
+</a></p></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/009-lagrangian-gauge/">ラグランジアンのゲージ変換と電磁場のラグランジアン
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/000-markdown-test/">マークダウンの確認
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!doctype html><html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="en"
+  
+   data-palette="blue"
+  >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>コピーと参照とビュー - Soblin&#39;s Blog</title><link rel="apple-touch-icon" href="https://soblin.github.io/techblog/images/icons/icon-180x180.png" sizes="180x180">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/icon-16x16.png" sizes="16x16" type="image/png">
+<link rel="icon" href="https://soblin.github.io/techblog/images/icons/favicon.ico">
+<link rel="manifest" href="https://soblin.github.io/techblog/manifest.json">
+<meta name="keywords" content="" />
+<meta name="description" content="文字列と配列を対象にC&#43;&#43;/Python/Juliaでこれらの違いをメモる．
+" /><meta itemprop="name" content="コピーと参照とビュー">
+<meta itemprop="description" content="文字列と配列を対象にC&#43;&#43;/Python/Juliaでこれらの違いをメモる．
+"><meta itemprop="datePublished" content="2020-08-19T15:08:55+00:00" />
+<meta itemprop="dateModified" content="2020-08-19T15:08:55+00:00" />
+<meta itemprop="wordCount" content="1374">
+<meta itemprop="keywords" content="Programming," /><meta property="og:title" content="コピーと参照とビュー" />
+<meta property="og:description" content="文字列と配列を対象にC&#43;&#43;/Python/Juliaでこれらの違いをメモる．
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://soblin.github.io/techblog/posts/051-copy-ref-view/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-19T15:08:55+00:00" />
+<meta property="article:modified_time" content="2020-08-19T15:08:55+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="コピーと参照とビュー"/>
+<meta name="twitter:description" content="文字列と配列を対象にC&#43;&#43;/Python/Juliaでこれらの違いをメモる．
+"/>
+<meta property="og:image" content="https://soblin.github.io/techblog/logo.png"/>
+  <meta name="twitter:image" content="https://soblin.github.io/techblog/logo.png"/><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/main/bundle.min.c259202f693021857bc2f2fd0e5d071fc034a72647bfbc4436ede55a6e27e8e1.css" integrity="sha256-wlkgL2kwIYV7wvL9Dl0HH8A0pyZHv7xENu3lWm4n6OE=" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/css/custom.css" crossorigin="anonymous"><link rel="stylesheet" href="https://soblin.github.io/techblog/assets/katex/bundle.min.c7738aed5534d96f5c4eb1790af05b44a2ca1cc7d0cb6d5de1dcf95595d3f91a.css" integrity="sha256-x3OK7VU02W9cTrF5CvBbRKLKHMfQy21d4dz5VZXT&#43;Ro=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://soblin.github.io/techblog/assets/viewer/bundle.min.05d84cef8ecf0f936293c62c90ebe16275bf8f5f5649297e1a4338e63676ba2b.css" integrity="sha256-BdhM747PD5Nik8YskOvhYnW/j19WSSl&#43;GkM45jZ2uis=" crossorigin="anonymous"></head>
+  <body><script>const items=["mode","palette"];items.forEach(function(e){const t=localStorage.getItem("hbs-"+e);t&&document.body.parentElement.setAttribute("data-"+e,t)})</script><header><nav class="navbar top-app-bar top-app-bar-expand-lg fixed-top">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button><a class="navbar-brand flex-grow-1 flex-lg-grow-0 text-center text-lg-start mx-auto me-lg-3" href="https://soblin.github.io/techblog"><picture><img class="logo" alt="Logo" src="https://soblin.github.io/techblog/logo.png" loading="lazy"
+    
+     width="256" height="256"
+     />
+</picture>
+Soblin&#39;s Blog
+    </a>
+    <div class="offcanvas offcanvas-bottom surface" tabindex="-1" id="offcanvasSocialShare" aria-labelledby="offcanvasSocialShare">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Share</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Twitter Share Button"
+      target="_blank" href="https://twitter.com/intent/tweet?title=%e3%82%b3%e3%83%94%e3%83%bc%e3%81%a8%e5%8f%82%e7%85%a7%e3%81%a8%e3%83%93%e3%83%a5%e3%83%bc&url=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f051-copy-ref-view%2f">
+      <i class="fab fa-fw fa-twitter"></i> Twitter
+    </a>
+    <a class="btn btn-sm btn-outline-primary social-share-button" rel="noopener noreferrer" aria-label="Facebook Share Button"
+      target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsoblin.github.io%2ftechblog%2fposts%2f051-copy-ref-view%2f">
+      <i class="fab fa-fw fa-facebook-f"></i> Facebook
+    </a>
+  </div>
+</div>
+    <button class="navbar-settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSettings"
+  aria-controls="offcanvasSettings" aria-label="Toggle settings">
+  <i class="fas fa-ellipsis-v"></i>
+</button>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings" aria-labelledby="offcanvasSettings">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title">Settings</h3>
+    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+
+<div class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> Mode</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="setting palettes">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-palette"></i> Palette</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <a id="btnPalette" class="btn btn-sm btn-outline-primary" role="button" aria-label="palettePicker">
+        <i class="fas fa-eye-dropper"></i>
+      </a>
+    </div>
+  </form>
+  <div class="mt-2 d-flex justify-content-between visually-hidden" id="palettePicker"><button type="button" id="palette-blue" aria-label="Blue"
+        class="btn btn-sm w-100 palette" data-palette="blue">
+      </button><button type="button" id="palette-blue-gray" aria-label="Blue Gray"
+        class="btn btn-sm w-100 palette" data-palette="blue-gray">
+      </button><button type="button" id="palette-brown" aria-label="Brown"
+        class="btn btn-sm w-100 palette" data-palette="brown">
+      </button><button type="button" id="palette-cyan" aria-label="Cyan"
+        class="btn btn-sm w-100 palette" data-palette="cyan">
+      </button><button type="button" id="palette-green" aria-label="Green"
+        class="btn btn-sm w-100 palette" data-palette="green">
+      </button><button type="button" id="palette-indigo" aria-label="Indigo"
+        class="btn btn-sm w-100 palette" data-palette="indigo">
+      </button><button type="button" id="palette-orange" aria-label="Orange"
+        class="btn btn-sm w-100 palette" data-palette="orange">
+      </button><button type="button" id="palette-pink" aria-label="Pink"
+        class="btn btn-sm w-100 palette" data-palette="pink">
+      </button><button type="button" id="palette-purple" aria-label="Purple"
+        class="btn btn-sm w-100 palette" data-palette="purple">
+      </button><button type="button" id="palette-red" aria-label="Red"
+        class="btn btn-sm w-100 palette" data-palette="red">
+      </button><button type="button" id="palette-teal" aria-label="Teal"
+        class="btn btn-sm w-100 palette" data-palette="teal">
+      </button><button type="button" id="palette-yellow" aria-label="Yellow"
+        class="btn btn-sm w-100 palette" data-palette="yellow">
+      </button></div>
+</div>
+<div class="setting actions d-flex justify-content-around mt-auto overflow-auto">
+  <a role="button" class="action action-go-back" href="javascript: window.history.back();">
+    <span class="action-icon"><i class="fas fa-2x fa-chevron-circle-down" data-fa-transform="rotate-90"></i></span> Go back
+  </a>
+  <a role="button" class="action action-reload-page">
+    <span class="action-icon"><i class="fas fa-2x fa-redo-alt"></i></span> Reload
+  </a>
+  <a role="button" class="action action-copy-url">
+    <span class="action-icon"><i class="fas fa-2x fa-link"></i></span> Copy URL
+  </a><a class="action action-social-share" role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocialShare"
+    aria-controls="offcanvasSocialShare" aria-label="Toggle social share">
+    <span class="action-icon"><i class="fas fa-2x fa-share-alt"></i></span> Share
+  </a></div>
+
+</div>
+</div>
+
+    <div class="collapse navbar-collapse" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContent">
+      <form class="search-bar my-1" action="https://soblin.github.io/techblog/search">
+  <div class="input-group input-group-sm">
+    <span class="btn btn-search disabled position-absolute left-0"><i class="fas fa-fw fa-search"></i></span>
+    <input class="form-control rounded-pill" name="q" type="search" aria-label="Search">
+  </div>
+</form>
+      <ul class="navbar-nav ms-auto"><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/archive/">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/categories/">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://soblin.github.io/techblog/tags/">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row card component" aria-label="breadcrumb">
+  <div class="card-body">
+    <ol class="breadcrumb "><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/">Home</a></li><li class="breadcrumb-item"><a href="https://soblin.github.io/techblog/posts/">Posts</a></li><li class="breadcrumb-item active">コピーと参照とビュー</li></ol>
+  </div>
+</nav><div class="post-panel-wrapper position-sticky">
+  <div class="d-flex flex-column component rounded post-panel position-absolute">
+    
+    <a class="action action-panel-toggler" role="button" title="Panel toggler">
+      <i class="fas fa-fw fa-chevron-circle-down"></i>
+    </a>
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button" title="Sidebar toggler">
+  <i class="fas fa-fw fa-expand-alt" data-fa-transform="rotate-45"></i>
+</a>
+
+    
+
+    
+    
+    
+    <a class="action" href="#postTOC" aria-controls="Table of contents" role="button" title="Table of contents">
+  <i class="fas fa-fw fa-list-alt"></i>
+</a>
+    
+  </div>
+</div>
+<article class="row card component mb-4 post">
+  <div class="card-header ">
+    <h1 class="card-title post-title">コピーと参照とビュー
+</h1>
+  </div>
+  <div class="card-body"><div class="post-meta">
+  <span class="post-date" title="created on 2020-08-20 00:08:55 &#43;0900 JST.">
+    Aug 19, 2020
+  </span><span class="post-reading-time">
+    3 min read
+  </span><span class="post-taxonomies"><a href="https://soblin.github.io/techblog/categories/computer/" class="badge post-taxonomy">Computer</a><a href="https://soblin.github.io/techblog/tags/programming/" class="badge post-taxonomy">Programming</a></span>
+</div>
+<div id="postTOC">
+  <h2 class="mb-3">Contents<a class="anchor ms-1" href="#postTOC"><i class="fas fa-link"></i></a>
+  </h2>
+  <div class="toc-list">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#c">C++</a>
+      <ul>
+        <li><a href="#コピー">コピー</a></li>
+        <li><a href="#参照">参照</a></li>
+        <li><a href="#string_view">string_view</a></li>
+      </ul>
+    </li>
+    <li><a href="#python">Python</a>
+      <ul>
+        <li><a href="#コピーと参照">コピーと参照</a></li>
+        <li><a href="#numpyのview">numpyのview()</a></li>
+      </ul>
+    </li>
+    <li><a href="#julia">Julia</a>
+      <ul>
+        <li><a href="#コピーと参照-1">コピーと参照</a></li>
+        <li><a href="#ビュー">ビュー</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><p>文字列と配列を対象にC++/Python/Juliaでこれらの違いをメモる．</p>
+<!-- toc -->
+<h2 id="c">C++<a class="anchor ms-1" href="#c"><i class="fas fa-link"></i></a></h2>
+<h3 id="コピー">コピー<a class="anchor ms-1" href="#コピー"><i class="fas fa-link"></i></a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define PRINT_ADDR(arg){                                    \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    cout &lt;&lt; &#34;addr of &#34; &lt;&lt; #arg &lt;&lt; &#34; is &#34; &lt;&lt; &amp;arg &lt;&lt; endl;   \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>  string str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A string&#34;</span>;
+</span></span><span style="display:flex;"><span>  string str2 <span style="color:#f92672">=</span> str1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> vec1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>};
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> vec2 <span style="color:#f92672">=</span> vec1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(str1);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(str2);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(vec1);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(vec2);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of str1 is 0x7fff4d146040
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of str2 is 0x7fff4d146060
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of vec1 is 0x7fff4d146000
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of vec2 is 0x7fff4d146020
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>普通に代入演算子を用いるとオブジェクト領域に文字列や配列の内容はコピーされる．よってそれぞれのオブジェクトのアドレスは全て異なる．</p>
+<h3 id="参照">参照<a class="anchor ms-1" href="#参照"><i class="fas fa-link"></i></a></h3>
+<p>参照するとアドレスの指す先は同じになる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define PRINT_ADDR(arg){                                    \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">    cout &lt;&lt; &#34;addr of &#34; &lt;&lt; #arg &lt;&lt; &#34; is &#34; &lt;&lt; &amp;arg &lt;&lt; endl;   \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">  }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>  string str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A string&#34;</span>;
+</span></span><span style="display:flex;"><span>  string <span style="color:#f92672">&amp;</span>str2 <span style="color:#f92672">=</span> str1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> vec1 <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>};
+</span></span><span style="display:flex;"><span>  vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&amp;</span>vec2 <span style="color:#f92672">=</span> vec1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(str1);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(str2);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(vec1);
+</span></span><span style="display:flex;"><span>  PRINT_ADDR(vec2);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of str1 is 0x7ffd19402590
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of str2 is 0x7ffd19402590
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of vec1 is 0x7ffd19402570
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">addr of vec2 is 0x7ffd19402570
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><h3 id="string_view">string_view<a class="anchor ms-1" href="#string_view"><i class="fas fa-link"></i></a></h3>
+<p>C++の文字列は</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>string str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>;
+</span></span></code></pre></div><p>すると実行時にメモリを確保(@ヒープ)する．一方<code>string_view</code>は</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>string_view sv <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>;
+</span></span></code></pre></div><p>すると，文字列&quot;hello world&quot;自体は@静的領域に確保され(つまりコンパイル時にELFのデータとして配置される)，<code>sv</code>はこの文字列の先頭へのポインタと文字列の長さを持つ．よって，そもそも静的領域であるから当然だが，<code>string_view</code>は <strong>read-only</strong> である．<code>string_view</code>のメンバ関数は，この先頭へのポインタと文字列の長さを変更することで<code>string</code>と似たような操作を実現している．</p>
+<h4 id="例1">例1<a class="anchor ms-1" href="#例1"><i class="fas fa-link"></i></a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>string_view sv <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello world&#34;</span>;
+</span></span><span style="display:flex;"><span>string_view sub <span style="color:#f92672">=</span> sv.substr(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>);
+</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> sub <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">ello w
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p><code>sub</code>は&quot;ello w&quot;を取り出して別の領域にコピーしたのではなく，先頭のポインタを<code>e</code>に，文字列の長さを<code>6</code>に変更しただけ．</p>
+<h4 id="例2">例2<a class="anchor ms-1" href="#例2"><i class="fas fa-link"></i></a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>string_view sv <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;   hello world&#34;</span>;
+</span></span><span style="display:flex;"><span>sv.remove_prefix(min(sv.find_first_not_of(<span style="color:#e6db74">&#34; &#34;</span>), sv.size()));
+</span></span><span style="display:flex;"><span>cout <span style="color:#f92672">&lt;&lt;</span> sv <span style="color:#f92672">&lt;&lt;</span> endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">hello world
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">*/</span>
+</span></span></code></pre></div><p>これは<code>sv</code>の先頭が指すポインタを&quot; &ldquo;から<code>h</code>に移動しているだけである．よって実際には静的領域に確保された&rdquo;    hello world&quot;の先頭の空白を <strong>削除していない</strong>．</p>
+<h2 id="python">Python<a class="anchor ms-1" href="#python"><i class="fas fa-link"></i></a></h2>
+<h3 id="コピーと参照">コピーと参照<a class="anchor ms-1" href="#コピーと参照"><i class="fas fa-link"></i></a></h3>
+<p>Pythonでは</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> b
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> c
+</span></span></code></pre></div><p>すると<code>a</code>, <code>b</code>, <code>c</code>すべてが同じメモリ領域を指す．異なる領域に変数のコピー(スナップショット)を作りたい場合，<code>copy.deepcopy(x)</code>などを使う．<code>copy.deepcopy(x)</code>は複合オブジェクトのメンバ変数などを再帰的に全てコピーするが，<code>copy.copy(x)</code>は複合オブジェクトのメンバ変数の参照をコピーする．</p>
+<h3 id="numpyのview">numpyのview()<a class="anchor ms-1" href="#numpyのview"><i class="fas fa-link"></i></a></h3>
+<p>特に参照と変わらない．</p>
+<h2 id="julia">Julia<a class="anchor ms-1" href="#julia"><i class="fas fa-link"></i></a></h2>
+<h3 id="コピーと参照-1">コピーと参照<a class="anchor ms-1" href="#コピーと参照-1"><i class="fas fa-link"></i></a></h3>
+<p>JuliaもPythonと同様に変数に代入演算子を用いると参照がコピーされる．配列のスナップショットを別に作りたい場合は<code>copy(x)</code>を使う．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span>a <span style="color:#f92672">=</span> ones(<span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> copy(a);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">==</span> b <span style="color:#f92672">//</span> true
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">===</span> b <span style="color:#f92672">//</span> treu
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">==</span> c <span style="color:#f92672">//</span> true
+</span></span><span style="display:flex;"><span>a <span style="color:#f92672">===</span> c <span style="color:#f92672">//</span> false
+</span></span></code></pre></div><p><code>==</code>は値の一致を，<code>===</code>はオブジェクトとしての一致を含めてチェックする．</p>
+<h3 id="ビュー">ビュー<a class="anchor ms-1" href="#ビュー"><i class="fas fa-link"></i></a></h3>
+<p>Juliaの配列へのビューは，<strong>参照の配列</strong>のような側面があり結構面白い．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> reshape(collect(<span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">16</span>), <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">5</span>   <span style="color:#ae81ff">9</span>  <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">16</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> b <span style="color:#f92672">=</span> view(a, <span style="color:#f92672">:</span>, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">-</span>element view(<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}, <span style="color:#f92672">:</span>, <span style="color:#ae81ff">3</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>
+</span></span></code></pre></div><p>この<code>b</code>は<code>a</code>の3列目への参照の配列である．よって<code>b</code>を介して<code>a</code>を変更できる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>     b[i] <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> a
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>  <span style="color:#ae81ff">5</span>  <span style="color:#ae81ff">90</span>  <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">100</span>  <span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">110</span>  <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">120</span>  <span style="color:#ae81ff">16</span>
+</span></span></code></pre></div><p><code>b</code>を介して<code>a</code>の3列目を10倍した．</p>
+<p>JuliaのviewはPythonよりもさらに柔軟性があり，スライスのようなこともできる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> reshape(collect(<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">16</span>), <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> c <span style="color:#f92672">=</span> <span style="color:#a6e22e">@view</span> a[<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#66d9ef">end</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span><span style="color:#f92672">×</span><span style="color:#ae81ff">3</span> view(<span style="color:#f92672">::</span><span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}, <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">4</span>) with eltype <span style="color:#66d9ef">Int64</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>  <span style="color:#ae81ff">10</span>  <span style="color:#ae81ff">14</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>  <span style="color:#ae81ff">11</span>  <span style="color:#ae81ff">15</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>  <span style="color:#ae81ff">12</span>  <span style="color:#ae81ff">16</span>
+</span></span></code></pre></div><p>これも同様に<code>c</code>を介して<code>a</code>の一部を10倍してみる．</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-julia" data-lang="julia"><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>    c[i] <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&gt;</span> a
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span><span style="color:#f92672">×</span><span style="color:#ae81ff">4</span> <span style="color:#66d9ef">Array</span>{<span style="color:#66d9ef">Int64</span>,<span style="color:#ae81ff">2</span>}<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span>   <span style="color:#ae81ff">5</span>    <span style="color:#ae81ff">9</span>   <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>  <span style="color:#ae81ff">60</span>  <span style="color:#ae81ff">100</span>  <span style="color:#ae81ff">140</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>  <span style="color:#ae81ff">70</span>  <span style="color:#ae81ff">110</span>  <span style="color:#ae81ff">150</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>  <span style="color:#ae81ff">80</span>  <span style="color:#ae81ff">120</span>  <span style="color:#ae81ff">160</span>
+</span></span></code></pre></div></div></div>
+  <div class="card-footer"><div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-next">
+    <i class="fas fa-fw fa-chevron-circle-down post-prev-icon" data-fa-transform="rotate-90"></i>
+    <a href="https://soblin.github.io/techblog/posts/053-iterative-depthning/">反復深化について
+</a>
+  </div></div>
+<div class="post-navs d-flex justify-content-evenly"><div class="post-nav post-prev">
+    <a href="https://soblin.github.io/techblog/posts/050-gtest-private/">gtestでプライベートなメソッドや変数をテストする
+</a>
+    <i class="fas fa-fw fa-chevron-circle-down post-next-icon" data-fa-transform="rotate-270"></i>
+  </div></div></div>
+</article></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container d-flex flex-column">
+    
+    <section class="related-posts row card component">
+    <div class="card-header">
+      <h2 class="card-title">Related Posts</h2>
+    </div>
+    <div class="card-body">
+      <ul class="post-list"><li>
+          <a href="https://soblin.github.io/techblog/posts/050-gtest-private/">gtestでプライベートなメソッドや変数をテストする
+</a>
+          <span class="float-end post-date">Aug 10, 2020
+</span>
+        </li></ul>
+    </div>
+  </section>
+    
+  </div>
+</aside>
+</div>
+    </main><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$']]
+  }
+});
+</script>
+<script src="https://soblin.github.io/techblog/assets/main/bundle.min.5868462bb92964534a1aff5cc2e0a2a697b73f79795614cf7dac29437a4cd319.js" integrity="sha256-WGhGK7kpZFNKGv9cwuCippe3P3l5VhTPfawpQ3pM0xk=" crossorigin="anonymous" defer></script><script src="https://soblin.github.io/techblog/assets/icons/bundle.min.756b08fe873f898b176c275047c84b1ca09f120ede9df62993f55bd1442b4bd0.js" integrity="sha256-dWsI/oc/iYsXbCdQR8hLHKCfEg7enfYpk/Vb0UQrS9A=" crossorigin="anonymous" defer></script>
+<script src="https://soblin.github.io/techblog/assets/viewer/bundle.min.8a04279f4c01c6129efc48d87356904980c31656ec5a60da26fb51a1d784e1e2.js" integrity="sha256-igQnn0wBxhKe/EjYc1aQSYDDFlbsWmDaJvtRodeE4eI=" crossorigin="anonymous" defer></script><script defer src="https://soblin.github.io/techblog/assets/katex/bundle.min.3f807c24bcdcbc431ee1c4c67ee9c496ab801c34d9bf2794847ed8f26718074f.js" integrity="sha256-P4B8JLzcvEMe4cTGfunElquAHDTZvyeUhH7Y8mcYB08=" crossorigin="anonymous"></script>
+
+</body>
+</html>
